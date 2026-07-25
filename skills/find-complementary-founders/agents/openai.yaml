@@ -1,0 +1,4 @@
+interface:
+  display_name: "Find Complementary Founders"
+  short_description: "Match founders by evidence, gaps, and consent"
+  default_prompt: "Use $find-complementary-founders to assess my contribution profile and find complementary project partners safely."

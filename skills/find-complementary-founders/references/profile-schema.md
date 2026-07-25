@@ -1,0 +1,58 @@
+# Profile schema
+
+Create a private input shaped like:
+
+```json
+{
+  "alias": "builder-42",
+  "summary": "Technical product builder focused on privacy-preserving agent tools.",
+  "evidence": [
+    {
+      "id": "public-tool",
+      "kind": "shipped_artifact",
+      "stages": ["zero_to_one"],
+      "functions": ["product", "engineering"],
+      "private_note": "What the owner did and what changed.",
+      "share": true,
+      "public_claim": "Shipped an open-source agent workflow.",
+      "public_proof": "https://github.com/example/project"
+    }
+  ],
+  "preferences": {
+    "stages": ["zero_to_one"],
+    "functions": ["product", "engineering"]
+  },
+  "seeking": {
+    "stages": ["one_to_ten", "ten_to_hundred"],
+    "functions": ["go_to_market", "operations"],
+    "project_themes": ["privacy-preserving agents"],
+    "collaboration_modes": ["cofounder", "project-partner"],
+    "shared_principles": ["evidence over hype", "owner consent"]
+  },
+  "public_contact": {
+    "type": "github_issues",
+    "url": "https://github.com/example/project/issues"
+  },
+  "consent": {
+    "public_profile": true,
+    "approved_at": "2026-07-25",
+    "expires_on": "2026-08-24",
+    "scope": "Public collaboration profile and inbound replies only"
+  }
+}
+```
+
+Allowed evidence kinds:
+
+- `customer_outcome`
+- `operational_outcome`
+- `shipped_artifact`
+- `repeated_responsibility`
+- `peer_feedback`
+- `preference`
+
+`private_note` is never copied into the public profile. A `public_claim` and
+`public_proof` are copied only when `share` is true.
+
+Keep private files outside a public repository. If local storage is necessary,
+use a filename ending in `.private.json`; this repository ignores that suffix.

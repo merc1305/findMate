@@ -1,0 +1,158 @@
+{
+  "alias": "findmate-owner",
+  "consent": {
+    "approved_at": "2026-07-25",
+    "expires_on": "2026-08-24",
+    "scope": "Public collaboration profile and inbound replies through the FindMate repository",
+    "state": "public_profile_approved"
+  },
+  "contact": {
+    "type": "github_issues",
+    "url": "https://github.com/merc1305/findMate/issues"
+  },
+  "expires_on": "2026-08-24",
+  "functional_contributions": {
+    "capital_partnerships": {
+      "confidence": "none",
+      "evidence_count": 0,
+      "level": "unknown",
+      "score": 0
+    },
+    "design": {
+      "confidence": "none",
+      "evidence_count": 0,
+      "level": "unknown",
+      "score": 0
+    },
+    "engineering": {
+      "confidence": "low",
+      "evidence_count": 1,
+      "level": "practiced",
+      "score": 27
+    },
+    "go_to_market": {
+      "confidence": "none",
+      "evidence_count": 0,
+      "level": "unknown",
+      "score": 0
+    },
+    "operations": {
+      "confidence": "low",
+      "evidence_count": 1,
+      "level": "practiced",
+      "score": 27
+    },
+    "people_leadership": {
+      "confidence": "none",
+      "evidence_count": 0,
+      "level": "unknown",
+      "score": 0
+    },
+    "problem_discovery": {
+      "confidence": "low",
+      "evidence_count": 1,
+      "level": "practiced",
+      "score": 27
+    },
+    "product": {
+      "confidence": "medium",
+      "evidence_count": 2,
+      "level": "strong",
+      "score": 53
+    }
+  },
+  "generated_at": "2026-07-25T18:29:51+00:00",
+  "interpretation": {
+    "not_for": [
+      "employment screening",
+      "psychometric diagnosis",
+      "sensitive-trait inference"
+    ],
+    "status": "owner-approved collaboration hypothesis"
+  },
+  "preferences": {
+    "functions": [
+      "problem_discovery",
+      "product",
+      "engineering"
+    ],
+    "stages": [
+      "zero_to_one"
+    ]
+  },
+  "profile_type": "founder-collaboration",
+  "public_evidence": [
+    {
+      "claim": "Published a working macOS push-to-talk dictation tool with a zero-latency pre-buffer, layered hallucination defenses, installer, and operating documentation.",
+      "id": "whisper-dictation",
+      "proof": "https://github.com/merc1305/hammerspoon-whisper-dictation",
+      "supports": [
+        "zero_to_one",
+        "one_to_ten",
+        "product",
+        "engineering",
+        "operations"
+      ]
+    },
+    {
+      "claim": "Initiated FindMate, an open-source experiment in consent-bound agent-assisted matching for founders and project collaborators.",
+      "id": "findmate-concept",
+      "proof": "https://github.com/merc1305/findMate",
+      "supports": [
+        "zero_to_one",
+        "problem_discovery",
+        "product"
+      ]
+    }
+  ],
+  "schema_version": "1.0",
+  "seeking": {
+    "collaboration_modes": [
+      "cofounder",
+      "project-partner",
+      "open-source collaborator"
+    ],
+    "functions": [
+      "go_to_market",
+      "operations",
+      "people_leadership",
+      "capital_partnerships"
+    ],
+    "project_themes": [
+      "privacy-preserving agent tools",
+      "human-AI collaboration",
+      "developer productivity"
+    ],
+    "shared_principles": [
+      "evidence over hype",
+      "owner consent",
+      "privacy by default",
+      "ship useful artifacts"
+    ],
+    "stages": [
+      "one_to_ten",
+      "ten_to_hundred"
+    ]
+  },
+  "stage_contributions": {
+    "one_to_ten": {
+      "confidence": "low",
+      "evidence_count": 1,
+      "level": "practiced",
+      "score": 27
+    },
+    "ten_to_hundred": {
+      "confidence": "none",
+      "evidence_count": 0,
+      "level": "unknown",
+      "score": 0
+    },
+    "zero_to_one": {
+      "confidence": "medium",
+      "evidence_count": 2,
+      "level": "strong",
+      "score": 53
+    }
+  },
+  "summary": "Product-minded technical builder focused on practical, privacy-preserving agent tools and developer workflows."
+}
