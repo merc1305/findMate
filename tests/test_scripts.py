@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "skills" / "find-complementary-founders" / "scripts"
 GROWTH = ROOT / "growth"
 EXAMPLES = ROOT / "examples"
+RUSSIAN_ONBOARDING = ROOT / "docs" / "locales" / "ru" / "owner-onboarding.md"
 
 
 def load_module(name: str, filename: str):
@@ -282,6 +283,21 @@ class GrowthLoopTests(unittest.TestCase):
             result["match"]["reasons"],
         )
         self.assertIn("synthetic; no owner data", result["demo"])
+
+
+class LocaleDocsTests(unittest.TestCase):
+    def test_russian_onboarding_preserves_protocol_and_consent_boundaries(self):
+        content = RUSSIAN_ONBOARDING.read_text(encoding="utf-8")
+        self.assertIn("FINDMATE_OWNER_PROFILE_V1", content)
+        self.assertIn("да, оба действия", content)
+        self.assertIn("только публикация", content)
+        self.assertIn("отмена", content)
+        self.assertIn("yes to both", content)
+        self.assertIn("publish only", content)
+        self.assertIn("cancel", content)
+        self.assertIn("только своего владельца", content)
+        self.assertIn("отдельное согласие обоих людей", content)
+        self.assertIn("101 и более звёздах", content)
 
 
 if __name__ == "__main__":
