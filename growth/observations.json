@@ -898,6 +898,34 @@
         "Do not attribute either existing star or any future star to G30 without supported aggregate timing and referral evidence."
       ],
       "decision": "Mark G30 active after its verified catalog merge, keep the corrected Markdown-only card metric, wait for independent catalog or owner signals without pinging maintainers, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O033",
+      "observed_at": "2026-07-26T20:51:40Z",
+      "kind": "aas_released_catalog_handoff_gate",
+      "metric": {
+        "name": "latest_aas_release_includes_findmate",
+        "before": 0,
+        "after": 0,
+        "delta": 0
+      },
+      "facts": [
+        "AAS Core pull request 992 is merged on the catalog main branch, but the latest published AAS release remains v15.4.0 from before that merge.",
+        "The exact skills/find-complementary-founders/SKILL.md path is absent at the v15.4.0 release tag. The merged main-branch entry therefore is not yet represented as available through the release-pinned AAS package or full-library installer.",
+        "The release-aware monitor reads only the latest public AAS release metadata and the exact expected skill path at that tag. It requires both the canonical FindMate skill name and source_repo attribution before reporting released availability.",
+        "A missing path at the latest tag is reported as not_in_latest_release rather than a monitor failure. Unexpected or un-attributed content is reported separately and is not counted.",
+        "The public ledger now distinguishes the merged catalog PR from released-catalog inclusion, so no FindMate AAS install command will be advertised before its referenced package release actually contains the skill.",
+        "The canonical suite contained 55 passing Python tests, including missing-release, exact-source, and wrong-source catalog fixtures. An authenticated measurement reported v15.4.0 as not containing FindMate, two stars, zero external Action references, zero external Markdown cards, zero own-owner submissions, and zero current validation receipts."
+      ],
+      "inference": "The accepted catalog entry can become a compounding distribution surface when AAS publishes its next containing release. A release-aware handoff avoids sending owners to a package that cannot yet deliver FindMate and lets the existing daily loop detect the transition without repeated inference or maintainer contact.",
+      "not_supported": [
+        "Do not claim FindMate is installable from the current AAS package release while the exact skill path is absent at its tag.",
+        "Do not treat a main-branch merge as a package download, install, agent read, owner opt-in, profile, match, or star.",
+        "Do not ping AAS maintainers to accelerate a release; the daily public monitor can wait for the normal release process.",
+        "Do not treat future released inclusion as proof that anyone installed or used FindMate.",
+        "Do not attribute either existing star or any future star to G30 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G30 active but release-gated, monitor the latest AAS tag once per daily loop, advertise the exact released install path only after included_expected_source, and preserve the automatic stop at 101 stars."
     }
   ]
 }

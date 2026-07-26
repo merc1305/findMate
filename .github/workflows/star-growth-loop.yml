@@ -56,6 +56,8 @@ jobs:
               distribution.release_supply_chain || {};
             const claudeCommunity =
               distribution.claude_community || {};
+            const aasCoreRelease =
+              distribution.aas_core_release || {};
             const webDiscovery =
               distribution.web_discovery || {};
             const catalogPullRequests =
@@ -129,6 +131,14 @@ jobs:
                 : webDiscovery.live === false
                   ? "not fully live"
                   : "unavailable";
+            const aasCoreReleaseState =
+              aasCoreRelease.state === "included_expected_source"
+                ? `included in ${aasCoreRelease.latest_tag}`
+                : aasCoreRelease.state === "not_in_latest_release"
+                  ? `not yet included in ${aasCoreRelease.latest_tag}`
+                  : aasCoreRelease.state === "unexpected_source"
+                    ? `unexpected source at ${aasCoreRelease.latest_tag}`
+                    : "unavailable";
             const stopLine = promotion.stopped
               ? "STOPPED — the repository is above 100 stars. Active star requests must remain off."
               : `ACTIVE — ${promotion.stars_until_stop} star(s) remain before the stop state at 101.`;
@@ -156,6 +166,7 @@ jobs:
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
               `- AAS Core catalog PR: **${channelState("aas_core")}**`,
+              `- AAS Core released catalog: **${aasCoreReleaseState}**`,
               "",
               "## Active experiments",
               "",

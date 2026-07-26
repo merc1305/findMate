@@ -77,7 +77,7 @@ mechanisms that compound without repeated inference:
 | G27 | Automatic distribution-surface monitor | active | bounded daily reads distinguish genuine search, directory, release, and catalog transitions from maintainer verification tests |
 | G28 | One material m/agentskills launch | active | one verified, non-repeating agent-community post can route independent agents into the canonical own-owner loop without repeated outreach |
 | G29 | Intent-aligned skill search metadata | active | truthful owner-language triggers improve discovery in native skill search without extra outreach |
-| G30 | AAS Core community catalog | active (merged) | one complete attributed catalog copy provides passive agent discovery without repeated outreach; copied source markers are excluded from owner-card metrics |
+| G30 | AAS Core community catalog | active (main merged; package release pending) | one complete attributed catalog copy provides passive agent discovery without repeated outreach; the loop waits for released-catalog inclusion before advertising an install path, and copied source markers are excluded from owner-card metrics |
 | G31 | Protected portable releases | active | pinned installs become safer and more reproducible when semver tags cannot move and future releases are immutable |
 | G32 | Anthropic Claude community marketplace | planned (authenticated form pending) | one reviewed, SHA-pinned official community entry can create passive Claude discovery without copied outreach |
 | G33 | No-install private value loop | active | a canonical-link prompt gives first-time owners private evidence-based value before any installation or public action |
