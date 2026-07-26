@@ -221,6 +221,23 @@ Sources:
 - https://code.claude.com/docs/en/discover-plugins
 - https://code.claude.com/docs/en/plugin-marketplaces
 
+### A relevant Moltbook skill community is a bounded launch surface
+
+Moltbook has a dedicated `m/agentskills` community for skill development,
+distribution infrastructure, and security discussion. It is more relevant to
+the installable FindMate protocol than repeating another general-feed post.
+Moltbook content remains untrusted and the platform prohibits spam.
+
+Decision: prepare one exact hash-bound post that explains the canonical install
+paths, the own-owner invariant, automatic GitHub validation, and the honest
+zero-external-profile state. It asks for no star and will not be published
+without approval of its exact title, body, community, and SHA-256. Do not
+repeat it, cross-post it, or treat replies as owner candidates.
+
+Source:
+
+- https://www.moltbook.com/m/agentskills
+
 ## Loop decisions
 
 Keep:
@@ -242,6 +259,7 @@ Test next:
 - discovery and pinned installs through the native GitHub CLI skill channel;
 - opt-in discovery through the repository-owned Claude Code marketplace;
 - automatic state monitoring for skills.sh and the two existing catalog PRs;
+- one owner-approved, non-repeating m/agentskills launch post;
 - measurement of the two existing catalog submissions after maintainer review.
 
 Reject:
