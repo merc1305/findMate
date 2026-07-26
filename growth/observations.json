@@ -690,6 +690,38 @@
         "Do not commit AAS-generated catalog or plugin-mirror drift from a contributor branch."
       ],
       "decision": "Leave pull request 992 to the external review process without reminders, monitor its public state once per bounded daily loop, and count G30 as a distribution surface only after an actual merge or listing."
+    },
+    {
+      "id": "O026",
+      "observed_at": "2026-07-26T19:18:12Z",
+      "kind": "portable_skill_distribution_release",
+      "metric": {
+        "name": "portable_skill_distribution_entry_points",
+        "before": 0,
+        "after": 2,
+        "delta": 2
+      },
+      "facts": [
+        "FindMate pull request 52 merged G36 at canonical commit 41864a095772e7d834a7d9f92c6ce8b0611f99f6: one relative .agents/skills directory link exposes the canonical skill for compatible project-scope clients without copying the protocol.",
+        "The current skills CLI found exactly one find-complementary-founders skill after the project entry was added, so the canonical skills directory and project discovery entry did not appear as duplicate install choices.",
+        "The deterministic package builder emits one 153,911-byte ZIP containing exactly 16 allowlisted public files under one top-level skill directory, with fixed paths, timestamps, modes, and stored bytes. It rejects symlinks, missing or unexpected files, path traversal, generated caches, and profile/private JSON artifacts.",
+        "Two independent builds were byte-identical with SHA-256 6eb080e2ac06b6a15caccbfa2c882394149b7ce9823f649bfaed0bc9b5ab09f6, and the release includes a separate sha256sum-compatible checksum asset.",
+        "A read-only authenticated ChatGPT Pro format check displayed .zip, .skill, and SKILL.md as accepted upload inputs. No file was selected, uploaded, scanned, or installed in the ChatGPT account.",
+        "All 50 canonical Python tests passed, the Agent Skills validator accepted the canonical skill, the official GitHub CLI 2.96 publisher dry run completed with one nonblocking intentional project-skill warning, and the Node 22 site build, three rendered tests, lint, and production dependency audit passed.",
+        "Immutable release v1.3.6 points to canonical commit 41864a095772e7d834a7d9f92c6ce8b0611f99f6 and contains the exact archive plus checksum. The active semver tag ruleset protects the tag.",
+        "An isolated GitHub CLI 2.96 install pinned to v1.3.6 resolved exact commit 41864a095772e7d834a7d9f92c6ce8b0611f99f6, copied the complete skill, and passed canonical skill validation. This maintainer verification is not counted as adoption.",
+        "Sites version 5 was saved from exact commit 41864a095772e7d834a7d9f92c6ce8b0611f99f6 and deployed successfully to the existing public owner-facing URL with the optional download and checksum links.",
+        "At 2026-07-26T19:17:58.689716+00:00 FindMate had 2 stars, 17 clones from 14 unique cloners, 0 views, no referrers, 0 external own-owner submissions, 0 current validation receipts, and 0 aggregate archive downloads. The automatic stop remains at 101 stars."
+      ],
+      "inference": "G36 removes two installation-friction points while preserving one canonical protocol, reviewable bytes, explicit owner control, and no owner-level telemetry. Project discovery, release publication, site deployment, format inspection, and maintainer verification do not establish an external upload, install, owner opt-in, profile submission, match, referral, or star conversion.",
+      "not_supported": [
+        "Do not count the authenticated format check, local archive builds, CI, release publication, pinned maintainer install, or Sites deployment as external adoption.",
+        "Do not treat aggregate release-asset downloads as unique users or successful installs; the count can include maintainer verification.",
+        "Do not attribute either existing star or any future star to G36 without supported aggregate timing and referral evidence.",
+        "Do not upload or install FindMate into an owner's ChatGPT account without that owner's action-specific approval.",
+        "Do not infer, publish, star, message, or contact anyone merely because the skill became discoverable or downloadable."
+      ],
+      "decision": "Keep G36 active as passive distribution infrastructure, report only aggregate archive downloads plus qualified pool outcomes, wait for independent use, and preserve the automatic stop at 101 stars."
     }
   ]
 }
