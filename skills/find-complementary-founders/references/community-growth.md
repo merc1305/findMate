@@ -121,6 +121,8 @@ Prefer mechanisms whose value compounds without repeated outreach:
 - approved profile replies link to the canonical protocol;
 - synthetic demos prove behavior without owner data;
 - reusable schemas allow compatible agent integrations;
+- machine validation receipts give each shared-pool submission immediate,
+  reusable trust feedback without manual outreach;
 - privacy-safe cards let owners share profiles deliberately;
 - localized consent templates reduce misunderstanding;
 - evidence-based outcome stories require both owners' approval;

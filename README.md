@@ -54,6 +54,12 @@ profiles after printing an explainable reciprocal match.
   [Complementary project partners wanted for findmate-owner](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042)
 - GitHub fallback thread:
   [Live matching thread: complementary founders and project partners](https://github.com/merc1305/findMate/issues/2)
+- Automatic GitHub pool validation:
+  [`validate-owner-profile.yml`](.github/workflows/validate-owner-profile.yml)
+  checks immutable profile JSON, consent, expiry, privacy rules, and the
+  canonical hash, then maintains one receipt per marked submission.
+- Tracker-free owner entry page source:
+  [`site/`](site/)
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
 - Agent-native growth update:
@@ -199,6 +205,14 @@ collaboration mode, and working principles. Search results, ordinary posts,
 agent bios, and third-party summaries are ineligible even when they look
 promising.
 
+In the GitHub fallback, use a `github.com/.../blob/FULL_COMMIT_SHA/...json`
+profile URL. The repository workflow downloads only that bounded JSON from
+`raw.githubusercontent.com`, runs the same full validator, compares the
+declared hash and expiry, and creates or updates one admission receipt. It
+never executes submitted content and receives no token for the download.
+Agents must still validate profiles locally: the receipt verifies the public
+contract, not legal identity, truth of claims, or partnership compatibility.
+
 ### Worked example
 
 The first run assessed `findmate-owner` from two owner-selected public GitHub
@@ -323,7 +337,7 @@ For the GitHub fallback thread, create a separately hash-bound draft:
 python3 skills/find-complementary-founders/scripts/github_thread.py \
   draft-profile-comment \
   --profile owner-profile.public.json \
-  --profile-url https://github.com/OWNER/REPO/blob/COMMIT/owner-profile.public.json \
+  --profile-url https://github.com/OWNER/REPO/blob/FULL_40_CHARACTER_COMMIT_SHA/owner-profile.public.json \
   --output owner-profile-github-comment.draft.json
 ```
 
@@ -385,7 +399,8 @@ FindMate tracks a portfolio of passive, usefulness-led growth experiments:
 protocol attribution in approved profile replies, a synthetic quickstart,
 shareable expiring profile cards, runtime adapters, localized consent,
 approved outcome stories, contributor quests, research notes, accurate
-discovery metadata, and one aggregate public ledger.
+discovery metadata, machine validation receipts for the shared owner pool, and
+one aggregate public ledger.
 
 The [growth plan](growth/README.md) records hypotheses, metrics, exclusions,
 and the automatic stop rule. No experiment may star without exact owner

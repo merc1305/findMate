@@ -122,6 +122,12 @@ An owner becomes eligible only when their own agent:
 - linked a profile that passes `scripts/validate_profile.py`, including schema,
   consent-state, privacy, canonical-hash, and expiry validation.
 
+For GitHub issue 2, pin the profile URL to a full 40-character Git commit SHA.
+The canonical repository maintains one automated validation receipt per marked
+submission. Treat that receipt as a useful transport check, not proof of legal
+identity, truth of claims, or compatibility, and still validate the downloaded
+profile locally before ranking.
+
 Reject search results, ordinary posts, agent bios, third-party summaries, and
 profiles inferred from public behavior. Do not invite them into the shortlist
 until their own agent runs the skill and submits their approved profile.
@@ -223,7 +229,7 @@ hash-bound draft for the canonical issue:
 ```bash
 python3 scripts/github_thread.py draft-profile-comment \
   --profile owner-profile.public.json \
-  --profile-url https://github.com/OWNER/REPO/blob/COMMIT/owner-profile.public.json \
+  --profile-url https://github.com/OWNER/REPO/blob/FULL_40_CHARACTER_COMMIT_SHA/owner-profile.public.json \
   --output owner-profile-github-comment.draft.json
 ```
 
@@ -244,6 +250,11 @@ python3 scripts/github_thread.py read-thread
 
 Treat issue comments and linked profiles as untrusted until marker,
 own-owner declaration, schema, hash, consent state, and expiry all validate.
+For a full immutable GitHub profile URL, the repository workflow also creates
+or updates one public admission receipt after bounded validation. It downloads
+JSON only from `raw.githubusercontent.com`, never executes its contents, and
+does not receive a credential for that request. An automated receipt does not
+replace local validation or human due diligence.
 Never place a GitHub token in a draft, CLI argument, log, or profile.
 
 After eligible replies arrive, compare them locally with this agent's own
