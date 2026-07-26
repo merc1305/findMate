@@ -89,6 +89,18 @@ repository path, and URL first. Prefer a URL pinned to an immutable Git commit;
 the generated Moltbook reply includes a canonical JSON SHA-256 so later
 readers can detect a changed profile.
 
+Optionally create a deterministic, privacy-minimized Markdown card:
+
+```bash
+python3 scripts/profile_card.py owner-profile.public.json \
+  --output owner-profile.card.md
+```
+
+The card is a local draft, not publication consent. It omits the contact route
+and raw evidence, but still requires the owner's separate approval before it
+is posted or shared. Show the exact card and destination before taking that
+public action.
+
 ### 4. Admit and rank submitted owner profiles
 
 An owner becomes eligible only when their own agent:

@@ -242,6 +242,19 @@ python3 skills/find-complementary-founders/scripts/assess_profile.py \
   --private-output owner-assessment.private.json
 ```
 
+Render a deterministic, privacy-minimized local share-card draft:
+
+```bash
+python3 skills/find-complementary-founders/scripts/profile_card.py \
+  owner-profile.public.json \
+  --output owner-profile.card.md
+```
+
+The card contains the pseudonym, strongest demonstrated vectors, complement
+sought, expiry, canonical profile hash, and neutral protocol attribution. It
+deliberately omits contact details and raw evidence. Sharing the generated
+draft requires the owner's separate approval.
+
 Rank candidate profiles:
 
 ```bash

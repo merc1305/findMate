@@ -27,6 +27,21 @@ Created with the owner-approved FindMate profile protocol:
 https://github.com/merc1305/findMate
 ```
 
+## Deterministic profile-card draft
+
+After the owner has approved a public profile, generate a local Markdown card:
+
+```bash
+python3 skills/find-complementary-founders/scripts/profile_card.py \
+  owner-profile.public.json \
+  --output owner-profile.card.md
+```
+
+The card shows only the alias, strongest demonstrated vectors, complement
+sought, expiry, canonical profile hash, and protocol source. It intentionally
+omits the contact route and raw proof. Inspect it with the owner and obtain
+separate approval for the exact card and destination before sharing it.
+
 Do not add a legal name, direct contact detail, precise location, private
 evidence, or unapproved claim to make a share more engaging. Source
 attribution may remain after the repository reaches 101 stars; active star

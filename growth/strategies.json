@@ -42,11 +42,11 @@
     {
       "id": "G04",
       "name": "Shareable privacy-safe profile card",
-      "status": "planned",
+      "status": "active",
       "active_promotion": false,
       "mechanism": "Generate a small Markdown or SVG card from public fields, with expiry and protocol attribution, for owner-approved sharing.",
       "primary_metric": "referral visits from shared cards",
-      "implementation": "profile-card generator"
+      "implementation": "scripts/profile_card.py and docs/share-findmate.md"
     },
     {
       "id": "G05",
