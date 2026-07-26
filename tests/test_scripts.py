@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "skills" / "find-complementary-founders" / "scripts"
@@ -156,6 +157,38 @@ class PublisherTests(unittest.TestCase):
         publisher.validate_draft(draft, "create_post", draft["approval_hash"])
         with self.assertRaises(publisher.PublishError):
             publisher.validate_draft(draft, "create_post", "0" * 64)
+
+    def test_local_socks_proxy_is_opt_in(self):
+        with patch.dict("os.environ", {}, clear=True):
+            self.assertIsNone(publisher.socks_proxy_from_env())
+        with patch.dict(
+            "os.environ",
+            {"MOLTBOOK_SOCKS_PROXY": "socks5h://127.0.0.1:1080"},
+            clear=True,
+        ):
+            self.assertEqual(
+                publisher.socks_proxy_from_env(),
+                ("127.0.0.1", 1080),
+            )
+
+    def test_non_loopback_proxy_is_rejected(self):
+        unsafe_values = [
+            "socks5h://proxy.example:1080",
+            "socks5://127.0.0.1:1080",
+            "socks5h://user:password@127.0.0.1:1080",
+            "socks5h://127.0.0.1:99999",
+        ]
+        for value in unsafe_values:
+            with (
+                self.subTest(value=value),
+                patch.dict(
+                    "os.environ",
+                    {"MOLTBOOK_SOCKS_PROXY": value},
+                    clear=True,
+                ),
+                self.assertRaises(publisher.PublishError),
+            ):
+                publisher.socks_proxy_from_env()
 
 
 if __name__ == "__main__":

@@ -9,6 +9,7 @@ import http.client
 import json
 import os
 import re
+import socket
 import ssl
 import sys
 from datetime import date, datetime, timezone
@@ -45,6 +46,90 @@ LEVEL_RANK = {
 
 class PublishError(ValueError):
     """Raised when a draft or publication action is invalid."""
+
+
+def read_exact(sock: socket.socket, length: int) -> bytes:
+    chunks: list[bytes] = []
+    remaining = length
+    while remaining:
+        chunk = sock.recv(remaining)
+        if not chunk:
+            raise PublishError("SOCKS5 proxy closed the connection unexpectedly")
+        chunks.append(chunk)
+        remaining -= len(chunk)
+    return b"".join(chunks)
+
+
+def socks_proxy_from_env() -> tuple[str, int] | None:
+    value = os.environ.get("MOLTBOOK_SOCKS_PROXY")
+    if not value:
+        return None
+    parsed = urlparse(value)
+    try:
+        port = parsed.port
+    except ValueError as exc:
+        raise PublishError("MOLTBOOK_SOCKS_PROXY has an invalid port") from exc
+    if (
+        parsed.scheme != "socks5h"
+        or parsed.hostname not in {"127.0.0.1", "::1", "localhost"}
+        or parsed.username
+        or parsed.password
+        or parsed.path not in {"", "/"}
+        or parsed.query
+        or parsed.fragment
+        or port is None
+    ):
+        raise PublishError(
+            "MOLTBOOK_SOCKS_PROXY must be an unauthenticated loopback "
+            "socks5h URL such as socks5h://127.0.0.1:1080"
+        )
+    return parsed.hostname, port
+
+
+class SocksHTTPSConnection(http.client.HTTPSConnection):
+    """HTTPS connection tunneled through a local, no-auth SOCKS5 proxy."""
+
+    def __init__(self, host: str, *, proxy: tuple[str, int], **kwargs: object):
+        super().__init__(host, **kwargs)
+        self.proxy = proxy
+
+    def connect(self) -> None:
+        sock: socket.socket | None = None
+        try:
+            sock = socket.create_connection(self.proxy, self.timeout)
+            sock.sendall(b"\x05\x01\x00")
+            if read_exact(sock, 2) != b"\x05\x00":
+                raise PublishError("SOCKS5 proxy did not accept no-auth mode")
+
+            encoded_host = self.host.encode("idna")
+            if len(encoded_host) > 255:
+                raise PublishError("Moltbook host is too long for SOCKS5")
+            port = int(self.port).to_bytes(2, "big")
+            sock.sendall(
+                b"\x05\x01\x00\x03" + bytes([len(encoded_host)]) + encoded_host + port
+            )
+            version, reply, _, address_type = read_exact(sock, 4)
+            if version != 5 or reply != 0:
+                raise PublishError(f"SOCKS5 proxy rejected the connection ({reply})")
+            if address_type == 1:
+                read_exact(sock, 4)
+            elif address_type == 3:
+                read_exact(sock, read_exact(sock, 1)[0])
+            elif address_type == 4:
+                read_exact(sock, 16)
+            else:
+                raise PublishError("SOCKS5 proxy returned an invalid address type")
+            read_exact(sock, 2)
+            self.sock = self._context.wrap_socket(sock, server_hostname=self.host)
+            sock = None
+        except PublishError:
+            if sock is not None:
+                sock.close()
+            raise
+        except OSError as exc:
+            if sock is not None:
+                sock.close()
+            raise PublishError(f"SOCKS5 connection failed: {exc}") from exc
 
 
 def read_json(path: Path) -> dict:
@@ -302,9 +387,15 @@ def api_request(
         body = json.dumps(payload, ensure_ascii=False).encode("utf-8")
         headers["Content-Type"] = "application/json"
 
-    connection = http.client.HTTPSConnection(
-        HOST, timeout=20, context=ssl.create_default_context()
-    )
+    connection_kwargs = {
+        "timeout": 20,
+        "context": ssl.create_default_context(),
+    }
+    proxy = socks_proxy_from_env()
+    if proxy:
+        connection = SocksHTTPSConnection(HOST, proxy=proxy, **connection_kwargs)
+    else:
+        connection = http.client.HTTPSConnection(HOST, **connection_kwargs)
     try:
         connection.request(method, API_PREFIX + endpoint, body=body, headers=headers)
         response = connection.getresponse()

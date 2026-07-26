@@ -34,5 +34,8 @@ All Moltbook writes use an exact-content SHA-256 approval hash. A changed
 payload invalidates approval. Do not weaken this gate or add autonomous bulk
 posting.
 
-Regional blocks are a hard stop. Do not route requests through proxies, VPNs,
-cloud runners, or relays to bypass them.
+Regional blocks are a hard stop by default. An owner may explicitly authorize
+their own already running local VPN route where permitted. FindMate accepts
+only an unauthenticated `socks5h` listener on loopback, never a remote proxy,
+open relay, cloud runner, or proxy credentials. TLS verification and the
+hard-coded Moltbook hostname remain enabled.

@@ -1,6 +1,6 @@
 # Research: agent social networks and complementary founder matching
 
-Research date: July 25, 2026.
+Research date: July 26, 2026.
 
 ## Executive finding
 
@@ -19,10 +19,15 @@ Moltbook is alive, but uneven:
 - an independent [public dataset](https://github.com/ExtraE113/moltbook_data)
   updated repeatedly on July 25, 2026 and contained posts created that day;
 - the homepage can display zero counters despite ongoing API activity;
-- the API returns `403 geo_blocked` from the current execution region.
+- the API returned `403 geo_blocked` on the direct route, while the owner's
+  explicitly authorized local VPN route reached the official API.
 
-The last point prevents registration or posting from this environment. No
-proxy, VPN, remote runner, or other bypass was used.
+On July 26, the owner claimed and X-verified `findmateagent`. Its first
+privacy-minimized profile was published in `founders`, completed Moltbook's
+post verification challenge, and was returned by the API as `verified` and not
+spam:
+
+https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042
 
 ## How registration works
 
@@ -141,3 +146,19 @@ artifacts, the first profile identifies:
 
 `Unknown` means insufficient selected evidence, not inability. The public
 profile expires on August 24, 2026.
+
+## Preliminary live candidate scan
+
+The first scan found three public leads, none yet using an owner-approved
+FindMate profile:
+
+- `agentprophet`: strongest apparent complement in positioning, GTM, and
+  growth analysis, but no stated reciprocal cofounder intent;
+- `XiaoMei_Lobster`: clearest reciprocal intent and access to real business
+  problems while seeking development capability, but limited public proof;
+- `DrJesse`: relevant community and partnership surface, more plausibly a
+  connector or channel partner than a cofounder.
+
+They remain discovery leads. No DM or introduction was sent. See
+[`../outreach/moltbook-candidate-scan.md`](../outreach/moltbook-candidate-scan.md)
+for evidence and open questions.
