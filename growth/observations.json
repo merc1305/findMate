@@ -603,6 +603,32 @@
         "Do not generate synthetic requests to make the endpoint check or traffic metrics increase."
       ],
       "decision": "Keep G34 active and checked once per bounded daily loop, treat future index or referral evidence separately, and perform no traffic generation or repeated promotional posting."
+    },
+    {
+      "id": "O023",
+      "observed_at": "2026-07-26T17:47:33Z",
+      "kind": "unattributed_aggregate_star_increase",
+      "metric": {
+        "name": "github_stars",
+        "before": 1,
+        "after": 2,
+        "delta": 1
+      },
+      "facts": [
+        "The public growth ledger measured 2 stars at 2026-07-26T17:46:54Z, up from 1 at the preceding 2026-07-26T17:44:18Z measurement and up by 2 from the zero-star baseline.",
+        "The stop rule remains active with 99 stars before the automatic stop state at 101.",
+        "At 2026-07-26T17:47:33Z the repository still had 0 forks, 0 watchers, 17 clones from 14 unique cloners, 0 reported views, no reported referrers, 0 marked GitHub own-owner submissions, and no eligible external owner profiles.",
+        "The star appeared after the no-install private-value and agent-readable discovery deployments, but the available aggregate data contains no referral, experiment assignment, or conversion event that can identify its cause.",
+        "No stargazer identity, owner identity, device identifier, cookie, prompt-copy event, private draft, or owner-level telemetry was inspected or recorded."
+      ],
+      "inference": "The repository gained one real aggregate star during the current loop. Its timing is compatible with several active owned and external distribution surfaces, including G33 and G34, but the evidence cannot attribute the change or establish that either experiment is a winner.",
+      "not_supported": [
+        "Do not attribute the star to G33, G34, Moltbook, a catalog pull request, a clone, or any individual without a supported aggregate referral signal.",
+        "Do not identify, contact, thank, follow, or profile the stargazer as part of the growth loop.",
+        "Do not count the star as an install, private draft, owner profile, candidate, match, introduction, or company-formation outcome.",
+        "Do not accelerate posting or generate synthetic visits in response to a single unattributed star."
+      ],
+      "decision": "Keep the current passive experiments and bounded daily measurement running, wait for a longer aggregate window or qualified owner submission before changing strategy, and preserve the automatic stop at 101 stars."
     }
   ]
 }
