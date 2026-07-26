@@ -50,6 +50,8 @@ jobs:
               distribution.github_skill_search || {};
             const githubActionReferences =
               distribution.github_action_references || {};
+            const publicProfileCardReferences =
+              distribution.public_profile_card_references || {};
             const releaseSupplyChain =
               distribution.release_supply_chain || {};
             const claudeCommunity =
@@ -79,6 +81,10 @@ jobs:
             const githubActionReferenceState =
               Number.isInteger(githubActionReferences.count)
                 ? `${githubActionReferences.count} public workflow reference(s)`
+                : "unavailable";
+            const publicProfileCardReferenceState =
+              Number.isInteger(publicProfileCardReferences.count)
+                ? `${publicProfileCardReferences.count} public card marker(s)`
                 : "unavailable";
             const latestReleaseState = releaseSupplyChain.latest_tag
               ? `${releaseSupplyChain.latest_tag} — ${
@@ -141,6 +147,7 @@ jobs:
               `- skills.sh directory: **${skillsShState}**`,
               `- GitHub Skill search: **${githubSkillSearchState}**`,
               `- External GitHub Action references: **${githubActionReferenceState}**`,
+              `- External public profile cards: **${publicProfileCardReferenceState}**`,
               `- Latest skill release: **${latestReleaseState}**`,
               `- Portable ChatGPT archive: **${portableArchiveState}**`,
               `- Semver tag protection: **${semverTagState}**`,

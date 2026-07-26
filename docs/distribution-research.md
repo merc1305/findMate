@@ -335,6 +335,22 @@ Primary GitHub documentation:
 - [Release and maintain actions](https://docs.github.com/en/actions/how-tos/create-and-publish-actions/release-and-maintain-actions)
 - [Publish actions in GitHub Marketplace](https://docs.github.com/en/actions/how-tos/create-and-publish-actions/publish-in-github-marketplace)
 
+### Optional profile cards can form an owner-controlled attribution network
+
+The existing deterministic card renderer removes contact details and raw
+evidence while retaining the public alias, strongest demonstrated vectors,
+the complement sought, expiry, canonical hash, and protocol source. Making
+that renderer an optional second step in the reusable Action lets downstream
+projects create the same reviewable artifact without copying scripts.
+
+Decision: require the full validator to pass first, write only an explicitly
+selected workspace path, and perform no commit, upload, publication, or
+network operation. Keep card publication as a separate exact owner approval.
+Measure only the aggregate public count of the exact
+`FINDMATE_OWNER_PROFILE_CARD_V1` marker outside the canonical repository and
+discard code-search items. A marker is an attribution hint, not proof of a
+unique owner, current profile, match, star conversion, or company.
+
 ### Native GitHub skill publication is a durable owned channel
 
 GitHub CLI 2.90 and later can validate, publish, search, preview, install,

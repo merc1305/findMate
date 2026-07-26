@@ -344,6 +344,15 @@
       "mechanism": "Expose the canonical privacy and expiry validator as a zero-network composite GitHub Action pinned by downstream callers to an exact protected release, then measure only the aggregate count of public workflow references.",
       "primary_metric": "aggregate external GitHub Action workflow references, qualified owner submissions, clones, and post-release star delta",
       "implementation": "action.yml, docs/github-action.md, and the v1.4.0 release"
+    },
+    {
+      "id": "G38",
+      "name": "Owner-controlled profile-card action",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "After the canonical offline validator passes, optionally render one deterministic privacy-minimized Markdown draft at a caller-selected workspace path; never commit or publish it, and measure only the aggregate count of separately owner-approved public card markers.",
+      "primary_metric": "aggregate external public profile-card markers, qualified owner submissions, card referrals when reported, and post-release star delta",
+      "implementation": "action.yml, scripts/profile_card.py, docs/share-findmate.md, and the v1.5.0 release"
     }
   ]
 }

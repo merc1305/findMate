@@ -19,6 +19,9 @@ jobs:
         uses: ./
         with:
           profile: profiles/findmate-owner.public.json
+          card-output: /tmp/findmate-owner.card.md
+      - name: Check the reusable action card
+        run: grep -q "FINDMATE_OWNER_PROFILE_CARD_V1" /tmp/findmate-owner.card.md
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
       - name: Compile scripts
