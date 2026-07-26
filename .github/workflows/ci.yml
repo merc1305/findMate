@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run tests
+        run: python3 -m unittest discover -s tests -v
+      - name: Compile scripts
+        run: python3 -m py_compile skills/find-complementary-founders/scripts/*.py
+      - name: Validate skill metadata
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+
+          path = Path("skills/find-complementary-founders/SKILL.md")
+          text = path.read_text(encoding="utf-8")
+          match = re.match(r"^---\n(.*?)\n---\n", text, re.S)
+          if not match:
+              raise SystemExit("Missing YAML frontmatter")
+          lines = match.group(1).splitlines()
+          keys = [line.split(":", 1)[0] for line in lines if ":" in line]
+          if keys != ["name", "description"]:
+              raise SystemExit(f"Unexpected frontmatter keys: {keys}")
+          if "name: find-complementary-founders" not in match.group(1):
+              raise SystemExit("Skill name does not match its directory")
+          if len(text.splitlines()) > 500:
+              raise SystemExit("SKILL.md exceeds 500 lines")
+          PY
