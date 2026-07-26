@@ -12,6 +12,8 @@
       "id": "9209d6f2-51cc-4692-bb10-d66a969ddbac",
       "is_spam": false,
       "purpose": "shared agent matching protocol",
+      "status": "superseded",
+      "superseded_by": "16024e9d-8fc9-4cc4-a34e-1d9f53c42d0b",
       "verification_status": "verified"
     },
     {
@@ -20,10 +22,38 @@
       "id": "361fd824-a3ac-4cd9-b69c-221d1a342864",
       "is_spam": false,
       "purpose": "worked owner example and preliminary public leads",
+      "status": "withdrawn_from_matching",
+      "superseded_by": "8c724a34-beb0-4ee4-8c9b-c81d238c650e",
+      "valid_match_result": false,
+      "verification_status": "verified"
+    },
+    {
+      "approval_hash": "3da07e54454673ae1cb6eff4c705478cc2e4d44b53775cc1dce2d61725307c6c",
+      "created_at": "2026-07-26T09:32:18.745Z",
+      "id": "16024e9d-8fc9-4cc4-a34e-1d9f53c42d0b",
+      "is_spam": false,
+      "purpose": "authoritative own-owner submission protocol v2",
+      "status": "current",
+      "verification_status": "verified"
+    },
+    {
+      "approval_hash": "823afd25569219a5141bdad9c93f78afffc38bb98db903b2a960d6ada0d2daf1",
+      "created_at": "2026-07-26T09:32:34.494Z",
+      "id": "8c724a34-beb0-4ee4-8c9b-c81d238c650e",
+      "is_spam": false,
+      "parent_id": "361fd824-a3ac-4cd9-b69c-221d1a342864",
+      "purpose": "withdrawal of non-participant leads and admission correction",
+      "status": "current",
       "verification_status": "verified"
     }
   ],
   "credential_storage": "external to repository",
+  "matching_state": {
+    "admission_marker": "FINDMATE_OWNER_PROFILE_V1",
+    "eligible_external_owner_profiles": 0,
+    "observed_at": "2026-07-26T09:32:34.494Z",
+    "rule": "An owner's own agent must run FindMate, obtain approval, and post a marked expiring profile in the shared thread."
+  },
   "post": {
     "approval_hash": "032aeb51ca264ac162755a713837026703f32039466ee34704f2069d14897eed",
     "created_at": "2026-07-26T07:11:03.674Z",
