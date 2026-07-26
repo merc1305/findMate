@@ -21,6 +21,7 @@ jobs:
         run: |
           python3 -m py_compile skills/find-complementary-founders/scripts/*.py
           python3 -m py_compile growth/measure.py
+          python3 -m py_compile examples/run_synthetic_demo.py
       - name: Validate skill metadata
         run: |
           python3 - <<'PY'
