@@ -50,6 +50,7 @@ AAS_CORE_SKILL_PATH = "skills/find-complementary-founders/SKILL.md"
 AAS_CORE_EXPECTED_SOURCE = "source_repo: merc1305/findMate"
 AGENT_PLUGINS_REPOSITORY = "dmgrok/agent-plugins"
 AGENT_PLUGINS_SUBMISSION_ISSUE = 100
+AGENT_PLUGINS_PULL_REQUEST = 101
 AGENT_PLUGINS_CATALOG_URL = (
     "https://raw.githubusercontent.com/dmgrok/"
     "agent-plugins/main/catalog.json"
@@ -537,6 +538,8 @@ def optional_claude_community_catalog() -> dict:
 def summarize_agent_plugins_directory(
     issue: object | None,
     issue_error: str | None,
+    pull_request: object | None,
+    pull_request_error: str | None,
     catalog: object | None,
     catalog_error: str | None,
 ) -> dict:
@@ -548,6 +551,13 @@ def summarize_agent_plugins_directory(
             f"{AGENT_PLUGINS_SUBMISSION_ISSUE}"
         ),
         "submission_state": "unavailable",
+        "integration_pull_request": AGENT_PLUGINS_PULL_REQUEST,
+        "integration_pull_request_url": (
+            f"https://github.com/{AGENT_PLUGINS_REPOSITORY}/pull/"
+            f"{AGENT_PLUGINS_PULL_REQUEST}"
+        ),
+        "integration_pull_request_state": "unavailable",
+        "integration_pull_request_merged_at": None,
         "catalog_url": AGENT_PLUGINS_CATALOG_URL,
         "catalog_skill_count": None,
         "listed": None,
@@ -555,7 +565,11 @@ def summarize_agent_plugins_directory(
         "source_commit_sha": None,
         "errors": [
             error
-            for error in (issue_error, catalog_error)
+            for error in (
+                issue_error,
+                pull_request_error,
+                catalog_error,
+            )
             if isinstance(error, str)
         ],
         "note": (
@@ -570,6 +584,14 @@ def summarize_agent_plugins_directory(
         issue_state = issue.get("state")
         if issue_state in {"open", "closed"}:
             summary["submission_state"] = issue_state
+    if isinstance(pull_request, dict):
+        pull_request_state = pull_request.get("state")
+        merged_at = pull_request.get("merged_at")
+        if isinstance(merged_at, str) and merged_at:
+            summary["integration_pull_request_state"] = "merged"
+            summary["integration_pull_request_merged_at"] = merged_at
+        elif pull_request_state in {"open", "closed"}:
+            summary["integration_pull_request_state"] = pull_request_state
 
     if not isinstance(catalog, dict):
         return summary
@@ -604,6 +626,12 @@ def summarize_agent_plugins_directory(
         summary["listed"] = False
         if named_entries:
             summary["state"] = "name_conflict"
+        elif summary["integration_pull_request_state"] == "merged":
+            summary["state"] = "merged_pending_catalog"
+        elif summary["integration_pull_request_state"] == "open":
+            summary["state"] = "integration_pr_open"
+        elif summary["integration_pull_request_state"] == "closed":
+            summary["state"] = "integration_pr_closed_not_listed"
         elif summary["submission_state"] == "open":
             summary["state"] = "submission_open"
         elif summary["submission_state"] == "closed":
@@ -635,6 +663,8 @@ def summarize_agent_plugins_directory(
 def optional_agent_plugins_directory(
     issue: object | None,
     issue_error: str | None,
+    pull_request: object | None,
+    pull_request_error: str | None,
 ) -> dict:
     try:
         catalog = external_json(
@@ -644,6 +674,8 @@ def optional_agent_plugins_directory(
         return summarize_agent_plugins_directory(
             issue,
             issue_error,
+            pull_request,
+            pull_request_error,
             catalog,
             None,
         )
@@ -651,6 +683,8 @@ def optional_agent_plugins_directory(
         return summarize_agent_plugins_directory(
             issue,
             issue_error,
+            pull_request,
+            pull_request_error,
             None,
             str(exc),
         )
@@ -956,9 +990,16 @@ def main() -> int:
             f"/issues/{AGENT_PLUGINS_SUBMISSION_ISSUE}",
             token,
         )
+        agent_plugins_pr, agent_plugins_pr_error = optional_github_json(
+            AGENT_PLUGINS_REPOSITORY,
+            f"/pulls/{AGENT_PLUGINS_PULL_REQUEST}",
+            token,
+        )
         agent_plugins_directory = optional_agent_plugins_directory(
             agent_plugins_issue,
             agent_plugins_issue_error,
+            agent_plugins_pr,
+            agent_plugins_pr_error,
         )
         aas_release, aas_release_error = optional_github_json(
             AAS_CORE_REPOSITORY,

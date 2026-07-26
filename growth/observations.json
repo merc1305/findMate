@@ -985,6 +985,34 @@
         "Do not attribute either existing star or any future star to G41 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G41 active but submission-gated, monitor the one request and exact-source daily catalog once per scheduled loop, make no follow-up outreach while review is pending, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O036",
+      "observed_at": "2026-07-26T21:28:19Z",
+      "kind": "agent_plugins_automated_validation_handoff",
+      "metric": {
+        "name": "open_agent_plugins_integration_pull_requests",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Agent Plugins Directory automation labeled provider request 100 approved and automated, reported an LGTM score of 70 out of 100, and reported that its gitleaks security scan passed.",
+        "The same bot response marked spec compliance, security KPI, content quality, testing, and originality as N/A and explicitly said LGTM validation was temporarily unavailable and the skill still needs manual review.",
+        "The automation created integration pull request 101 with one seven-line provider configuration change to scripts/aggregate.py. The pull request is open and mergeable but has no reported status checks.",
+        "The live daily catalog version 2026.07.26 still contains no exact canonical FindMate entry. Neither the issue labels nor the open pull request is counted as a listing.",
+        "The daily monitor now distinguishes an open integration pull request, a merged pull request awaiting aggregation, a closed unlisted request, and a verified exact-source catalog entry.",
+        "No maintainer follow-up, review request, promotional comment, star request, owner data, candidate data, or private profile was posted."
+      ],
+      "inference": "The automated handoff removes manual submission work and shows that FindMate cleared the directory's reported minimum score and secret scan, but the explicit N/A fields and manual-review note prevent treating it as a complete security or content-quality certification. Passive distribution remains pending both maintainer merge and daily catalog inclusion.",
+      "not_supported": [
+        "Do not describe the 70 out of 100 bot score as an independent full audit or claim that checks reported N/A were passed.",
+        "Do not call the approved label, automation comment, open pull request, or mergeability a catalog listing, install, owner opt-in, lead, match, or star.",
+        "Do not ping, mention, or request review from directory maintainers while the pull request follows normal review.",
+        "Do not infer future usage from a merge; wait for the exact-source catalog entry and still treat listing as availability rather than adoption.",
+        "Do not attribute either existing star or any future star to G41 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G41 active and passive, monitor provider issue 100, integration pull request 101, and the exact-source daily catalog once per loop, make no follow-up outreach, and preserve the automatic stop at 101 stars."
     }
   ]
 }

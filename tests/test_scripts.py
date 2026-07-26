@@ -1090,6 +1090,8 @@ class GrowthLoopTests(unittest.TestCase):
         not_listed = growth.summarize_agent_plugins_directory(
             open_issue,
             None,
+            None,
+            None,
             {"skills": [{"name": "another-skill"}]},
             None,
         )
@@ -1104,6 +1106,8 @@ class GrowthLoopTests(unittest.TestCase):
         }
         listed = growth.summarize_agent_plugins_directory(
             open_issue,
+            None,
+            {"state": "open", "merged_at": None},
             None,
             {
                 "skills": [
@@ -1121,6 +1125,11 @@ class GrowthLoopTests(unittest.TestCase):
 
         unpinned = growth.summarize_agent_plugins_directory(
             {"state": "closed"},
+            None,
+            {
+                "state": "closed",
+                "merged_at": "2026-07-27T09:00:00Z",
+            },
             None,
             {
                 "skills": [
@@ -1144,6 +1153,8 @@ class GrowthLoopTests(unittest.TestCase):
         conflict = growth.summarize_agent_plugins_directory(
             open_issue,
             None,
+            {"state": "open", "merged_at": None},
+            None,
             {
                 "skills": [
                     {
@@ -1159,6 +1170,33 @@ class GrowthLoopTests(unittest.TestCase):
         )
         self.assertFalse(conflict["listed"])
         self.assertEqual(conflict["state"], "name_conflict")
+
+        integration_open = growth.summarize_agent_plugins_directory(
+            open_issue,
+            None,
+            {"state": "open", "merged_at": None},
+            None,
+            {"skills": []},
+            None,
+        )
+        self.assertEqual(integration_open["state"], "integration_pr_open")
+
+        merged_pending = growth.summarize_agent_plugins_directory(
+            {"state": "closed"},
+            None,
+            {
+                "state": "closed",
+                "merged_at": "2026-07-27T09:00:00Z",
+            },
+            None,
+            {"skills": []},
+            None,
+        )
+        self.assertEqual(merged_pending["state"], "merged_pending_catalog")
+        self.assertEqual(
+            merged_pending["integration_pull_request_state"],
+            "merged",
+        )
 
         workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("agent_plugins_directory", workflow)
