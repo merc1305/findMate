@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 from pathlib import Path
@@ -20,7 +21,13 @@ API_ROOT = "https://api.github.com"
 PROFILE_REPLY_MARKER = "FINDMATE_OWNER_PROFILE_V1"
 SKILLS_SH_BADGE_URL = "https://www.skills.sh/b/merc1305/findMate"
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
+MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
 SEMVER_TAG_RULESET_NAME = "Protect semver release tags"
+CLAUDE_COMMUNITY_CATALOG_URL = (
+    "https://raw.githubusercontent.com/anthropics/"
+    "claude-plugins-community/main/.claude-plugin/marketplace.json"
+)
+CLAUDE_COMMUNITY_EXPECTED_SOURCE = "https://github.com/merc1305/findMate"
 SKILL_SEARCH_INDEX_QUERY = (
     'repo:merc1305/findMate '
     'path:skills/find-complementary-founders/SKILL.md '
@@ -167,6 +174,29 @@ def external_text(url: str) -> str:
     return body.decode("utf-8", errors="replace")
 
 
+def external_json(url: str, max_bytes: int) -> object:
+    request = Request(
+        url,
+        headers={
+            "Accept": "application/json",
+            "User-Agent": "findmate-distribution-monitor/1.0",
+        },
+    )
+    try:
+        with urlopen(request, timeout=20) as response:
+            body = response.read(max_bytes + 1)
+    except (HTTPError, URLError, TimeoutError) as exc:
+        raise GrowthError(f"External JSON request failed: {exc}") from exc
+    if len(body) > max_bytes:
+        raise GrowthError(
+            f"External JSON response exceeded {max_bytes} bytes"
+        )
+    try:
+        return json.loads(body.decode("utf-8"))
+    except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+        raise GrowthError(f"External JSON response was invalid: {exc}") from exc
+
+
 def badge_indicates_skills_sh_listing(svg: str) -> bool:
     normalized = svg.casefold()
     return "<svg" in normalized and "resource not found" not in normalized
@@ -255,6 +285,87 @@ def summarize_release_supply_chain(
             for item in rulesets
         )
     return summary
+
+
+def summarize_claude_community_catalog(
+    catalog: object | None,
+    error: str | None,
+) -> dict:
+    summary = {
+        "catalog_url": CLAUDE_COMMUNITY_CATALOG_URL,
+        "catalog_plugin_count": None,
+        "listed": None,
+        "state": "unavailable",
+        "source_url": None,
+        "source_sha": None,
+        "error": error,
+        "note": (
+            "Only an exact findmate entry sourced from merc1305/findMate and "
+            "pinned to a 40-character commit SHA counts as a listing. A name "
+            "collision or unpinned entry is reported separately."
+        ),
+    }
+    if not isinstance(catalog, dict):
+        return summary
+    plugins = catalog.get("plugins")
+    if not isinstance(plugins, list):
+        summary["error"] = "Claude community catalog lacks a plugins array"
+        return summary
+    summary["catalog_plugin_count"] = len(plugins)
+    entry = next(
+        (
+            item
+            for item in plugins
+            if isinstance(item, dict) and item.get("name") == "findmate"
+        ),
+        None,
+    )
+    if entry is None:
+        summary["listed"] = False
+        summary["state"] = "not_listed"
+        summary["error"] = None
+        return summary
+    source = entry.get("source")
+    source_url = source.get("url") if isinstance(source, dict) else None
+    source_sha = source.get("sha") if isinstance(source, dict) else None
+    if isinstance(source_url, str):
+        summary["source_url"] = source_url
+    if isinstance(source_sha, str):
+        summary["source_sha"] = source_sha
+    normalized_source = (
+        source_url.rstrip("/").removesuffix(".git").casefold()
+        if isinstance(source_url, str)
+        else None
+    )
+    normalized_expected = (
+        CLAUDE_COMMUNITY_EXPECTED_SOURCE.rstrip("/").casefold()
+    )
+    valid_source_sha = (
+        isinstance(source_sha, str)
+        and re.fullmatch(r"[0-9a-fA-F]{40}", source_sha) is not None
+    )
+    if normalized_source == normalized_expected and valid_source_sha:
+        summary["listed"] = True
+        summary["state"] = "listed_expected_source"
+    elif normalized_source == normalized_expected:
+        summary["listed"] = False
+        summary["state"] = "canonical_source_unpinned"
+    else:
+        summary["listed"] = False
+        summary["state"] = "name_conflict"
+    summary["error"] = None
+    return summary
+
+
+def optional_claude_community_catalog() -> dict:
+    try:
+        catalog = external_json(
+            CLAUDE_COMMUNITY_CATALOG_URL,
+            MAX_CLAUDE_CATALOG_BYTES,
+        )
+        return summarize_claude_community_catalog(catalog, None)
+    except GrowthError as exc:
+        return summarize_claude_community_catalog(None, str(exc))
 
 
 def count_github_owner_submissions(comments: object) -> int:
@@ -397,6 +508,7 @@ def main() -> int:
             "/rulesets",
             token,
         )
+        claude_community = optional_claude_community_catalog()
         catalog_pull_requests = []
         for item in DISTRIBUTION_PULL_REQUESTS:
             value, error = optional_github_json(
@@ -455,6 +567,7 @@ def main() -> int:
                     repository_rulesets,
                     repository_rulesets_error,
                 ),
+                "claude_community": claude_community,
                 "catalog_pull_requests": catalog_pull_requests,
             },
         )

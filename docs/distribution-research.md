@@ -264,10 +264,22 @@ supported Claude clients reject. Do not auto-install the plugin, add hooks, add
 an MCP server, or reinterpret installation as consent for any public or
 owner-data action.
 
+Anthropic also maintains the reviewed `claude-plugins-community` marketplace.
+Submissions must use the authenticated Console form, pass the same plugin
+validator plus automated safety screening, and are pinned to a source commit
+after approval. Direct pull requests are not accepted. Prepare the exact
+non-sensitive form fields in the repository, publish a project privacy policy,
+and monitor the public catalog for an exact `findmate` entry sourced from
+`merc1305/findMate`. The authenticated account holder must supply their email
+and accept Anthropic's directory terms; do not fabricate either action or call
+the plugin submitted before the form receipt exists.
+
 Sources:
 
 - https://code.claude.com/docs/en/discover-plugins
 - https://code.claude.com/docs/en/plugin-marketplaces
+- https://code.claude.com/docs/en/plugins#submit-your-plugin-to-the-community-marketplace
+- https://github.com/anthropics/claude-plugins-community
 
 ### A relevant Moltbook skill community is a bounded launch surface
 
