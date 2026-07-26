@@ -78,6 +78,7 @@ mechanisms that compound without repeated inference:
 | G28 | One material m/agentskills launch | active | one verified, non-repeating agent-community post can route independent agents into the canonical own-owner loop without repeated outreach |
 | G29 | Intent-aligned skill search metadata | active | truthful owner-language triggers improve discovery in native skill search without extra outreach |
 | G30 | AAS Core community catalog | planned (PR pending) | one complete attributed catalog copy can create passive agent discovery after maintainer review |
+| G31 | Protected portable releases | active | pinned installs become safer and more reproducible when semver tags cannot move and future releases are immutable |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

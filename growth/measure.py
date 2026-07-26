@@ -20,6 +20,7 @@ API_ROOT = "https://api.github.com"
 PROFILE_REPLY_MARKER = "FINDMATE_OWNER_PROFILE_V1"
 SKILLS_SH_BADGE_URL = "https://www.skills.sh/b/merc1305/findMate"
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
+SEMVER_TAG_RULESET_NAME = "Protect semver release tags"
 SKILL_SEARCH_INDEX_QUERY = (
     'repo:merc1305/findMate '
     'path:skills/find-complementary-founders/SKILL.md '
@@ -213,6 +214,49 @@ def summarize_distribution_pull_request(
     return summary
 
 
+def summarize_release_supply_chain(
+    release: object | None,
+    release_error: str | None,
+    rulesets: object | None,
+    rulesets_error: str | None,
+) -> dict:
+    summary = {
+        "latest_tag": None,
+        "latest_url": None,
+        "latest_immutable": None,
+        "semver_tag_ruleset_active": None,
+        "errors": [
+            error
+            for error in (release_error, rulesets_error)
+            if isinstance(error, str)
+        ],
+        "note": (
+            "Release immutability applies only to releases published after "
+            "the repository setting was enabled. The active v* tag ruleset "
+            "still prevents update or deletion of matching tags."
+        ),
+    }
+    if isinstance(release, dict):
+        tag = release.get("tag_name")
+        url = release.get("html_url")
+        immutable = release.get("immutable")
+        if isinstance(tag, str):
+            summary["latest_tag"] = tag
+        if isinstance(url, str):
+            summary["latest_url"] = url
+        if isinstance(immutable, bool):
+            summary["latest_immutable"] = immutable
+    if isinstance(rulesets, list):
+        summary["semver_tag_ruleset_active"] = any(
+            isinstance(item, dict)
+            and item.get("name") == SEMVER_TAG_RULESET_NAME
+            and item.get("target") == "tag"
+            and item.get("enforcement") == "active"
+            for item in rulesets
+        )
+    return summary
+
+
 def count_github_owner_submissions(comments: object) -> int:
     if not isinstance(comments, list):
         return 0
@@ -343,6 +387,16 @@ def main() -> int:
         skill_search_indexed, skill_search_error = optional_skill_search_index(
             token
         )
+        latest_release, latest_release_error = optional_github_json(
+            args.repository,
+            "/releases/latest",
+            token,
+        )
+        repository_rulesets, repository_rulesets_error = optional_github_json(
+            args.repository,
+            "/rulesets",
+            token,
+        )
         catalog_pull_requests = []
         for item in DISTRIBUTION_PULL_REQUESTS:
             value, error = optional_github_json(
@@ -395,6 +449,12 @@ def main() -> int:
                         "new exact owner-intent phrase from the canonical skill."
                     ),
                 },
+                "release_supply_chain": summarize_release_supply_chain(
+                    latest_release,
+                    latest_release_error,
+                    repository_rulesets,
+                    repository_rulesets_error,
+                ),
                 "catalog_pull_requests": catalog_pull_requests,
             },
         )

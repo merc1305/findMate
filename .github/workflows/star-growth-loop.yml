@@ -48,6 +48,8 @@ jobs:
             const skillsSh = distribution.skills_sh || {};
             const githubSkillSearch =
               distribution.github_skill_search || {};
+            const releaseSupplyChain =
+              distribution.release_supply_chain || {};
             const catalogPullRequests =
               distribution.catalog_pull_requests || [];
             const channelState = (channel) => {
@@ -68,6 +70,21 @@ jobs:
                 : githubSkillSearch.indexed === false
                   ? "new metadata not indexed yet"
                   : "unavailable";
+            const latestReleaseState = releaseSupplyChain.latest_tag
+              ? `${releaseSupplyChain.latest_tag} — ${
+                  releaseSupplyChain.latest_immutable === true
+                    ? "immutable"
+                    : releaseSupplyChain.latest_immutable === false
+                      ? "mutable release"
+                      : "immutability unavailable"
+                }`
+              : "unavailable";
+            const semverTagState =
+              releaseSupplyChain.semver_tag_ruleset_active === true
+                ? "active"
+                : releaseSupplyChain.semver_tag_ruleset_active === false
+                  ? "not active"
+                  : "unavailable";
             const stopLine = promotion.stopped
               ? "STOPPED — the repository is above 100 stars. Active star requests must remain off."
               : `ACTIVE — ${promotion.stars_until_stop} star(s) remain before the stop state at 101.`;
@@ -83,6 +100,8 @@ jobs:
               `- GitHub marked own-owner submissions: **${ownerPool.github_marked_own_owner_submissions ?? "unavailable"}**`,
               `- skills.sh directory: **${skillsShState}**`,
               `- GitHub Skill search: **${githubSkillSearchState}**`,
+              `- Latest skill release: **${latestReleaseState}**`,
+              `- Semver tag protection: **${semverTagState}**`,
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
               `- AAS Core catalog PR: **${channelState("aas_core")}**`,

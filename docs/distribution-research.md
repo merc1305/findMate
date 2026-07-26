@@ -214,9 +214,18 @@ Keep GitHub's community-skill warning visible. Do not describe the skill as
 verified by GitHub, and do not count a maintainer test install as external
 adoption.
 
+After publishing `v1.3.4`, enable repository release immutability for future
+releases and install one active tag ruleset that prevents update or deletion
+of `v*`. The setting is not retroactive, so record `v1.3.4` honestly as a
+mutable release whose tag is nevertheless protected. Verify future releases
+as immutable before describing them that way.
+
 Source:
 
 - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills
+- https://cli.github.com/manual/gh_skill_publish
+- https://docs.github.com/en/code-security/concepts/supply-chain-security/immutable-releases
+- https://docs.github.com/en/enterprise-cloud@latest/code-security/how-tos/secure-your-supply-chain/establish-provenance-and-integrity/prevent-release-changes
 
 ### Skill search depends on trigger language, not repository intent
 
