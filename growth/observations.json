@@ -575,6 +575,34 @@
         "Do not add crawler fingerprinting, challenge bypasses, or owner-level telemetry to force attribution."
       ],
       "decision": "Keep G34 active as passive infrastructure, expose unavailable public-fetch state honestly in the daily ledger, wait for organic referral or index evidence, and avoid repeated outreach or synthetic traffic."
+    },
+    {
+      "id": "O022",
+      "observed_at": "2026-07-26T17:44:18.416504+00:00",
+      "kind": "external_web_discovery_contract_verification",
+      "metric": {
+        "name": "web_discovery_contract_checks_verified_from_github_actions",
+        "before": 0,
+        "after": 4,
+        "delta": 4
+      },
+      "facts": [
+        "Ethical growth loop run 30213200955 fetched the deployed landing page, /robots.txt, /sitemap.xml, and /llms.txt from a GitHub-hosted runner after Sites V3 reached production.",
+        "The run verified all four bounded conditions: the landing page declared the expected canonical URL, robots linked the sitemap, the sitemap listed the landing page, and /llms.txt stated the own-owner rule while linking the canonical skill.",
+        "The runner reported no endpoint errors and set the web-discovery state to live in public growth-ledger issue 4.",
+        "A prior request from the local execution environment received Cloudflare HTTP 403 responses for the same URLs. The differing results demonstrate path-specific access controls and are retained rather than normalized away.",
+        "The workflow stores only check booleans, endpoint URLs, and request errors; it does not retain response bodies, cookies, IP addresses, visitor identifiers, crawler identities, or owner data.",
+        "At 2026-07-26T17:44:18.416504+00:00 FindMate still had 1 star, 0 marked GitHub own-owner submissions, and no eligible external owner profiles."
+      ],
+      "inference": "G34 is externally reachable from at least one independent GitHub-hosted runner and exposes the intended machine-readable contract there. This resolves deployment accessibility for that path only; it does not establish search indexing, crawler coverage, human traffic, agent use, installation, profile conversion, or star conversion.",
+      "not_supported": [
+        "Do not generalize one successful GitHub-hosted request to every browser, region, crawler, or agent runtime.",
+        "Do not count the workflow request as an organic visit, referral, install, owner profile, match, or adoption event.",
+        "Do not call the site indexed or ranked until a public search or referral signal supports it.",
+        "Do not attribute the existing star or any future star to G34 from endpoint availability alone.",
+        "Do not generate synthetic requests to make the endpoint check or traffic metrics increase."
+      ],
+      "decision": "Keep G34 active and checked once per bounded daily loop, treat future index or referral evidence separately, and perform no traffic generation or repeated promotional posting."
     }
   ]
 }
