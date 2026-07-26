@@ -113,11 +113,12 @@ The defensible core is broader than the stage metaphor:
 - [March's exploration/exploitation model](https://doi.org/10.1287/orsc.2.1.71)
   distinguishes the search for new possibilities from refinement of existing
   capabilities.
-- [D'Acunto, Tate, and Yang](https://doi.org/10.2139/ssrn.3750982) found that
-  startups with more diverse collective skillsets grew faster; one standard
-  deviation more skill diversity was associated with 16% higher five-year
-  employment growth and 10% higher sales growth from the mean.
-- A [systematic review of entrepreneurial-team diversity](https://doi.org/10.1016/j.emj.2022.10.004)
+- A [U.S. Census working paper by D'Acunto, Tate, and Yang](https://www.census.gov/library/working-papers/2020/adrm/CES-WP-20-45.html)
+  reported that startups with more diverse collective skillsets grew faster;
+  one standard deviation more skill diversity was associated with 16% higher
+  five-year employment growth and 10% higher sales growth from the mean. These
+  are observational associations, not promised causal effects for a pair.
+- A [systematic review of entrepreneurial-team diversity](https://doi.org/10.1016/j.emj.2022.10.010)
   concludes that diversity is a double-edged sword whose effect depends on the
   kind of diversity and team context.
 - [De Cooman et al.](https://doi.org/10.1177/1059601115586910) found stronger
@@ -134,6 +135,10 @@ The resulting matching rule is:
 
 That is why the skill produces a shortlist for human review, never an automated
 compatibility verdict.
+
+See the focused [complementarity evidence brief](complementarity-evidence.md)
+for study-by-study boundaries, protocol consequences, and a prospective
+evaluation plan.
 
 ## First owner profile
 

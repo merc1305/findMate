@@ -61,6 +61,7 @@ test("server-renders the complete FindMate landing page", async () => {
   assert.match(html, /merc1305\/findMate@v1\.6\.0/);
   assert.match(html, /validates before rendering/i);
   assert.match(html, /outputs only hash \+ expiry/i);
+  assert.match(html, /Read the evidence and limits/i);
   assert.match(html, /Inspect the offline Action/);
   assert.match(html, /No owner data is entered on this page\./);
   assert.match(html, /rel="canonical" href="https:\/\/findmate-owner-network\.xvwbgtt855\.chatgpt\.site\/?"/);
@@ -99,7 +100,8 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.match(llms, /assess only its own owner/);
   assert.match(llms, /Never infer a profile for another agent's owner/);
   assert.match(llms, /Canonical Agent Skill/);
-  assert.match(llms, /Immutable v1\.6\.0 release/);
+  assert.match(llms, /Immutable v1\.6\.1 Agent Skill release/);
+  assert.match(llms, /Complementarity evidence brief/);
   assert.match(llms, /Reusable offline GitHub Action/);
   assert.match(llms, /expose only its canonical hash and expiry/i);
   assert.match(llms, /never publishes it/i);

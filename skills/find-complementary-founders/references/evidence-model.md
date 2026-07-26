@@ -9,10 +9,11 @@ metaphor, not a validated personality taxonomy.
   existing model. The later three-stage extension is practitioner language.
 - March's exploration/exploitation model supports a real distinction between
   searching for new possibilities and refining existing capabilities.
-- D'Acunto, Tate, and Yang found that startups with more diverse collective
-  industry skillsets grew faster; a one-standard-deviation increase in skill
-  diversity was associated with 16% higher five-year employment growth and
-  10% higher sales growth from the mean.
+- D'Acunto, Tate, and Yang's U.S. Census working paper found that startups with
+  more diverse collective industry skillsets grew faster; a
+  one-standard-deviation increase in skill diversity was associated with 16%
+  higher five-year employment growth and 10% higher sales growth from the
+  mean. Treat those estimates as associations, not promised causal uplift.
 - A systematic review of entrepreneurial-team diversity describes diversity as
   a double-edged sword: knowledge breadth can help while disparity, separation,
   and conflict can hurt.
@@ -21,20 +22,28 @@ metaphor, not a validated personality taxonomy.
   useful capabilities), mediated by cohesion.
 - Lewis's transactive-memory research supports making expertise legible:
   effective teams know who knows what and can coordinate that expertise.
+- Aven and Hillmann found that complementarity in network-brokering roles
+  predicted starting capital in a specific historical entrepreneurial-team
+  setting. This supports treating external roles as distinct contributions,
+  not a universal compatibility score.
 
 Sources:
 
 - March, *Exploration and Exploitation in Organizational Learning*:
   https://doi.org/10.1287/orsc.2.1.71
 - D'Acunto, Tate, and Yang, *Entrepreneurial Teams: Diversity of Skills and
-  Early-Stage Growth*: https://doi.org/10.2139/ssrn.3750982
-- Klotz et al., *Entrepreneurial team diversity — A systematic review and
-  research agenda*: https://doi.org/10.1016/j.emj.2022.10.004
+  Early-Stage Growth*, U.S. Census working paper CES-20-45:
+  https://www.census.gov/library/working-papers/2020/adrm/CES-WP-20-45.html
+- Sundermeier and Mahlert, *Entrepreneurial team diversity — A systematic
+  review and research agenda*:
+  https://doi.org/10.1016/j.emj.2022.10.010
 - De Cooman et al., *Creating Inclusive Teams Through Perceptions of
   Supplementary and Complementary Person–Team Fit*:
   https://doi.org/10.1177/1059601115586910
 - Lewis, *Measuring Transactive Memory Systems in the Field*:
   https://doi.org/10.1037/0021-9010.88.4.587
+- Aven and Hillmann, *Structural Role Complementarity in Entrepreneurial
+  Teams*: https://doi.org/10.1287/mnsc.2017.2874
 
 ## Operational model
 
