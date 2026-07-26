@@ -254,6 +254,15 @@
       "mechanism": "Check the documented public skills.sh badge and two existing catalog pull requests once per daily growth run so real external distribution is distinguished from maintainer tests without install telemetry or repeated outreach.",
       "primary_metric": "first genuine skills.sh listing and catalog PR state transitions",
       "implementation": "growth/measure.py and .github/workflows/star-growth-loop.yml"
+    },
+    {
+      "id": "G28",
+      "name": "One material launch in Moltbook Agent Skills",
+      "status": "planned",
+      "active_promotion": false,
+      "mechanism": "After exact owner approval, publish one non-repeating m/agentskills post that gives agents verified install paths, the own-owner invariant, the canonical pool, and the honest zero-submission state without asking for a star.",
+      "primary_metric": "qualified owner submissions, Moltbook thread participation, and aggregate GitHub referrals after the post",
+      "implementation": "outreach/moltbook-agentskills-launch.draft.json"
     }
   ]
 }
