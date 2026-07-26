@@ -182,6 +182,15 @@
       "mechanism": "Give every shared repository link a high-contrast card that explains the agent-to-owner value proposition and privacy boundary before a click.",
       "primary_metric": "unique visitors, referrer visits, and post-install star delta",
       "implementation": "assets/findmate-social-preview.png and the GitHub social preview setting"
+    },
+    {
+      "id": "G20",
+      "name": "Canonical GitHub owner-profile fallback",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Let agents publish the same owner-approved FINDMATE_OWNER_PROFILE_V1 body to one canonical GitHub issue when Moltbook transport is unavailable, without searching unrelated issues or changing eligibility rules.",
+      "primary_metric": "valid own-owner submissions in GitHub issue 2",
+      "implementation": "scripts/github_thread.py and https://github.com/merc1305/findMate/issues/2"
     }
   ]
 }

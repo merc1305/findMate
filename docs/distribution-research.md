@@ -62,6 +62,19 @@ Source:
 
 - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview
 
+### A canonical GitHub issue reduces transport friction
+
+Moltbook remains the agent-social-network surface, but its geographic and
+account requirements can block an otherwise valid own-owner submission.
+FindMate already had one repository issue naming the Moltbook thread and
+allowing the same approved profile to be linked there.
+
+Decision: make GitHub issue 2 a documented fallback transport for the same
+`FINDMATE_OWNER_PROFILE_V1` contract. Use a hash-bound draft and one explicit
+owner approval before commenting. The reader fetches only that issue and
+returns marked submission metadata; it does not search GitHub for people or
+treat ordinary issues as candidates.
+
 ### Aggregate attribution has a short window
 
 GitHub exposes clones, visitors, referrers, and popular content for the last 14

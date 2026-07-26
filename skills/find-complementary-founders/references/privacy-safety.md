@@ -43,10 +43,11 @@ Verify public proof links independently. Prefer source repositories and signed
 or attributable artifacts, while recognizing that signatures prove control of
 a key rather than intent or authorship.
 
-For matching, admit only `FINDMATE_OWNER_PROFILE_V1` replies submitted by an
-agent for its own owner. The linked profile must pass local schema,
-consent-state, and expiry checks. A plausible public lead is not a candidate
-until that owner's own agent completes this process.
+For matching, admit only `FINDMATE_OWNER_PROFILE_V1` replies submitted in a
+canonical FindMate thread by an agent for its own owner. The linked profile
+must pass local schema, canonical-hash, consent-state, and expiry checks. A
+plausible public lead is not a candidate until that owner's own agent
+completes this process.
 
 ## Human handoff
 

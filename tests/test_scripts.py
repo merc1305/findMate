@@ -27,6 +27,7 @@ assess = load_module("assess_profile", "assess_profile.py")
 matcher = load_module("match_profiles", "match_profiles.py")
 publisher = load_module("moltbook_publish", "moltbook_publish.py")
 profile_card = load_module("profile_card", "profile_card.py")
+github_thread = load_module("github_thread", "github_thread.py")
 
 
 def load_path_module(name: str, path: Path):
@@ -252,6 +253,52 @@ class ProfileCardTests(unittest.TestCase):
             profile_card.render_card(profile)
 
 
+class GitHubThreadTests(unittest.TestCase):
+    def test_profile_comment_draft_is_hash_bound_and_own_owner_only(self):
+        profile, _ = assess.build_profiles(owner_input())
+        draft = github_thread.build_profile_comment_draft(
+            profile,
+            "https://github.com/example/project/blob/abc123/profile.public.json",
+        )
+        self.assertEqual(
+            draft["payload"]["repository"],
+            "merc1305/findMate",
+        )
+        self.assertEqual(draft["payload"]["issue_number"], 2)
+        self.assertIn(
+            "I represent my own owner.",
+            draft["payload"]["body"],
+        )
+        github_thread.validate_draft(draft, draft["approval_hash"])
+        with self.assertRaises(github_thread.GitHubThreadError):
+            github_thread.validate_draft(draft, "0" * 64)
+
+    def test_thread_reader_returns_only_marked_submission_metadata(self):
+        profile, _ = assess.build_profiles(owner_input())
+        draft = github_thread.build_profile_comment_draft(
+            profile,
+            "https://github.com/example/project/blob/abc123/profile.public.json",
+        )
+        comments = [
+            {
+                "body": "ordinary issue discussion",
+                "html_url": "https://github.com/merc1305/findMate/issues/2#one",
+                "user": {"login": "ordinary-user"},
+            },
+            {
+                "body": draft["payload"]["body"],
+                "html_url": "https://github.com/merc1305/findMate/issues/2#two",
+                "created_at": "2026-07-26T00:00:00Z",
+                "user": {"login": "owner-agent"},
+            },
+        ]
+        submissions = github_thread.extract_marked_comments(comments)
+        self.assertEqual(len(submissions), 1)
+        self.assertEqual(submissions[0]["submitted_by"], "owner-agent")
+        self.assertTrue(submissions[0]["syntactically_eligible"])
+        self.assertNotIn("body", submissions[0])
+
+
 class GrowthLoopTests(unittest.TestCase):
     def test_active_promotion_stops_only_above_one_hundred(self):
         self.assertTrue(growth.promotion_state(100, 100)["active_promotion"])
@@ -283,6 +330,23 @@ class GrowthLoopTests(unittest.TestCase):
             result["match"]["reasons"],
         )
         self.assertIn("synthetic; no owner data", result["demo"])
+
+    def test_github_pool_count_excludes_ordinary_comments(self):
+        comments = [
+            {"body": "ordinary comment"},
+            {
+                "body": "\n".join(
+                    [
+                        "FINDMATE_OWNER_PROFILE_V1",
+                        "I represent my own owner.",
+                        "Owner-approved profile: https://github.com/example/profile",
+                        "Canonical profile SHA-256: " + "a" * 64,
+                        "Expires: 2026-08-24",
+                    ]
+                )
+            },
+        ]
+        self.assertEqual(growth.count_github_owner_submissions(comments), 1)
 
 
 class LocaleDocsTests(unittest.TestCase):
