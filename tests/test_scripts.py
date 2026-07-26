@@ -554,6 +554,44 @@ class GrowthLoopTests(unittest.TestCase):
         ]
         self.assertEqual(growth.count_github_owner_submissions(comments), 1)
 
+    def test_skills_sh_listing_requires_a_real_badge(self):
+        missing = (
+            '<svg role="img" aria-label="custom badge: resource not found"></svg>'
+        )
+        listed = '<svg role="img" aria-label="skills.sh installs: 7"></svg>'
+        self.assertFalse(growth.badge_indicates_skills_sh_listing(missing))
+        self.assertTrue(growth.badge_indicates_skills_sh_listing(listed))
+        self.assertFalse(growth.badge_indicates_skills_sh_listing("not svg"))
+
+    def test_distribution_pr_summary_distinguishes_open_and_merged(self):
+        open_pr = growth.summarize_distribution_pull_request(
+            "catalog",
+            "example/catalog",
+            7,
+            {
+                "state": "open",
+                "merged_at": None,
+                "updated_at": "2026-07-26T14:00:00Z",
+            },
+            None,
+        )
+        self.assertEqual(open_pr["state"], "open")
+        self.assertIsNone(open_pr["error"])
+
+        merged_pr = growth.summarize_distribution_pull_request(
+            "catalog",
+            "example/catalog",
+            7,
+            {
+                "state": "closed",
+                "merged_at": "2026-07-27T08:00:00Z",
+                "updated_at": "2026-07-27T08:00:00Z",
+            },
+            None,
+        )
+        self.assertEqual(merged_pr["state"], "merged")
+        self.assertEqual(merged_pr["merged_at"], "2026-07-27T08:00:00Z")
+
 
 class LocaleDocsTests(unittest.TestCase):
     def test_russian_onboarding_preserves_protocol_and_consent_boundaries(self):

@@ -245,6 +245,15 @@
       "mechanism": "Let Claude Code owners add the canonical repository as a marketplace and separately opt into a namespaced FindMate plugin that reuses the same own-owner-only skill.",
       "primary_metric": "Claude marketplace validation, qualified owner submissions, clones, and post-launch star delta",
       "implementation": ".claude-plugin/marketplace.json and skills/.claude-plugin/plugin.json"
+    },
+    {
+      "id": "G27",
+      "name": "Automatic distribution-surface monitor",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Check the documented public skills.sh badge and two existing catalog pull requests once per daily growth run so real external distribution is distinguished from maintainer tests without install telemetry or repeated outreach.",
+      "primary_metric": "first genuine skills.sh listing and catalog PR state transitions",
+      "implementation": "growth/measure.py and .github/workflows/star-growth-loop.yml"
     }
   ]
 }
