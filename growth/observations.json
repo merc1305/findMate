@@ -45,6 +45,33 @@
         "Do not count the catalog as a working acquisition channel before merge and referral evidence."
       ],
       "decision": "Monitor the existing pull request; do not duplicate-submit the same skill to the same community."
+    },
+    {
+      "id": "O003",
+      "observed_at": "2026-07-26T11:15:18Z",
+      "kind": "passive_surface_launch",
+      "metric": {
+        "name": "implemented_passive_growth_surfaces",
+        "before": 0,
+        "after": 2,
+        "delta": 2
+      },
+      "facts": [
+        "Pull request 12 merged the 1280x640, 797 KB social-preview asset and registered experiment G19 at 2026-07-26T10:58:04Z.",
+        "The GitHub repository setting was not yet installed at measurement time because the authorized Chrome extension lacked local file access; G19 therefore had no external preview exposure yet.",
+        "Pull request 13 merged the deterministic, privacy-safe Markdown profile-card generator and activated experiment G04 at 2026-07-26T11:14:43Z.",
+        "The G04 generator omits the contact route and raw evidence, rejects expired profiles and secret-like text, and labels every card as a local draft requiring separate owner approval.",
+        "At 2026-07-26T11:15:18Z the repository still had 1 star, 17 clones from 14 unique cloners, and no reported views or referrers in the 14-day traffic window.",
+        "The canonical Moltbook thread had zero eligible external FINDMATE_OWNER_PROFILE_V1 submissions.",
+        "The external catalog pull request 2438 remained open with all automated checks passing and no human review."
+      ],
+      "inference": "G04 can now compound through owner-approved profile sharing. G19 cannot affect link previews until the repository setting is installed. Neither surface has enough post-launch exposure to evaluate conversion.",
+      "not_supported": [
+        "Do not attribute the existing star or clone baseline to G04 or G19.",
+        "Do not count a generated local card as a published profile or an eligible owner submission.",
+        "Do not count the merged social-preview asset as an installed GitHub preview."
+      ],
+      "decision": "Keep G04 active, finish the G19 setting installation when local file access is enabled, and compare aggregate traffic and qualified submissions after the next reporting window."
     }
   ]
 }
