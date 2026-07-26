@@ -11,16 +11,26 @@ inputs:
     required: false
     default: ""
 
+outputs:
+  canonical_sha256:
+    description: Canonical SHA-256 of the validated public profile
+    value: ${{ steps.validate.outputs.canonical_sha256 }}
+  expires_on:
+    description: Validated public-profile expiry date in YYYY-MM-DD form
+    value: ${{ steps.validate.outputs.expires_on }}
+
 runs:
   using: composite
   steps:
     - name: Validate the owner profile offline
+      id: validate
       shell: bash
       env:
         FINDMATE_PROFILE: ${{ inputs.profile }}
       run: |
         python3 \
-          "$GITHUB_ACTION_PATH/skills/find-complementary-founders/scripts/validate_profile.py" \
+          "$GITHUB_ACTION_PATH/tools/action_validate.py" \
+          --github-output "$GITHUB_OUTPUT" \
           -- "$FINDMATE_PROFILE"
     - name: Render the optional privacy-minimized card draft
       if: ${{ inputs.card-output != '' }}

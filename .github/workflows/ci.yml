@@ -16,12 +16,19 @@ jobs:
         with:
           python-version: "3.12"
       - name: Validate through the reusable action
+        id: findmate
         uses: ./
         with:
           profile: profiles/findmate-owner.public.json
           card-output: /tmp/findmate-owner.card.md
-      - name: Check the reusable action card
-        run: grep -q "FINDMATE_OWNER_PROFILE_CARD_V1" /tmp/findmate-owner.card.md
+      - name: Check the reusable action outputs and card
+        env:
+          FINDMATE_CANONICAL_SHA256: ${{ steps.findmate.outputs.canonical_sha256 }}
+          FINDMATE_EXPIRES_ON: ${{ steps.findmate.outputs.expires_on }}
+        run: |
+          grep -Eq '^[0-9a-f]{64}$' <<<"$FINDMATE_CANONICAL_SHA256"
+          grep -Eq '^[0-9]{4}-[0-9]{2}-[0-9]{2}$' <<<"$FINDMATE_EXPIRES_ON"
+          grep -q "FINDMATE_OWNER_PROFILE_CARD_V1" /tmp/findmate-owner.card.md
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
       - name: Compile scripts
@@ -29,6 +36,7 @@ jobs:
           python3 -m py_compile skills/find-complementary-founders/scripts/*.py
           python3 -m py_compile growth/measure.py
           python3 -m py_compile examples/run_synthetic_demo.py
+          python3 -m py_compile tools/action_validate.py
           python3 -m py_compile tools/build_skill_archive.py
       - name: Build the portable skill archive
         run: |

@@ -324,6 +324,12 @@ tag. It does not claim a Marketplace listing: direct reuse creates utility
 without pretending that this multi-purpose protocol repository completed that
 separate review path.
 
+After the full check passes, the Action exposes only the deterministic
+canonical SHA-256 and validated expiry date as bounded step outputs. This lets
+downstream workflows key receipts, cache entries, or expiry checks to the exact
+reviewed public profile without parsing logs or receiving the alias, summary,
+evidence, contact route, or another identity-bearing field.
+
 The growth loop queries only the aggregate count of public workflow references
 to the exact `merc1305/findMate@` action prefix and discards search results.
 That count is an adoption hint, not proof of a workflow run, unique owner,

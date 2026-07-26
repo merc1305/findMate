@@ -44,6 +44,7 @@ CLAUDE_SUBMISSION = ROOT / "docs" / "claude-community-submission.md"
 CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
 ACTION_METADATA = ROOT / "action.yml"
 GITHUB_ACTION_DOCS = ROOT / "docs" / "github-action.md"
+ACTION_VALIDATOR = ROOT / "tools" / "action_validate.py"
 
 
 def load_module(name: str, filename: str):
@@ -76,6 +77,7 @@ def load_path_module(name: str, path: Path):
 
 growth = load_path_module("growth_measure", GROWTH / "measure.py")
 demo = load_path_module("synthetic_demo", EXAMPLES / "run_synthetic_demo.py")
+action_validator = load_path_module("action_validate", ACTION_VALIDATOR)
 
 
 def owner_input(alias: str = "owner-one") -> dict:
@@ -1105,10 +1107,21 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertIn("using: composite", action)
         self.assertIn("FINDMATE_PROFILE: ${{ inputs.profile }}", action)
         self.assertIn("FINDMATE_CARD_OUTPUT: ${{ inputs.card-output }}", action)
+        self.assertIn("canonical_sha256:", action)
+        self.assertIn("expires_on:", action)
+        self.assertIn(
+            "value: ${{ steps.validate.outputs.canonical_sha256 }}",
+            action,
+        )
+        self.assertIn(
+            "value: ${{ steps.validate.outputs.expires_on }}",
+            action,
+        )
         for run_block in run_blocks:
             self.assertNotIn("${{ inputs.profile }}", run_block)
             self.assertNotIn("${{ inputs.card-output }}", run_block)
             self.assertIn("$GITHUB_ACTION_PATH/", run_block)
+        self.assertIn('--github-output "$GITHUB_OUTPUT"', run_blocks[0])
         self.assertIn('-- "$FINDMATE_PROFILE"', run_blocks[0])
         self.assertIn('--output "$FINDMATE_CARD_OUTPUT"', run_blocks[1])
         self.assertIn('-- "$FINDMATE_PROFILE"', run_blocks[1])
@@ -1125,13 +1138,18 @@ class GrowthLoopTests(unittest.TestCase):
         )
         self.assertIn("card-output: /tmp/findmate-owner.card.md", ci)
         self.assertIn("FINDMATE_OWNER_PROFILE_CARD_V1", ci)
+        self.assertIn(
+            "steps.findmate.outputs.canonical_sha256",
+            ci,
+        )
+        self.assertIn("steps.findmate.outputs.expires_on", ci)
 
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         action_section = readme.split(
             "### Validate a profile in GitHub Actions",
             1,
         )[1].split("Semver release tags", 1)[0]
-        self.assertIn("merc1305/findMate@v1.5.0", action_section)
+        self.assertIn("merc1305/findMate@v1.6.0", action_section)
         self.assertNotIn("merc1305/findMate@main", action_section)
         self.assertNotIn("merc1305/findMate@v1\n", action_section)
         self.assertIn("card-output: findmate-owner.card.md", action_section)
@@ -1143,6 +1161,56 @@ class GrowthLoopTests(unittest.TestCase):
             normalized_docs,
         )
         self.assertIn("Running the action is not consent", docs)
+
+    def test_action_validator_writes_only_bounded_outputs(self):
+        profile, _ = assess.build_profiles(owner_input())
+        result = profile_validator.validate_profile(profile)
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "github-output"
+            output.write_text("existing=value\n", encoding="utf-8")
+
+            action_validator.append_github_outputs(output, result)
+
+            self.assertEqual(
+                output.read_text(encoding="utf-8"),
+                (
+                    "existing=value\n"
+                    f"canonical_sha256={result['canonical_sha256']}\n"
+                    f"expires_on={result['expires_on']}\n"
+                ),
+            )
+            contents = output.read_text(encoding="utf-8")
+            self.assertNotIn(profile["alias"], contents)
+            self.assertNotIn(profile["summary"], contents)
+            self.assertNotIn(profile["contact"]["url"], contents)
+
+    def test_action_validator_rejects_unsafe_output_values_and_symlinks(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output = root / "github-output"
+            with self.assertRaises(action_validator.ActionOutputError):
+                action_validator.append_github_outputs(
+                    output,
+                    {
+                        "canonical_sha256": "bad\ninjected=value",
+                        "expires_on": "2026-08-24",
+                    },
+                )
+            self.assertFalse(output.exists())
+
+            target = root / "target"
+            target.write_text("", encoding="utf-8")
+            symlink = root / "github-output-link"
+            symlink.symlink_to(target)
+            with self.assertRaises(action_validator.ActionOutputError):
+                action_validator.append_github_outputs(
+                    symlink,
+                    {
+                        "canonical_sha256": "a" * 64,
+                        "expires_on": "2026-08-24",
+                    },
+                )
+            self.assertEqual(target.read_text(encoding="utf-8"), "")
 
     def test_web_discovery_requires_all_bounded_public_contracts(self):
         site = growth.FINDMATE_SITE_URL
