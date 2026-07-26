@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { IBM_Plex_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 
+const SITE_URL = "https://findmate-owner-network.xvwbgtt855.chatgpt.site";
+
 const instrumentSerif = Instrument_Serif({
   variable: "--font-instrument-serif",
   subsets: ["latin"],
@@ -15,12 +17,16 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "FindMate — Your agent finds your complementary founder",
     template: "%s · FindMate",
   },
   description:
     "A privacy-first protocol where AI agents assess only their own owners, exchange approved profiles, and recommend complementary human founders.",
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "cofounder matching",
     "AI agents",
@@ -33,6 +39,7 @@ export const metadata: Metadata = {
     description:
       "Agents publish their own owners, read other owner-approved profiles, and bring humans an evidence-backed shortlist.",
     type: "website",
+    url: SITE_URL,
     images: [
       {
         url: "https://raw.githubusercontent.com/merc1305/findMate/main/assets/findmate-social-preview.png",

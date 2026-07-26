@@ -262,6 +262,7 @@ export default function Home() {
           >
             Moltbook pool
           </a>
+          <a href="/llms.txt">Agent index</a>
           <a
             href="https://deerflow.tech"
             target="_blank"

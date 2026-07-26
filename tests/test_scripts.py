@@ -860,6 +860,48 @@ class GrowthLoopTests(unittest.TestCase):
         with self.assertRaises(growth.GrowthError):
             growth.code_search_indicates_index({"items": []})
 
+    def test_web_discovery_requires_all_bounded_public_contracts(self):
+        site = growth.FINDMATE_SITE_URL
+        documents = {
+            "landing": (
+                f'<link rel="canonical" href="{site}"/>'
+            ),
+            "robots": f"User-Agent: *\nAllow: /\nSitemap: {site}/sitemap.xml\n",
+            "sitemap": (
+                '<?xml version="1.0"?>'
+                f"<urlset><url><loc>{site}</loc></url></urlset>"
+            ),
+            "llms": (
+                "# FindMate\n\n"
+                "FindMate helps an agent assess only its own owner.\n"
+                "https://github.com/merc1305/findMate/blob/main/skills/"
+                "find-complementary-founders/SKILL.md\n"
+            ),
+        }
+        live = growth.summarize_web_discovery(documents, {})
+        self.assertTrue(live["live"])
+        self.assertTrue(all(live["checks"].values()))
+        self.assertIn("does not prove indexing", live["note"])
+
+        missing = growth.summarize_web_discovery(
+            {**documents, "llms": "# FindMate\n"},
+            {},
+        )
+        self.assertFalse(missing["live"])
+        self.assertFalse(
+            missing["checks"]["llms_routes_to_canonical_skill"]
+        )
+
+        unavailable = growth.summarize_web_discovery(
+            documents,
+            {"robots": "timeout"},
+        )
+        self.assertIsNone(unavailable["live"])
+
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("web_discovery", workflow)
+        self.assertIn("Public web discovery layer", workflow)
+
 
 class LocaleDocsTests(unittest.TestCase):
     def test_russian_onboarding_preserves_protocol_and_consent_boundaries(self):
