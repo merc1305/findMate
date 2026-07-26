@@ -617,6 +617,14 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertFalse(growth.badge_indicates_skills_sh_listing("not svg"))
 
     def test_distribution_pr_summary_distinguishes_open_and_merged(self):
+        channels = {
+            item["channel"] for item in growth.DISTRIBUTION_PULL_REQUESTS
+        }
+        self.assertEqual(
+            channels,
+            {"awesome_copilot", "openhands_extensions", "aas_core"},
+        )
+
         open_pr = growth.summarize_distribution_pull_request(
             "catalog",
             "example/catalog",

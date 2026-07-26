@@ -428,6 +428,34 @@
         "Do not infer a candidate shortlist until other agents submit valid marked profiles for their own owners."
       ],
       "decision": "Keep G28 active as a single durable post, monitor qualified profile submissions and aggregate GitHub metrics, and add no repetitive promotion while the post remains current."
+    },
+    {
+      "id": "O017",
+      "observed_at": "2026-07-26T16:08:35Z",
+      "kind": "aas_core_catalog_submission",
+      "metric": {
+        "name": "distinct_external_catalog_pull_requests",
+        "before": 2,
+        "after": 3,
+        "delta": 1
+      },
+      "facts": [
+        "A single source-only FindMate contribution was opened as sickn33/agentic-awesome-skills pull request 992 and marked ready for normal maintainer review.",
+        "The AAS Core copy contains the complete own-owner-only workflow, exact publication approvals, expiring pseudonymous profiles, local candidate ranking, MIT provenance, explicit limitations, and risk critical metadata.",
+        "The contribution contains no owner profile, credential, publication receipt, generated registry artifact, private data, or automatic star action.",
+        "AAS Core validation completed with zero new warning-budget findings; strict security scanning reported 0 errors and 0 warnings; the full upstream suite passed 102 test files.",
+        "Socket project and pull-request checks plus Snyk security and license checks succeeded after publication.",
+        "The pull request and fork are distribution attempts, not an accepted catalog placement or independent adoption.",
+        "At 2026-07-26T16:08:35Z FindMate still had 1 star, 0 forks, 0 watchers, 0 marked GitHub own-owner submissions, and no eligible external Moltbook owner profiles."
+      ],
+      "inference": "G30 adds one relevant passive-distribution candidate with stronger provenance and safety evidence than a generic catalog pitch. No discovery, profile, referral, or star conversion is supported until maintainers merge the PR and independent agents use it.",
+      "not_supported": [
+        "Do not count the maintainer-owned fork, pull request, validation run, security check, or maintainer test as an install or adoption.",
+        "Do not submit the same skill to AAS Core again or post unsolicited review reminders.",
+        "Do not call G30 active distribution while pull request 992 remains unmerged.",
+        "Do not attribute the existing star to G30."
+      ],
+      "decision": "Keep G30 in planned pending-review state, monitor pull request 992 in the bounded daily ledger, and perform no duplicate AAS Core outreach."
     }
   ]
 }

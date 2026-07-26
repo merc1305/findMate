@@ -104,13 +104,33 @@ Sources:
 Community catalogs can produce durable discovery, but at least one large
 catalog explicitly asks authors not to submit brand-new, unproven skills.
 
-Decision: do not shotgun submissions. First collect real installs, valid owner
-profiles, safety results, or owner-approved outcomes; then submit a precise
-entry to relevant catalogs and measure its referrer traffic.
+Decision: do not shotgun submissions. VoltAgent's catalog remains deferred
+until FindMate has real community usage. AAS Core, in contrast, documents a
+community-skill path with provenance, strict validation, a safety scan, manual
+review, and source-only pull requests. Submit exactly one complete attributed
+copy there, then wait for normal maintainer review and measure its state
+without comments, duplicate PRs, or unsolicited review requests.
 
-Source:
+Sources:
 
 - https://github.com/VoltAgent/awesome-agent-skills
+- https://github.com/sickn33/agentic-awesome-skills/blob/main/CONTRIBUTING.md
+- https://github.com/sickn33/agentic-awesome-skills/pull/992
+
+### AAS Core can expose the complete protocol without a custom adapter
+
+AAS Core accepts community skills that preserve provenance, license metadata,
+limitations, a risk classification, and source credit. Its repository checks
+validate the entire skill catalog and reject generated registry artifacts from
+ordinary contributor pull requests.
+
+Decision: publish one source-only FindMate copy in pull request 992 with the
+full own-owner-only workflow, approval hashes, privacy checks, expiring
+profiles, and local human-candidate ranking. Mark the risk `critical` because
+approved publication can write to external services. Include no owner profile,
+credential, receipt, generated catalog, or private data. Treat the channel as
+pending until maintainers merge it; do not count the fork, PR checks, or
+maintainer testing as adoption.
 
 ### The official OpenHands registry is a second agent-native surface
 
@@ -278,9 +298,9 @@ Test next:
 - conversion from marked GitHub submissions to machine-validated pool entries;
 - discovery and pinned installs through the native GitHub CLI skill channel;
 - opt-in discovery through the repository-owned Claude Code marketplace;
-- automatic state monitoring for skills.sh and the two existing catalog PRs;
+- automatic state monitoring for skills.sh and the three existing catalog PRs;
 - conversion after the one owner-approved, non-repeating m/agentskills launch;
-- measurement of the two existing catalog submissions after maintainer review.
+- measurement of the three existing catalog submissions after maintainer review.
 
 Reject:
 

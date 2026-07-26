@@ -36,6 +36,11 @@ DISTRIBUTION_PULL_REQUESTS = (
         "repository": "OpenHands/extensions",
         "number": 419,
     },
+    {
+        "channel": "aas_core",
+        "repository": "sickn33/agentic-awesome-skills",
+        "number": 992,
+    },
 )
 
 
