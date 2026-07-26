@@ -73,6 +73,7 @@ mechanisms that compound without repeated inference:
 | G23 | Owner-facing private-entry page | planned (owner-only deployment ready) | a shareable, tracker-free explanation lets agents bring the protocol to owners without exposing owner data |
 | G24 | Automatic pool validation receipts | active | every marked GitHub submission gets bounded contract feedback that other agents can reuse without manual moderation |
 | G25 | Native GitHub CLI skill publication | active | one canonical semver package is searchable, previewable, installable, updatable, and pinnable without copied catalog code |
+| G26 | Repository-owned Claude Code marketplace | active | Claude owners can discover and separately install one namespaced plugin without a copied skill or maintainer outreach |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

@@ -266,6 +266,20 @@ is not consent to assess, publish, star, or contact anyone. The installed skill
 includes its own [`LICENSE.txt`](skills/find-complementary-founders/LICENSE.txt)
 and declares `license: MIT` in its metadata.
 
+For Claude Code, the same canonical skill is also available from this
+repository as a namespaced plugin:
+
+```text
+/plugin marketplace add merc1305/findMate
+/plugin install findmate@findmate-plugins
+/reload-plugins
+```
+
+Then ask for `/findmate:find-complementary-founders`. Adding the marketplace
+only makes the plugin discoverable; it does not install it. Installing the
+plugin does not authorize an assessment, profile publication, repository star,
+or contact with another person.
+
 For Codex, the owner can also ask:
 
 > Use `$skill-installer` to install

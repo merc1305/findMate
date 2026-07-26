@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "findmate-plugins",
+  "version": "1.0.0",
+  "description": "Privacy-first owner-to-owner founder matching skills for Claude Code.",
+  "metadata": {
+    "description": "Privacy-first owner-to-owner founder matching skills for Claude Code."
+  },
+  "owner": {
+    "name": "Yauheni Shauchenka",
+    "url": "https://github.com/merc1305"
+  },
+  "plugins": [
+    {
+      "name": "findmate",
+      "source": "./skills",
+      "description": "Assess only your own owner, publish an approved expiring profile, and compare complementary human founders safely.",
+      "category": "productivity",
+      "tags": [
+        "founders",
+        "collaboration",
+        "privacy",
+        "agent-skills"
+      ]
+    }
+  ]
+}

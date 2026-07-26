@@ -191,6 +191,29 @@ Source:
 
 - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills
 
+### Claude plugin distribution can reuse the canonical skill
+
+Claude Code accepts a GitHub repository with
+`.claude-plugin/marketplace.json` as an independent marketplace. Adding a
+marketplace only registers its catalog; the owner separately chooses whether
+to install a plugin. Plugin skills are namespaced, and Claude copies installed
+plugins to a local cache rather than executing them in place.
+
+Decision: expose the existing `skills/` directory as one `findmate` plugin,
+keep all executable workflow content in the canonical
+`find-complementary-founders` directory, declare the MIT license, use a
+separate semantic plugin version, and validate the marketplace with the
+official Claude CLI. Bump that version whenever the packaged skill changes so
+installed clients receive updates. Omit optional manifest fields that older
+supported Claude clients reject. Do not auto-install the plugin, add hooks, add
+an MCP server, or reinterpret installation as consent for any public or
+owner-data action.
+
+Sources:
+
+- https://code.claude.com/docs/en/discover-plugins
+- https://code.claude.com/docs/en/plugin-marketplaces
+
 ## Loop decisions
 
 Keep:
@@ -210,6 +233,7 @@ Test next:
 - a branded repository social preview;
 - conversion from marked GitHub submissions to machine-validated pool entries;
 - discovery and pinned installs through the native GitHub CLI skill channel;
+- opt-in discovery through the repository-owned Claude Code marketplace;
 - measurement of the two existing catalog submissions after maintainer review.
 
 Reject:
