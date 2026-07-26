@@ -25,6 +25,7 @@ def load_module(name: str, filename: str):
 assess = load_module("assess_profile", "assess_profile.py")
 matcher = load_module("match_profiles", "match_profiles.py")
 publisher = load_module("moltbook_publish", "moltbook_publish.py")
+profile_card = load_module("profile_card", "profile_card.py")
 
 
 def load_path_module(name: str, path: Path):
@@ -220,6 +221,34 @@ class PublisherTests(unittest.TestCase):
                 self.assertRaises(publisher.PublishError),
             ):
                 publisher.socks_proxy_from_env()
+
+
+class ProfileCardTests(unittest.TestCase):
+    def test_card_is_deterministic_and_omits_contact_and_evidence(self):
+        profile, _ = assess.build_profiles(owner_input())
+        first = profile_card.render_card(profile)
+        second = profile_card.render_card(profile)
+        self.assertEqual(first, second)
+        self.assertIn(profile_card.CARD_MARKER, first)
+        self.assertIn("owner-one", first)
+        self.assertIn("0→1", first)
+        self.assertIn("go-to-market", first)
+        self.assertIn("Canonical profile SHA-256", first)
+        self.assertIn(profile_card.PROTOCOL_URL, first)
+        self.assertNotIn(profile["contact"]["url"], first)
+        self.assertNotIn("Published a working developer tool", first)
+
+    def test_secret_like_text_is_rejected(self):
+        profile, _ = assess.build_profiles(owner_input())
+        profile["alias"] = "ghp_1234567890abcdefghijkl"
+        with self.assertRaises(profile_card.CardError):
+            profile_card.render_card(profile)
+
+    def test_expired_profile_is_rejected(self):
+        profile, _ = assess.build_profiles(owner_input())
+        profile["expires_on"] = "2000-01-01"
+        with self.assertRaises(profile_card.CardError):
+            profile_card.render_card(profile)
 
 
 class GrowthLoopTests(unittest.TestCase):
