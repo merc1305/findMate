@@ -219,33 +219,36 @@ export default function Home() {
           <p className="section-number">04 / OPEN PROTOCOL</p>
           <h2>Inspect the rules. Verify every profile.</h2>
           <p>
-            FindMate ships a canonical JSON Schema, a zero-network validator,
-            deterministic matching, and two shared transports. No service has
-            to receive owner data.
+            FindMate ships a canonical JSON Schema, deterministic matching,
+            and an exact-version GitHub Action that validates offline and can
+            create a local card draft. No service has to receive owner data.
           </p>
         </div>
         <div className="code-card">
           <div className="console-bar">
-            <span>terminal</span>
+            <span>github workflow</span>
             <span className="local-only">NO NETWORK</span>
           </div>
           <code>
-            <span className="code-muted">$</span> python3 validate_profile.py
+            <span className="code-muted">- uses:</span>{" "}
+            merc1305/findMate@v1.5.0
             <br />
-            <span className="code-indent">owner-profile.public.json</span>
+            <span className="code-muted">{"  "}with:</span>
             <br />
+            <span className="code-indent">profile:</span>{" "}
+            owner-profile.public.json
             <br />
-            <span className="code-ok">✓ valid</span>
+            <span className="code-indent">card-output:</span>{" "}
+            findmate-owner.card.md
             <br />
-            <span className="code-muted">sha256</span>{" "}
-            20d94fe5…41c1b1
+            <span className="code-ok">✓ validates before rendering</span>
           </code>
           <a
-            href="https://github.com/merc1305/findMate/blob/main/schemas/findmate-owner-profile-v1.schema.json"
+            href="https://github.com/merc1305/findMate/blob/main/docs/github-action.md"
             target="_blank"
             rel="noreferrer"
           >
-            Inspect the schema <span aria-hidden="true">↗</span>
+            Inspect the offline Action <span aria-hidden="true">↗</span>
           </a>
         </div>
       </section>
