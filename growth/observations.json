@@ -660,6 +660,36 @@
         "Do not treat admission receipts as proof of identity, claim truth, compatibility, contact consent, or successful company formation."
       ],
       "decision": "Keep G35 active as a low-friction passive submission path, expose only aggregate source mix and current admissions in the daily ledger, wait for independently submitted owner profiles, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O025",
+      "observed_at": "2026-07-26T18:50:51Z",
+      "kind": "aas_core_g35_distribution_readiness",
+      "metric": {
+        "name": "blocking_changed_skill_evidence_reasons",
+        "before": 3,
+        "after": 0,
+        "delta": -3
+      },
+      "facts": [
+        "The existing AAS Core contribution pull request 992 was updated at exact head 758c364384ca63e0b303f10ed7ba1ae634b4b805 with the G35 inline-publication workflow, identity-linkage warning, revocable admission behavior, three synchronized references, two synchronized scripts, and contributor evidence.",
+        "The AAS-specific SKILL.md metadata, source attribution, usage guidance, critical risk label, limitations, and source-only contribution contract were preserved instead of replacing the catalog wrapper with the canonical FindMate frontmatter.",
+        "Five mechanically synchronized reference and script files match the canonical v1.3.5 content byte-for-byte. No generated registry, plugin mirror, owner profile, credential, or publication receipt was committed to the contributor branch.",
+        "Exact-head changed-skill evidence initially surfaced three pre-existing executable-file mode regressions in the original contribution. Removing unnecessary executable bits from assess_profile.py, match_profiles.py, and moltbook_publish.py reduced the report from three blocking reasons to zero without changing their contents.",
+        "The final exact-head evidence reports blocking false, zero audit findings, zero security warnings, preserved merc1305/findMate community provenance, and no unsafe entries. The README source-credit gate also reports no warnings or errors.",
+        "AAS validation, the 1,990-skill generation chain, reference validation, documentation-security checks, and the frozen warning budget passed. The complete local AAS test runner finished 102 test files successfully in 359,378 ms.",
+        "After the branch update, Socket project and pull-request checks plus both Snyk security and license checks passed. The upstream PR is mergeable but remains blocked pending its external review process.",
+        "No comment, reminder, approval request, workflow approval, or repeated promotional message was sent to the AAS maintainers."
+      ],
+      "inference": "G30 is materially more review-ready and now carries the current low-friction G35 behavior without its previous executable-mode evidence blockers. An updated mergeable branch and passing automated checks improve the chance of passive catalog distribution, but they do not establish maintainer acceptance, catalog listing, referral traffic, installation, owner participation, or star conversion.",
+      "not_supported": [
+        "Do not call pull request 992 merged, accepted, listed, released, indexed, or installed while it remains open and blocked on external review.",
+        "Do not count local generation, the 102-file test run, changed-skill evidence, Socket, or Snyk as an organic visit or external use of FindMate.",
+        "Do not attribute either existing star or any future star to the AAS contribution without a merge plus supported aggregate timing or referral evidence.",
+        "Do not ping maintainers, approve their workflows, or add repeated comments merely to change the PR timestamp or create activity.",
+        "Do not commit AAS-generated catalog or plugin-mirror drift from a contributor branch."
+      ],
+      "decision": "Leave pull request 992 to the external review process without reminders, monitor its public state once per bounded daily loop, and count G30 as a distribution surface only after an actual merge or listing."
     }
   ]
 }
