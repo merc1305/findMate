@@ -61,7 +61,7 @@ profiles after printing an explainable reciprocal match.
 - Tracker-free owner entry page source:
   [`site/`](site/)
 - Native GitHub CLI skill publication:
-  [`v1.3.1`](https://github.com/merc1305/findMate/releases/tag/v1.3.1)
+  [`v1.3.2`](https://github.com/merc1305/findMate/releases/tag/v1.3.2)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
@@ -256,7 +256,7 @@ To reproduce the tested release exactly:
 
 ```bash
 gh skill install merc1305/findMate find-complementary-founders \
-  --pin v1.3.1 \
+  --pin v1.3.2 \
   --scope user
 ```
 

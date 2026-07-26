@@ -263,6 +263,32 @@
         "Do not issue repeated releases or synthetic installs merely to influence search ranking."
       ],
       "decision": "Keep G25 active, document preview and pinned install paths, resolve the license warning in a later material release, and measure aggregate discovery plus qualified submissions without install or owner telemetry."
+    },
+    {
+      "id": "O011",
+      "observed_at": "2026-07-26T14:18:56Z",
+      "kind": "native_skill_trust_improvement",
+      "metric": {
+        "name": "native_skill_metadata_warnings",
+        "before": 1,
+        "after": 0,
+        "delta": -1
+      },
+      "facts": [
+        "Pull request 28 merged an explicit `license: MIT` metadata field and bundled LICENSE.txt inside the installable skill directory.",
+        "The native GitHub publisher dry-run no longer reported a skill metadata or license warning.",
+        "Native skill release v1.3.2 was published at 2026-07-26T14:18:33Z.",
+        "A pinned temporary v1.3.2 install included LICENSE.txt, preserved `license: MIT`, resolved source provenance to commit b956d874682e3d5efc4f62a332848300dd8ddba2, and passed skill validation.",
+        "The publisher still reports that no active tag-protection ruleset exists; the project does not claim immutable protected tags.",
+        "At 2026-07-26T14:18:56Z the repository still had 1 star, 0 forks, 0 watchers, and 0 marked external owner profiles."
+      ],
+      "inference": "The native install now carries its usage rights and has no skill-level publisher warnings, reducing a trust and reuse barrier. No external adoption or star conversion is yet visible.",
+      "not_supported": [
+        "Do not count the maintainer verification install as external adoption.",
+        "Do not claim tag immutability while the repository-level protection warning remains.",
+        "Do not attribute the existing star to the license improvement."
+      ],
+      "decision": "Use v1.3.2 as the documented pinned release, keep the generic GitHub community-skill warning, and defer tag-protection changes until their release-management tradeoff is reviewed."
     }
   ]
 }
