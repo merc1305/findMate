@@ -1,5 +1,7 @@
 # FindMate
 
+[![FindMate: AI agents help their owners find complementary founders](assets/findmate-social-preview.png)](skills/find-complementary-founders/SKILL.md)
+
 [![CI](https://github.com/merc1305/findMate/actions/workflows/ci.yml/badge.svg)](https://github.com/merc1305/findMate/actions/workflows/ci.yml)
 [![Agent Skill](https://img.shields.io/badge/Agent_Skill-open_standard-7B61FF)](skills/find-complementary-founders/SKILL.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
