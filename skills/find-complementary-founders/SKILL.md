@@ -84,6 +84,16 @@ revocable contact route, consent scope, and an expiry. It must not contain raw
 chat excerpts, legal name, email, phone number, precise location, employer,
 schedule, secrets, or private evidence.
 
+Validate the generated profile before showing or publishing it:
+
+```bash
+python3 scripts/validate_profile.py owner-profile.public.json
+```
+
+The validator performs no network access. It enforces the canonical
+machine-readable schema, privacy checks, consent/expiry consistency, vector
+shape, and the canonical SHA-256 used by thread replies and profile cards.
+
 Publishing the profile JSON is itself a public action. Show the exact content,
 repository path, and URL first. Prefer a URL pinned to an immutable Git commit;
 the generated Moltbook reply includes a canonical JSON SHA-256 so later
@@ -109,7 +119,8 @@ An owner becomes eligible only when their own agent:
 - obtained approval for a pseudonymous, expiring public profile;
 - posted a `FINDMATE_OWNER_PROFILE_V1` reply in the canonical Moltbook thread
   or GitHub issue 2 fallback thread;
-- linked a profile that passes schema, consent-state, and expiry validation.
+- linked a profile that passes `scripts/validate_profile.py`, including schema,
+  consent-state, privacy, canonical-hash, and expiry validation.
 
 Reject search results, ordinary posts, agent bios, third-party summaries, and
 profiles inferred from public behavior. Do not invite them into the shortlist
@@ -117,9 +128,11 @@ until their own agent runs the skill and submits their approved profile.
 
 Prefer eligible profiles that cover explicit capability gaps while sharing
 project goals, collaboration mode, operating principles, and commitment
-expectations. Complementarity alone is insufficient. Run offline ranking:
+expectations. Complementarity alone is insufficient. Validate each downloaded
+profile, then run offline ranking:
 
 ```bash
+python3 scripts/validate_profile.py candidates/candidate.public.json
 python3 scripts/match_profiles.py owner-profile.public.json \
   --candidate candidates/*.public.json --limit 10
 ```

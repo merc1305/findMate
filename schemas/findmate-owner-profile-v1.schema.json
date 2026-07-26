@@ -1,0 +1,459 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/merc1305/findMate/main/schemas/findmate-owner-profile-v1.schema.json",
+  "title": "FindMate Owner Profile V1",
+  "description": "A pseudonymous, expiring, owner-approved public collaboration profile created by an agent for its own owner.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "profile_type",
+    "alias",
+    "summary",
+    "generated_at",
+    "expires_on",
+    "stage_contributions",
+    "functional_contributions",
+    "preferences",
+    "seeking",
+    "public_evidence",
+    "contact",
+    "consent",
+    "interpretation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0"
+    },
+    "profile_type": {
+      "const": "founder-collaboration"
+    },
+    "alias": {
+      "$ref": "#/$defs/alias"
+    },
+    "summary": {
+      "$ref": "#/$defs/publicText280"
+    },
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_on": {
+      "type": "string",
+      "format": "date"
+    },
+    "stage_contributions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "zero_to_one",
+        "one_to_ten",
+        "ten_to_hundred"
+      ],
+      "properties": {
+        "zero_to_one": {
+          "$ref": "#/$defs/contribution"
+        },
+        "one_to_ten": {
+          "$ref": "#/$defs/contribution"
+        },
+        "ten_to_hundred": {
+          "$ref": "#/$defs/contribution"
+        }
+      }
+    },
+    "functional_contributions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "problem_discovery",
+        "product",
+        "engineering",
+        "design",
+        "go_to_market",
+        "operations",
+        "people_leadership",
+        "capital_partnerships"
+      ],
+      "properties": {
+        "problem_discovery": {
+          "$ref": "#/$defs/contribution"
+        },
+        "product": {
+          "$ref": "#/$defs/contribution"
+        },
+        "engineering": {
+          "$ref": "#/$defs/contribution"
+        },
+        "design": {
+          "$ref": "#/$defs/contribution"
+        },
+        "go_to_market": {
+          "$ref": "#/$defs/contribution"
+        },
+        "operations": {
+          "$ref": "#/$defs/contribution"
+        },
+        "people_leadership": {
+          "$ref": "#/$defs/contribution"
+        },
+        "capital_partnerships": {
+          "$ref": "#/$defs/contribution"
+        }
+      }
+    },
+    "preferences": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stages",
+        "functions"
+      ],
+      "properties": {
+        "stages": {
+          "$ref": "#/$defs/stageList"
+        },
+        "functions": {
+          "$ref": "#/$defs/functionList"
+        }
+      }
+    },
+    "seeking": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "stages",
+        "functions",
+        "project_themes",
+        "collaboration_modes",
+        "shared_principles"
+      ],
+      "properties": {
+        "stages": {
+          "$ref": "#/$defs/stageList"
+        },
+        "functions": {
+          "$ref": "#/$defs/functionList"
+        },
+        "project_themes": {
+          "$ref": "#/$defs/publicStringList10"
+        },
+        "collaboration_modes": {
+          "$ref": "#/$defs/publicStringList5"
+        },
+        "shared_principles": {
+          "$ref": "#/$defs/publicStringList10"
+        }
+      },
+      "anyOf": [
+        {
+          "properties": {
+            "stages": {
+              "minItems": 1
+            }
+          }
+        },
+        {
+          "properties": {
+            "functions": {
+              "minItems": 1
+            }
+          }
+        }
+      ]
+    },
+    "public_evidence": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "$ref": "#/$defs/publicEvidence"
+      }
+    },
+    "contact": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "url"
+      ],
+      "properties": {
+        "type": {
+          "enum": [
+            "github_issues",
+            "github_discussions"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 500,
+          "pattern": "^https://github\\.com/[^/?#]+/[^/?#]+/(issues|discussions)(/[^?#]*)?$"
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "github_issues"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "url": {
+                "pattern": "^https://github\\.com/[^/?#]+/[^/?#]+/issues(/[^?#]*)?$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "github_discussions"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "url": {
+                "pattern": "^https://github\\.com/[^/?#]+/[^/?#]+/discussions(/[^?#]*)?$"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "consent": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "state",
+        "approved_at",
+        "expires_on",
+        "scope"
+      ],
+      "properties": {
+        "state": {
+          "const": "public_profile_approved"
+        },
+        "approved_at": {
+          "type": "string",
+          "format": "date"
+        },
+        "expires_on": {
+          "type": "string",
+          "format": "date"
+        },
+        "scope": {
+          "$ref": "#/$defs/publicText180"
+        }
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "not_for"
+      ],
+      "properties": {
+        "status": {
+          "const": "owner-approved collaboration hypothesis"
+        },
+        "not_for": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "employment screening",
+              "psychometric diagnosis",
+              "sensitive-trait inference"
+            ]
+          },
+          "allOf": [
+            {
+              "contains": {
+                "const": "employment screening"
+              }
+            },
+            {
+              "contains": {
+                "const": "psychometric diagnosis"
+              }
+            },
+            {
+              "contains": {
+                "const": "sensitive-trait inference"
+              }
+            }
+          ]
+        }
+      }
+    }
+  },
+  "$defs": {
+    "alias": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 50,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{1,49}$"
+    },
+    "evidenceId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 60,
+      "pattern": "^[a-zA-Z0-9][a-zA-Z0-9_-]{0,59}$"
+    },
+    "publicText180": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 180
+    },
+    "publicText280": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 280
+    },
+    "contribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "score",
+        "level",
+        "confidence",
+        "evidence_count"
+      ],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "level": {
+          "enum": [
+            "unknown",
+            "observed",
+            "practiced",
+            "strong",
+            "standout"
+          ]
+        },
+        "confidence": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high"
+          ]
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 50
+        }
+      }
+    },
+    "stage": {
+      "enum": [
+        "zero_to_one",
+        "one_to_ten",
+        "ten_to_hundred"
+      ]
+    },
+    "function": {
+      "enum": [
+        "problem_discovery",
+        "product",
+        "engineering",
+        "design",
+        "go_to_market",
+        "operations",
+        "people_leadership",
+        "capital_partnerships"
+      ]
+    },
+    "dimension": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/stage"
+        },
+        {
+          "$ref": "#/$defs/function"
+        }
+      ]
+    },
+    "stageList": {
+      "type": "array",
+      "maxItems": 3,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/stage"
+      }
+    },
+    "functionList": {
+      "type": "array",
+      "maxItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "$ref": "#/$defs/function"
+      }
+    },
+    "publicStringList10": {
+      "type": "array",
+      "maxItems": 10,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80
+      }
+    },
+    "publicStringList5": {
+      "type": "array",
+      "maxItems": 5,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80
+      }
+    },
+    "publicEvidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "claim",
+        "proof",
+        "supports"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/evidenceId"
+        },
+        "claim": {
+          "$ref": "#/$defs/publicText180"
+        },
+        "proof": {
+          "type": "string",
+          "format": "uri",
+          "maxLength": 500,
+          "pattern": "^https://[^?#]+$"
+        },
+        "supports": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 11,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/dimension"
+          }
+        }
+      }
+    }
+  }
+}

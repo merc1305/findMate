@@ -46,6 +46,8 @@ profiles after printing an explainable reciprocal match.
 - Research: [`docs/research.md`](docs/research.md)
 - First privacy-minimized profile:
   [`profiles/findmate-owner.public.json`](profiles/findmate-owner.public.json)
+- Canonical machine-readable profile schema:
+  [`schemas/findmate-owner-profile-v1.schema.json`](schemas/findmate-owner-profile-v1.schema.json)
 - Exact Moltbook post draft:
   [`outreach/moltbook-post.draft.json`](outreach/moltbook-post.draft.json)
 - Live Moltbook thread:
@@ -94,20 +96,21 @@ The agent then:
 2. separates demonstrated contribution from preference and missing evidence;
 3. maps evidence across `0→1`, `1→10`, `10→100`, and functional capabilities;
 4. produces a private assessment and a pseudonymous, expiring public profile;
-5. shows the owner every public field and the exact post before publication;
-6. posts only that owner's approved profile in the
+5. validates the public profile offline and records its canonical SHA-256;
+6. shows the owner every public field and the exact post before publication;
+7. posts only that owner's approved profile in the
    [FindMate Moltbook thread](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042)
    or [GitHub fallback thread](https://github.com/merc1305/findMate/issues/2);
-7. reads only marked, owner-approved profiles submitted by other agents about
+8. reads only marked, owner-approved profiles submitted by other agents about
    their own owners;
-8. rejects random posts, agent bios, and profiles inferred by third parties;
-9. ranks eligible public profiles offline by reciprocal capability coverage,
+9. rejects random posts, agent bios, and profiles inferred by third parties;
+10. ranks eligible public profiles offline by reciprocal capability coverage,
    shared goals, collaboration mode, and operating principles;
-10. returns up to three evidence-backed options to the owner, including
+11. returns up to three evidence-backed options to the owner, including
     uncertainties and reasons not to match;
-11. waits for both humans to approve before any identity exchange, DM, or
+12. waits for both humans to approve before any identity exchange, DM, or
     introduction;
-12. only after demonstrated value, may once mention an optional repository
+13. only after demonstrated value, may once mention an optional repository
     star—with no effect on matching—and only while the public count is at most
     100.
 
@@ -169,8 +172,19 @@ python3 skills/find-complementary-founders/scripts/github_thread.py \
 
 Eligible replies must begin with `FINDMATE_OWNER_PROFILE_V1`, state that the
 agent represents and assessed its own owner, link an owner-approved profile,
-and have a valid expiry. Download only those profiles. The local matcher then
-validates the schema, consent state, and expiry before ranking:
+and have a valid expiry. Download only those profiles. Validate each one
+offline before ranking:
+
+```bash
+python3 skills/find-complementary-founders/scripts/validate_profile.py \
+  candidates/owner-profile.public.json
+```
+
+The validator performs no network access. It rejects unknown fields, malformed
+vectors, sensitive or secret-like public text, unsafe contact routes,
+inconsistent consent, and expired profiles, then prints the same canonical
+SHA-256 used in thread replies and share cards. The local matcher then ranks
+only validated profiles:
 
 ```bash
 python3 skills/find-complementary-founders/scripts/match_profiles.py \
@@ -258,6 +272,19 @@ python3 skills/find-complementary-founders/scripts/assess_profile.py \
   --public-output owner-profile.public.json \
   --private-output owner-assessment.private.json
 ```
+
+Validate any generated or downloaded public profile offline:
+
+```bash
+python3 skills/find-complementary-founders/scripts/validate_profile.py \
+  owner-profile.public.json
+```
+
+The machine-readable contract is
+[`schemas/findmate-owner-profile-v1.schema.json`](schemas/findmate-owner-profile-v1.schema.json).
+JSON Schema provides portable structural validation; the standard-library
+validator additionally enforces expiry, consent-date consistency,
+score-to-level consistency, privacy checks, and the canonical profile hash.
 
 Render a deterministic, privacy-minimized local share-card draft:
 
