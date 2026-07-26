@@ -871,6 +871,33 @@
         "Do not attribute either existing star or any future star to G40 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G40 active as a passive integration utility, measure only aggregate external Action references, release downloads, qualified own-owner submissions, clones, and stars, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O032",
+      "observed_at": "2026-07-26T20:45:35Z",
+      "kind": "catalog_merge_and_card_metric_correction",
+      "metric": {
+        "name": "qualified_external_markdown_card_markers",
+        "before": 3,
+        "after": 0,
+        "delta": -3
+      },
+      "facts": [
+        "GitHub-hosted growth run 30219563198 independently detected that AAS Core pull request 992 merged at 2026-07-26T20:41:00Z, creating a passive catalog distribution surface for the complete attributed FindMate skill.",
+        "The same run reported three external profile-card markers. A bounded diagnosis found exactly three indexed copies of scripts/profile_card.py inside the merged AAS Core distribution layouts; these were source copies, not rendered owner cards, own-owner submissions, skill runs, or leads.",
+        "The original aggregate query matched the exact marker in every source language. The corrected query restricts results to the documented .md card output and still excludes the canonical FindMate repository.",
+        "An authenticated corrected measurement returned zero external Markdown card markers, two stars, a merged AAS Core catalog state, zero external Action references, zero own-owner submissions, and zero current validation receipts.",
+        "The diagnosis was used only to classify the aggregate anomaly. The continuing monitor discards result items, repository names, owner identities, card contents, profile data, and workflow-run data."
+      ],
+      "inference": "AAS Core acceptance is real passive distribution, but copied protocol source is not owner participation. Restricting the metric to the documented Markdown artifact prevents a catalog merge from masquerading as three owner-approved cards and keeps future growth decisions tied to qualified signals.",
+      "not_supported": [
+        "Do not describe the three copied Python files as owners, agents trying the skill, leads, cards, profiles, matches, or stars.",
+        "Do not treat the AAS Core merge alone as proof of an install, catalog visit, owner opt-in, profile publication, match, or star conversion.",
+        "Do not infer that zero indexed Markdown cards proves nobody rendered or privately reviewed a card; it measures only public indexed artifacts.",
+        "Do not retain or publish code-search result identities as growth telemetry after resolving this aggregate false positive.",
+        "Do not attribute either existing star or any future star to G30 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Mark G30 active after its verified catalog merge, keep the corrected Markdown-only card metric, wait for independent catalog or owner signals without pinging maintainers, and preserve the automatic stop at 101 stars."
     }
   ]
 }

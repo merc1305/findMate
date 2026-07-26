@@ -53,6 +53,7 @@ GITHUB_ACTION_REFERENCE_QUERY = (
 )
 PROFILE_CARD_REFERENCE_QUERY = (
     '"FINDMATE_OWNER_PROFILE_CARD_V1" '
+    "extension:md "
     "-repo:merc1305/findMate"
 )
 DISTRIBUTION_PULL_REQUESTS = (
@@ -798,9 +799,11 @@ def main() -> int:
                     "query": PROFILE_CARD_REFERENCE_QUERY,
                     "error": card_references_error,
                     "note": (
-                        "Aggregate public marker references only; code-search "
-                        "items, repository names, owner identities, card contents, "
-                        "and profile data are discarded."
+                        "Aggregate public markers in the documented Markdown "
+                        "card output only, so copied generator source is not "
+                        "counted. Code-search items, repository names, owner "
+                        "identities, card contents, and profile data are "
+                        "discarded."
                     ),
                 },
                 "release_supply_chain": summarize_release_supply_chain(
