@@ -33,11 +33,11 @@
     {
       "id": "G03",
       "name": "Synthetic two-owner quickstart",
-      "status": "planned",
+      "status": "active",
       "active_promotion": false,
       "mechanism": "Ship a zero-private-data demo that produces two profiles and an explainable complementary match in one command.",
       "primary_metric": "quickstart runs and clone-to-star change",
-      "implementation": "examples/ and README.md"
+      "implementation": "examples/run_synthetic_demo.py and README.md"
     },
     {
       "id": "G04",

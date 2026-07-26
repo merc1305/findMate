@@ -28,6 +28,15 @@ into a consent-gated workflow:
 The stage labels are working hypotheses, not personality types or psychometric
 diagnoses.
 
+Try the complete matcher with synthetic data:
+
+```bash
+python3 examples/run_synthetic_demo.py
+```
+
+It performs no network calls or public actions and deletes its temporary
+profiles after printing an explainable reciprocal match.
+
 ## Current result
 
 - Skill: [`skills/find-complementary-founders/`](skills/find-complementary-founders/)

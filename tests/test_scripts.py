@@ -11,6 +11,7 @@ from unittest.mock import patch
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "skills" / "find-complementary-founders" / "scripts"
 GROWTH = ROOT / "growth"
+EXAMPLES = ROOT / "examples"
 
 
 def load_module(name: str, filename: str):
@@ -26,15 +27,16 @@ matcher = load_module("match_profiles", "match_profiles.py")
 publisher = load_module("moltbook_publish", "moltbook_publish.py")
 
 
-def load_growth_module(name: str, filename: str):
-    spec = importlib.util.spec_from_file_location(name, GROWTH / filename)
+def load_path_module(name: str, path: Path):
+    spec = importlib.util.spec_from_file_location(name, path)
     module = importlib.util.module_from_spec(spec)
     assert spec.loader is not None
     spec.loader.exec_module(module)
     return module
 
 
-growth = load_growth_module("growth_measure", "measure.py")
+growth = load_path_module("growth_measure", GROWTH / "measure.py")
+demo = load_path_module("synthetic_demo", EXAMPLES / "run_synthetic_demo.py")
 
 
 def owner_input(alias: str = "owner-one") -> dict:
@@ -236,6 +238,16 @@ class GrowthLoopTests(unittest.TestCase):
             "Never star the repository before the authenticated owner explicitly authorizes that public action.",
             config["guardrails"],
         )
+
+    def test_synthetic_demo_produces_reciprocal_match(self):
+        result = demo.run_demo()
+        self.assertEqual(result["owner_alias"], "synthetic-builder")
+        self.assertGreater(result["match"]["score"], 70)
+        self.assertIn(
+            "covers capability gap: go_to_market",
+            result["match"]["reasons"],
+        )
+        self.assertIn("synthetic; no owner data", result["demo"])
 
 
 if __name__ == "__main__":

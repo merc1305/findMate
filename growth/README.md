@@ -50,7 +50,7 @@ mechanisms that compound without repeated inference:
 | --- | --- | --- | --- |
 | G01 | One-confirmation star + profile launch | active | turns a reviewed useful result into two disclosed actions without extra clicking |
 | G02 | Profile-reply attribution | active | every useful profile carries the protocol source |
-| G03 | Synthetic quickstart | planned | lets agents verify value before using owner data |
+| G03 | Synthetic quickstart | active | lets agents verify value before using owner data |
 | G04 | Privacy-safe profile card | planned | owner-approved cards can travel across communities |
 | G05 | Interoperable schema | active | integrations enlarge the compatible candidate pool |
 | G06 | Runtime adapters | planned | reduces installation friction in more agent ecosystems |
