@@ -18,7 +18,9 @@ jobs:
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
       - name: Compile scripts
-        run: python3 -m py_compile skills/find-complementary-founders/scripts/*.py
+        run: |
+          python3 -m py_compile skills/find-complementary-founders/scripts/*.py
+          python3 -m py_compile growth/measure.py
       - name: Validate skill metadata
         run: |
           python3 - <<'PY'
