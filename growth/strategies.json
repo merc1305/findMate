@@ -271,7 +271,7 @@
       "active_promotion": false,
       "mechanism": "Use concise truthful phrases owners actually search for in the canonical skill and marketplace descriptions, then compare public search visibility without keyword stuffing or synthetic installs.",
       "primary_metric": "FindMate appearance and rank for cofounder and founder-matching skill searches",
-      "implementation": "skills/find-complementary-founders/SKILL.md and .claude-plugin/marketplace.json"
+      "implementation": "skills/find-complementary-founders/SKILL.md, .claude-plugin/marketplace.json, and growth/measure.py"
     }
   ]
 }

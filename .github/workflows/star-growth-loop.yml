@@ -46,6 +46,8 @@ jobs:
             const ownerPool = status.owner_profile_pool;
             const distribution = status.distribution_surfaces || {};
             const skillsSh = distribution.skills_sh || {};
+            const githubSkillSearch =
+              distribution.github_skill_search || {};
             const catalogPullRequests =
               distribution.catalog_pull_requests || [];
             const channelState = (channel) => {
@@ -59,6 +61,12 @@ jobs:
                 ? "listed after at least one genuine install"
                 : skillsSh.listed === false
                   ? "not listed yet"
+                  : "unavailable";
+            const githubSkillSearchState =
+              githubSkillSearch.indexed === true
+                ? "new owner-intent metadata indexed"
+                : githubSkillSearch.indexed === false
+                  ? "new metadata not indexed yet"
                   : "unavailable";
             const stopLine = promotion.stopped
               ? "STOPPED — the repository is above 100 stars. Active star requests must remain off."
@@ -74,6 +82,7 @@ jobs:
               `- 14-day views: **${metric(views, "count")}** total / **${metric(views, "uniques")}** unique`,
               `- GitHub marked own-owner submissions: **${ownerPool.github_marked_own_owner_submissions ?? "unavailable"}**`,
               `- skills.sh directory: **${skillsShState}**`,
+              `- GitHub Skill search: **${githubSkillSearchState}**`,
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
               "",

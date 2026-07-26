@@ -10,6 +10,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
+from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
 DEFAULT_REPOSITORY = "merc1305/findMate"
@@ -19,6 +20,11 @@ API_ROOT = "https://api.github.com"
 PROFILE_REPLY_MARKER = "FINDMATE_OWNER_PROFILE_V1"
 SKILLS_SH_BADGE_URL = "https://www.skills.sh/b/merc1305/findMate"
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
+SKILL_SEARCH_INDEX_QUERY = (
+    'repo:merc1305/findMate '
+    'path:skills/find-complementary-founders/SKILL.md '
+    '"find a cofounder"'
+)
 DISTRIBUTION_PULL_REQUESTS = (
     {
         "channel": "awesome_copilot",
@@ -89,8 +95,12 @@ def validate_strategy_config(config: dict) -> None:
 
 
 def github_json(repository: str, endpoint: str, token: str | None) -> object:
+    return github_url_json(f"{API_ROOT}/repos/{repository}{endpoint}", token)
+
+
+def github_url_json(url: str, token: str | None) -> object:
     request = Request(
-        f"{API_ROOT}/repos/{repository}{endpoint}",
+        url,
         headers={
             "Accept": "application/vnd.github+json",
             "User-Agent": "findmate-ethical-growth-loop/1.0",
@@ -101,7 +111,7 @@ def github_json(repository: str, endpoint: str, token: str | None) -> object:
         with urlopen(request, timeout=20) as response:
             return json.loads(response.read().decode("utf-8"))
     except (HTTPError, URLError, TimeoutError, json.JSONDecodeError) as exc:
-        raise GrowthError(f"GitHub request failed for {endpoint or '/'}: {exc}") from exc
+        raise GrowthError(f"GitHub request failed for {url}: {exc}") from exc
 
 
 def optional_github_json(
@@ -109,6 +119,26 @@ def optional_github_json(
 ) -> tuple[object | None, str | None]:
     try:
         return github_json(repository, endpoint, token), None
+    except GrowthError as exc:
+        return None, str(exc)
+
+
+def code_search_indicates_index(value: object) -> bool:
+    if not isinstance(value, dict):
+        raise GrowthError("GitHub code-search response must be an object")
+    total_count = value.get("total_count")
+    if not isinstance(total_count, int) or total_count < 0:
+        raise GrowthError("GitHub code-search response lacks total_count")
+    return total_count > 0
+
+
+def optional_skill_search_index(
+    token: str | None,
+) -> tuple[bool | None, str | None]:
+    query = urlencode({"q": SKILL_SEARCH_INDEX_QUERY, "per_page": 1})
+    try:
+        value = github_url_json(f"{API_ROOT}/search/code?{query}", token)
+        return code_search_indicates_index(value), None
     except GrowthError as exc:
         return None, str(exc)
 
@@ -305,6 +335,9 @@ def main() -> int:
             token,
         )
         skills_sh_listed, skills_sh_error = optional_skills_sh_listing()
+        skill_search_indexed, skill_search_error = optional_skill_search_index(
+            token
+        )
         catalog_pull_requests = []
         for item in DISTRIBUTION_PULL_REQUESTS:
             value, error = optional_github_json(
@@ -346,6 +379,15 @@ def main() -> int:
                     "note": (
                         "A listing appears only after a genuine telemetry-enabled "
                         "skills CLI install; maintainer tests are not counted."
+                    ),
+                },
+                "github_skill_search": {
+                    "indexed": skill_search_indexed,
+                    "query": SKILL_SEARCH_INDEX_QUERY,
+                    "error": skill_search_error,
+                    "note": (
+                        "True only when public GitHub Code Search returns the "
+                        "new exact owner-intent phrase from the canonical skill."
                     ),
                 },
                 "catalog_pull_requests": catalog_pull_requests,
