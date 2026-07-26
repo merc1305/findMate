@@ -150,6 +150,34 @@
         "Do not duplicate-submit or message maintainers for attention while normal review is pending."
       ],
       "decision": "Keep G21 in pending_review, monitor the existing pull request and aggregate FindMate metrics, and make no duplicate OpenHands submission or unsolicited review request."
+    },
+    {
+      "id": "O007",
+      "observed_at": "2026-07-26T12:33:22Z",
+      "kind": "interoperability_release",
+      "metric": {
+        "name": "machine_checkable_profile_contracts",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Pull request 22 merged the canonical Draft 2020-12 owner-profile schema and zero-network standard-library validator at 2026-07-26T12:32:24Z.",
+        "Release v1.2.0 was published at 2026-07-26T12:32:52Z with a local validation quickstart and no star request.",
+        "The validator rejects unknown fields, unsafe public text, malformed vectors, unsafe contact routes, inconsistent consent, and expired profiles.",
+        "The matcher now invokes the full validator before ranking instead of relying on its earlier minimal checks.",
+        "The canonical findmate-owner profile passed validation and produced the same SHA-256 used by thread replies and share cards: 20d94fe5eece621bae6b5b470004bf37e8090bde3a7497a3c2a379dd4641c1b1.",
+        "All 23 FindMate unit tests passed, and the JSON Schema passed Draft 2020-12 meta-validation plus format-checked validation of the canonical profile.",
+        "At 2026-07-26T12:33:22Z the repository still had 1 star, 17 clones from 14 unique cloners, 0 views, 0 referrers, and 0 eligible external own-owner submissions."
+      ],
+      "inference": "G22 removes a trust and integration barrier for profiles traveling between agent ecosystems. It has not yet had enough exposure to show acquisition or owner-pool conversion.",
+      "not_supported": [
+        "Do not treat schema conformance as evidence that profile claims are true.",
+        "Do not treat a successful local validation as publication consent or an eligible thread submission.",
+        "Do not attribute the existing star or clone baseline to G22.",
+        "Do not claim growth until aggregate referrals, stars, or qualified submissions change after launch."
+      ],
+      "decision": "Keep G22 active, require full validation before matching, and compare qualified submissions and aggregate GitHub metrics in later measurement windows."
     }
   ]
 }
