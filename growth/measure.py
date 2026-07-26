@@ -33,6 +33,7 @@ WEB_DISCOVERY_URLS = {
 }
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
 MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
+MAX_AGENT_PLUGINS_CATALOG_BYTES = 4 * 1024 * 1024
 MAX_AAS_SKILL_BYTES = 512 * 1024
 SEMVER_TAG_RULESET_NAME = "Protect semver release tags"
 PORTABLE_SKILL_ASSET_NAME = "find-complementary-founders.skill.zip"
@@ -47,6 +48,14 @@ CLAUDE_COMMUNITY_EXPECTED_SOURCE = "https://github.com/merc1305/findMate"
 AAS_CORE_REPOSITORY = "sickn33/agentic-awesome-skills"
 AAS_CORE_SKILL_PATH = "skills/find-complementary-founders/SKILL.md"
 AAS_CORE_EXPECTED_SOURCE = "source_repo: merc1305/findMate"
+AGENT_PLUGINS_REPOSITORY = "dmgrok/agent-plugins"
+AGENT_PLUGINS_SUBMISSION_ISSUE = 100
+AGENT_PLUGINS_CATALOG_URL = (
+    "https://raw.githubusercontent.com/dmgrok/"
+    "agent-plugins/main/catalog.json"
+)
+AGENT_PLUGINS_EXPECTED_SOURCE = "https://github.com/merc1305/findMate"
+AGENT_PLUGINS_EXPECTED_PATH = "skills/find-complementary-founders"
 SKILL_SEARCH_INDEX_QUERY = (
     'repo:merc1305/findMate '
     'path:skills/find-complementary-founders/SKILL.md '
@@ -525,6 +534,128 @@ def optional_claude_community_catalog() -> dict:
         return summarize_claude_community_catalog(None, str(exc))
 
 
+def summarize_agent_plugins_directory(
+    issue: object | None,
+    issue_error: str | None,
+    catalog: object | None,
+    catalog_error: str | None,
+) -> dict:
+    summary = {
+        "repository": AGENT_PLUGINS_REPOSITORY,
+        "submission_issue": AGENT_PLUGINS_SUBMISSION_ISSUE,
+        "submission_url": (
+            f"https://github.com/{AGENT_PLUGINS_REPOSITORY}/issues/"
+            f"{AGENT_PLUGINS_SUBMISSION_ISSUE}"
+        ),
+        "submission_state": "unavailable",
+        "catalog_url": AGENT_PLUGINS_CATALOG_URL,
+        "catalog_skill_count": None,
+        "listed": None,
+        "state": "unavailable",
+        "source_commit_sha": None,
+        "errors": [
+            error
+            for error in (issue_error, catalog_error)
+            if isinstance(error, str)
+        ],
+        "note": (
+            "A submission issue is not a listing. Listed means the public "
+            "daily catalog contains the exact skill name, canonical FindMate "
+            "repository, expected skill path, and a 40-character source "
+            "commit. It does not prove an install, agent read, owner opt-in, "
+            "profile, match, or star."
+        ),
+    }
+    if isinstance(issue, dict):
+        issue_state = issue.get("state")
+        if issue_state in {"open", "closed"}:
+            summary["submission_state"] = issue_state
+
+    if not isinstance(catalog, dict):
+        return summary
+    skills = catalog.get("skills")
+    if not isinstance(skills, list):
+        summary["errors"].append(
+            "Agent Plugins catalog lacks a skills array"
+        )
+        return summary
+    summary["catalog_skill_count"] = len(skills)
+    named_entries = [
+        item
+        for item in skills
+        if isinstance(item, dict)
+        and item.get("name") == "find-complementary-founders"
+    ]
+    expected_source = AGENT_PLUGINS_EXPECTED_SOURCE.rstrip("/").casefold()
+    canonical_entry = None
+    for item in named_entries:
+        source = item.get("source")
+        source_repo = source.get("repo") if isinstance(source, dict) else None
+        normalized_source = (
+            source_repo.rstrip("/").removesuffix(".git").casefold()
+            if isinstance(source_repo, str)
+            else None
+        )
+        if normalized_source == expected_source:
+            canonical_entry = item
+            break
+
+    if canonical_entry is None:
+        summary["listed"] = False
+        if named_entries:
+            summary["state"] = "name_conflict"
+        elif summary["submission_state"] == "open":
+            summary["state"] = "submission_open"
+        elif summary["submission_state"] == "closed":
+            summary["state"] = "submission_closed_not_listed"
+        else:
+            summary["state"] = "not_listed"
+        return summary
+
+    source = canonical_entry.get("source")
+    source_path = source.get("path") if isinstance(source, dict) else None
+    source_sha = (
+        source.get("commit_sha") if isinstance(source, dict) else None
+    )
+    if isinstance(source_sha, str):
+        summary["source_commit_sha"] = source_sha
+    valid_sha = (
+        isinstance(source_sha, str)
+        and re.fullmatch(r"[0-9a-fA-F]{40}", source_sha) is not None
+    )
+    if source_path == AGENT_PLUGINS_EXPECTED_PATH and valid_sha:
+        summary["listed"] = True
+        summary["state"] = "listed_expected_source"
+    else:
+        summary["listed"] = False
+        summary["state"] = "canonical_source_unverified"
+    return summary
+
+
+def optional_agent_plugins_directory(
+    issue: object | None,
+    issue_error: str | None,
+) -> dict:
+    try:
+        catalog = external_json(
+            AGENT_PLUGINS_CATALOG_URL,
+            MAX_AGENT_PLUGINS_CATALOG_BYTES,
+        )
+        return summarize_agent_plugins_directory(
+            issue,
+            issue_error,
+            catalog,
+            None,
+        )
+    except GrowthError as exc:
+        return summarize_agent_plugins_directory(
+            issue,
+            issue_error,
+            None,
+            str(exc),
+        )
+
+
 def summarize_aas_core_release(
     release: object | None,
     release_error: str | None,
@@ -820,6 +951,15 @@ def main() -> int:
             token,
         )
         claude_community = optional_claude_community_catalog()
+        agent_plugins_issue, agent_plugins_issue_error = optional_github_json(
+            AGENT_PLUGINS_REPOSITORY,
+            f"/issues/{AGENT_PLUGINS_SUBMISSION_ISSUE}",
+            token,
+        )
+        agent_plugins_directory = optional_agent_plugins_directory(
+            agent_plugins_issue,
+            agent_plugins_issue_error,
+        )
         aas_release, aas_release_error = optional_github_json(
             AAS_CORE_REPOSITORY,
             "/releases/latest",
@@ -920,6 +1060,7 @@ def main() -> int:
                     repository_rulesets_error,
                 ),
                 "claude_community": claude_community,
+                "agent_plugins_directory": agent_plugins_directory,
                 "aas_core_release": summarize_aas_core_release(
                     aas_release,
                     aas_release_error,

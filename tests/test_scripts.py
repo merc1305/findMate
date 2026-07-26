@@ -1085,6 +1085,85 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertIn("aas_core_release", workflow)
         self.assertIn("AAS Core released catalog", workflow)
 
+    def test_agent_plugins_directory_requires_exact_pinned_source(self):
+        open_issue = {"state": "open"}
+        not_listed = growth.summarize_agent_plugins_directory(
+            open_issue,
+            None,
+            {"skills": [{"name": "another-skill"}]},
+            None,
+        )
+        self.assertFalse(not_listed["listed"])
+        self.assertEqual(not_listed["state"], "submission_open")
+        self.assertEqual(not_listed["catalog_skill_count"], 1)
+
+        source = {
+            "repo": "https://github.com/merc1305/findMate.git",
+            "path": growth.AGENT_PLUGINS_EXPECTED_PATH,
+            "commit_sha": "a" * 40,
+        }
+        listed = growth.summarize_agent_plugins_directory(
+            open_issue,
+            None,
+            {
+                "skills": [
+                    {
+                        "name": "find-complementary-founders",
+                        "source": source,
+                    }
+                ]
+            },
+            None,
+        )
+        self.assertTrue(listed["listed"])
+        self.assertEqual(listed["state"], "listed_expected_source")
+        self.assertEqual(listed["source_commit_sha"], "a" * 40)
+
+        unpinned = growth.summarize_agent_plugins_directory(
+            {"state": "closed"},
+            None,
+            {
+                "skills": [
+                    {
+                        "name": "find-complementary-founders",
+                        "source": {
+                            **source,
+                            "commit_sha": "main",
+                        },
+                    }
+                ]
+            },
+            None,
+        )
+        self.assertFalse(unpinned["listed"])
+        self.assertEqual(
+            unpinned["state"],
+            "canonical_source_unverified",
+        )
+
+        conflict = growth.summarize_agent_plugins_directory(
+            open_issue,
+            None,
+            {
+                "skills": [
+                    {
+                        "name": "find-complementary-founders",
+                        "source": {
+                            **source,
+                            "repo": "https://github.com/other/findmate",
+                        },
+                    }
+                ]
+            },
+            None,
+        )
+        self.assertFalse(conflict["listed"])
+        self.assertEqual(conflict["state"], "name_conflict")
+
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("agent_plugins_directory", workflow)
+        self.assertIn("Agent Plugins Directory", workflow)
+
     def test_claude_community_summary_requires_the_canonical_source(self):
         not_listed = growth.summarize_claude_community_catalog(
             {"plugins": [{"name": "another-plugin"}]},

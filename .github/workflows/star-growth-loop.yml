@@ -56,6 +56,8 @@ jobs:
               distribution.release_supply_chain || {};
             const claudeCommunity =
               distribution.claude_community || {};
+            const agentPluginsDirectory =
+              distribution.agent_plugins_directory || {};
             const aasCoreRelease =
               distribution.aas_core_release || {};
             const webDiscovery =
@@ -131,6 +133,24 @@ jobs:
                 : webDiscovery.live === false
                   ? "not fully live"
                   : "unavailable";
+            const agentPluginsDirectoryState =
+              agentPluginsDirectory.state === "listed_expected_source"
+                ? `listed from canonical source${
+                    agentPluginsDirectory.source_commit_sha
+                      ? ` at ${agentPluginsDirectory.source_commit_sha.slice(0, 7)}`
+                      : ""
+                  }`
+                : agentPluginsDirectory.state === "submission_open"
+                  ? `submission open — ${agentPluginsDirectory.submission_url}`
+                  : agentPluginsDirectory.state === "submission_closed_not_listed"
+                    ? "submission closed; not present in daily catalog"
+                    : agentPluginsDirectory.state === "canonical_source_unverified"
+                      ? "canonical source present without verified path and commit"
+                      : agentPluginsDirectory.state === "name_conflict"
+                        ? "name conflict — not FindMate"
+                        : agentPluginsDirectory.state === "not_listed"
+                          ? "not listed"
+                          : "unavailable";
             const aasCoreReleaseState =
               aasCoreRelease.state === "included_expected_source"
                 ? `included in ${aasCoreRelease.latest_tag}`
@@ -162,6 +182,7 @@ jobs:
               `- Portable ChatGPT archive: **${portableArchiveState}**`,
               `- Semver tag protection: **${semverTagState}**`,
               `- Anthropic Claude community marketplace: **${claudeCommunityState}**`,
+              `- Agent Plugins Directory: **${agentPluginsDirectoryState}**`,
               `- Public web discovery layer: **${webDiscoveryState}**`,
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
