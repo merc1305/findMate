@@ -86,6 +86,7 @@ mechanisms that compound without repeated inference:
 | G36 | Zero-copy discovery and portable upload | active | compatible agents discover one canonical project skill after clone, while a deterministic allowlisted archive gives ChatGPT owners a reviewable upload path without copied protocol code |
 | G37 | Reusable offline profile-validation action | active | downstream projects gain a one-step, exact-version contract check while public workflow references create useful attribution without profile or owner telemetry |
 | G38 | Owner-controlled profile-card action | active | a validated public profile can produce one deterministic local card draft that downstream owners may separately approve and publish with protocol attribution |
+| G39 | Editor-native schema discovery | planned (compatibility gate) | a future specific filename and versioned migration could enable safe IDE validation; no SchemaStore PR or V1 `$schema` mutation before independent profile uptake |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner
