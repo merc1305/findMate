@@ -308,6 +308,33 @@ Sources:
 - https://docs.github.com/en/actions/concepts/security/script-injections
 - https://docs.github.com/en/communities/moderating-comments-and-conversations/tracking-changes-in-a-comment
 
+### A direct composite action turns validation into reusable infrastructure
+
+GitHub supports composite actions that package shell steps behind a stable
+`uses: owner/repository@ref` interface. Its security guidance recommends
+passing untrusted values through environment variables rather than
+interpolating them into generated shell source. GitHub also recommends
+versioned releases for actions and documents Marketplace publication as a
+separate process with additional repository and publisher requirements.
+
+FindMate therefore exposes the canonical standard-library profile validator
+through a zero-network root `action.yml`, passes the caller-selected path as a
+quoted environment value after `--`, and documents an exact protected semver
+tag. It does not claim a Marketplace listing: direct reuse creates utility
+without pretending that this multi-purpose protocol repository completed that
+separate review path.
+
+The growth loop queries only the aggregate count of public workflow references
+to the exact `merc1305/findMate@` action prefix and discards search results.
+That count is an adoption hint, not proof of a workflow run, unique owner,
+profile, match, star conversion, or successful company.
+
+Primary GitHub documentation:
+
+- [Create a composite action](https://docs.github.com/en/actions/tutorials/create-actions/create-a-composite-action)
+- [Release and maintain actions](https://docs.github.com/en/actions/how-tos/create-and-publish-actions/release-and-maintain-actions)
+- [Publish actions in GitHub Marketplace](https://docs.github.com/en/actions/how-tos/create-and-publish-actions/publish-in-github-marketplace)
+
 ### Native GitHub skill publication is a durable owned channel
 
 GitHub CLI 2.90 and later can validate, publish, search, preview, install,

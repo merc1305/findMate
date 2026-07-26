@@ -40,6 +40,9 @@ OPENAI_SKILL_UI = (
 PRIVACY_POLICY = ROOT / "PRIVACY.md"
 SECURITY_POLICY = ROOT / "SECURITY.md"
 CLAUDE_SUBMISSION = ROOT / "docs" / "claude-community-submission.md"
+CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
+ACTION_METADATA = ROOT / "action.yml"
+GITHUB_ACTION_DOCS = ROOT / "docs" / "github-action.md"
 
 
 def load_module(name: str, filename: str):
@@ -1068,6 +1071,63 @@ class GrowthLoopTests(unittest.TestCase):
         )
         with self.assertRaises(growth.GrowthError):
             growth.code_search_indicates_index({"items": []})
+
+    def test_github_action_reference_count_is_aggregate(self):
+        self.assertEqual(
+            growth.code_search_total_count(
+                {"total_count": 0, "items": []}
+            ),
+            0,
+        )
+        self.assertEqual(
+            growth.code_search_total_count(
+                {"total_count": 7, "items": [{"repository": "discarded"}]}
+            ),
+            7,
+        )
+        with self.assertRaises(growth.GrowthError):
+            growth.code_search_total_count({"total_count": -1})
+
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("github_action_references", workflow)
+        self.assertIn("External GitHub Action references", workflow)
+
+    def test_reusable_action_is_offline_and_handles_input_as_data(self):
+        action = ACTION_METADATA.read_text(encoding="utf-8")
+        run_block = action.split("run: |", 1)[1]
+        self.assertIn("using: composite", action)
+        self.assertIn("FINDMATE_PROFILE: ${{ inputs.profile }}", action)
+        self.assertNotIn("${{ inputs.profile }}", run_block)
+        self.assertIn('-- "$FINDMATE_PROFILE"', run_block)
+        self.assertIn("$GITHUB_ACTION_PATH/", run_block)
+        self.assertNotRegex(
+            action.casefold(),
+            r"\b(curl|wget|gh|git push|github_token)\b",
+        )
+
+        ci = CI_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("uses: ./", ci)
+        self.assertIn(
+            "profile: profiles/findmate-owner.public.json",
+            ci,
+        )
+
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        action_section = readme.split(
+            "### Validate a profile in GitHub Actions",
+            1,
+        )[1].split("Semver release tags", 1)[0]
+        self.assertIn("merc1305/findMate@v1.4.0", action_section)
+        self.assertNotIn("merc1305/findMate@main", action_section)
+        self.assertNotIn("merc1305/findMate@v1\n", action_section)
+
+        docs = GITHUB_ACTION_DOCS.read_text(encoding="utf-8")
+        normalized_docs = " ".join(docs.split())
+        self.assertIn(
+            "not represented as a GitHub Marketplace listing",
+            normalized_docs,
+        )
+        self.assertIn("Running the action is not consent", docs)
 
     def test_web_discovery_requires_all_bounded_public_contracts(self):
         site = growth.FINDMATE_SITE_URL

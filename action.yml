@@ -1,0 +1,24 @@
+name: FindMate owner profile validator
+description: Validate a consented, expiring FINDMATE_OWNER_PROFILE_V1 file offline.
+author: merc1305
+
+inputs:
+  profile:
+    description: Path to the public owner-profile JSON in the caller workspace
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Validate the owner profile offline
+      shell: bash
+      env:
+        FINDMATE_PROFILE: ${{ inputs.profile }}
+      run: |
+        python3 \
+          "$GITHUB_ACTION_PATH/skills/find-complementary-founders/scripts/validate_profile.py" \
+          -- "$FINDMATE_PROFILE"
+
+branding:
+  icon: users
+  color: purple

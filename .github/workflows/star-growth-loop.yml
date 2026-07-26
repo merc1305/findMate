@@ -48,6 +48,8 @@ jobs:
             const skillsSh = distribution.skills_sh || {};
             const githubSkillSearch =
               distribution.github_skill_search || {};
+            const githubActionReferences =
+              distribution.github_action_references || {};
             const releaseSupplyChain =
               distribution.release_supply_chain || {};
             const claudeCommunity =
@@ -74,6 +76,10 @@ jobs:
                 : githubSkillSearch.indexed === false
                   ? "new metadata not indexed yet"
                   : "unavailable";
+            const githubActionReferenceState =
+              Number.isInteger(githubActionReferences.count)
+                ? `${githubActionReferences.count} public workflow reference(s)`
+                : "unavailable";
             const latestReleaseState = releaseSupplyChain.latest_tag
               ? `${releaseSupplyChain.latest_tag} — ${
                   releaseSupplyChain.latest_immutable === true
@@ -134,6 +140,7 @@ jobs:
               `- Machine-validated current GitHub admissions: **${ownerPool.github_machine_validated_current_receipts ?? "unavailable"}**`,
               `- skills.sh directory: **${skillsShState}**`,
               `- GitHub Skill search: **${githubSkillSearchState}**`,
+              `- External GitHub Action references: **${githubActionReferenceState}**`,
               `- Latest skill release: **${latestReleaseState}**`,
               `- Portable ChatGPT archive: **${portableArchiveState}**`,
               `- Semver tag protection: **${semverTagState}**`,

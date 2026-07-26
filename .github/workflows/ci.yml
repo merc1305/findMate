@@ -15,6 +15,10 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
+      - name: Validate through the reusable action
+        uses: ./
+        with:
+          profile: profiles/findmate-owner.public.json
       - name: Run tests
         run: python3 -m unittest discover -s tests -v
       - name: Compile scripts

@@ -335,6 +335,15 @@
       "mechanism": "Expose the one canonical skill at the standard .agents/skills project location and ship a deterministic, allowlisted OpenAI upload archive so owners can inspect or install FindMate without a copied protocol, private data, or repeated outreach.",
       "primary_metric": "qualified owner submissions, aggregate clones, release-asset downloads when available, and post-release star delta",
       "implementation": ".agents/skills/find-complementary-founders, tools/build_skill_archive.py, and the v1.3.6 release assets"
+    },
+    {
+      "id": "G37",
+      "name": "Reusable offline profile-validation action",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Expose the canonical privacy and expiry validator as a zero-network composite GitHub Action pinned by downstream callers to an exact protected release, then measure only the aggregate count of public workflow references.",
+      "primary_metric": "aggregate external GitHub Action workflow references, qualified owner submissions, clones, and post-release star delta",
+      "implementation": "action.yml, docs/github-action.md, and the v1.4.0 release"
     }
   ]
 }
