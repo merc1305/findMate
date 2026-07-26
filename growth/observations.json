@@ -753,6 +753,37 @@
         "Do not attribute either existing star or any future star to G37 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G37 active as a zero-network integration surface, measure only its aggregate public workflow-reference count in the bounded daily loop, wait for independent use, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O028",
+      "observed_at": "2026-07-26T19:55:46Z",
+      "kind": "owner_controlled_profile_card_action_release",
+      "metric": {
+        "name": "external_public_profile_card_markers",
+        "before": 0,
+        "after": 0,
+        "delta": 0
+      },
+      "facts": [
+        "FindMate pull request 56 merged G38 at canonical commit b66e1898a977c28af9839d9cbe3d47d52b75c50a: the reusable offline Action can optionally render the existing deterministic privacy-minimized Markdown card after the full canonical validator passes.",
+        "The optional card-output value is passed through an environment variable and quoted as one output argument; the profile remains a quoted positional value after --. The renderer refuses a symlink target, and the Action performs no commit, upload, publication, message, star, contact, or network request.",
+        "Documentation keeps owner approval for a public profile separate from approval of the exact rendered card and named destination. The card omits contact routes and raw evidence while retaining expiry, canonical profile hash, and protocol attribution.",
+        "Both push and pull_request CI runs exercised uses: ./ with card-output, verified the exact FINDMATE_OWNER_PROFILE_CARD_V1 marker, and passed their validate and site jobs. The canonical suite contained 52 passing Python tests.",
+        "An exact-tag clean checkout of v1.5.0 resolved commit b66e1898a977c28af9839d9cbe3d47d52b75c50a, validated the canonical public fixture, and generated a local card containing the expected marker, canonical hash, and FindMate link. The temporary maintainer card was not committed, uploaded, or published.",
+        "Immutable release v1.5.0 points to the verified merge commit and is covered by the active semver tag ruleset. Its 153,911-byte deterministic skill archive retained SHA-256 6eb080e2ac06b6a15caccbfa2c882394149b7ce9823f649bfaed0bc9b5ab09f6; both assets began with zero aggregate downloads.",
+        "Official GitHub CLI 2.96 accepted the skill publication dry run with the known nonblocking project-skill-directory warning. A separate isolated install pinned to v1.5.0 resolved the exact release commit, copied the complete skill, and passed canonical skill validation; this maintainer test is not counted as adoption.",
+        "GitHub's authenticated public code-search API accepted the bounded exact-marker query and returned zero external public profile-card markers. The monitor stores only total_count and discards result items, repository names, owner identities, card contents, and profile data.",
+        "At 2026-07-26T19:55:46.365417+00:00 FindMate had 2 stars, 0 forks, 0 watchers, 17 clones from 14 unique cloners, 0 views, no referrers, 0 external own-owner submissions, 0 current validation receipts, 0 external Action workflow references, and 0 external public card markers. The automatic stop remains at 101 stars."
+      ],
+      "inference": "G38 turns an existing privacy-minimized artifact into an optional downstream integration without weakening validation or publication consent. Separately approved public cards could provide useful owner summaries and durable protocol attribution, but the current zero-marker measurement provides no evidence yet of independent use, owner approval, publication, referral traffic, a match, or star conversion.",
+      "not_supported": [
+        "Do not count local CI, the temporary exact-tag card, release publication, publisher dry run, or isolated maintainer install as an external card, independent adoption, or owner participation.",
+        "Do not publish the canonical owner card, commit it to another repository, upload it as an artifact, or share it at any destination without approval of the exact rendered bytes and destination.",
+        "Do not treat a future marker as proof of a unique owner, unexpired or truthful profile, workflow run, match, contact consent, star conversion, or successful company.",
+        "Do not retain code-search result items, repository names, owner identities, card contents, profile data, workflow-run data, or stargazer identities for attribution.",
+        "Do not attribute either existing star or any future star to G38 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G38 active as an owner-controlled passive attribution mechanism, measure only the aggregate external marker count in the bounded daily loop, wait for independently approved public cards, and preserve the automatic stop at 101 stars."
     }
   ]
 }
