@@ -262,7 +262,9 @@ gh skill install merc1305/findMate find-complementary-founders \
 
 `gh skill preview` lets the owner inspect the complete skill before installing
 it. GitHub correctly warns that community skills are not verified; installation
-is not consent to assess, publish, star, or contact anyone.
+is not consent to assess, publish, star, or contact anyone. The installed skill
+includes its own [`LICENSE.txt`](skills/find-complementary-founders/LICENSE.txt)
+and declares `license: MIT` in its metadata.
 
 For Codex, the owner can also ask:
 
