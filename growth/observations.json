@@ -516,6 +516,35 @@
         "Do not attribute the existing star to G32."
       ],
       "decision": "Keep G32 planned with the authenticated form pending, preserve the exact submission packet, monitor the official catalog once per daily loop, and record a receipt before changing its state to submitted."
+    },
+    {
+      "id": "O020",
+      "observed_at": "2026-07-26T17:26:04Z",
+      "kind": "no_install_private_value_deployment",
+      "metric": {
+        "name": "public_entry_prompts_without_preinstalled_skill_assumption",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Before G33, the copied owner prompt invoked $find-complementary-founders and the success text assumed the receiving agent already had the skill.",
+        "FindMate pull request 43 merged a no-install entry prompt that directs any agent capable of reading public GitHub links to the canonical skill source at commit 8f683886603436de3d072453508b018a59be28b4.",
+        "The prompt asks the owner for two or three owner-produced outcomes or public artifacts and creates only a private draft covering 0-to-1, 1-to-10, and 10-to-100 stages, functions, evidence, confidence, gaps, missing evidence, and privacy risk.",
+        "The prompt explicitly stops before installation, public profile creation, starring, publication, messaging, identity exchange, or introduction and forbids mining old chats, email, contacts, private repositories, or files.",
+        "The site build succeeded on its declared Node 22 runtime, both rendered-page privacy tests passed, and all 43 canonical Python tests passed.",
+        "Sites version 2 was saved from exact canonical commit 8f683886603436de3d072453508b018a59be28b4 and its public deployment succeeded at the existing FindMate URL.",
+        "The public page still contains no form, fetch or XHR request, local storage, owner telemetry, or analytics; prompt copies and private drafts therefore are not counted.",
+        "At 2026-07-26T17:26:04Z FindMate had 1 star, 0 forks, 0 watchers, 17 clones from 14 unique cloners, 0 reported views, no reported referrers, 0 marked GitHub own-owner submissions, and no eligible external owner profiles."
+      ],
+      "inference": "G33 removes a confirmed cold-start assumption and lets a visitor receive privacy-preserving private value before deciding whether to install or publish. A successful deployment is infrastructure, not evidence that anyone copied the prompt, created a draft, installed the skill, submitted a profile, or starred the repository.",
+      "not_supported": [
+        "Do not count a prompt copy or private draft because the page deliberately does not track either event.",
+        "Do not count the deployment, build, test run, clone, or maintainer visit as an external visitor, install, owner profile, match, or star.",
+        "Do not attribute the existing star or any future star to G33 without a supported aggregate signal.",
+        "Do not add owner-level telemetry merely to prove conversion."
+      ],
+      "decision": "Keep G33 active as the public private-value entry, compare only later aggregate GitHub referrals, clones, valid own-owner submissions, and stars, and preserve the no-tracking boundary."
     }
   ]
 }
