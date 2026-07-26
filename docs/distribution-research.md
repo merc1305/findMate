@@ -16,6 +16,13 @@ install one into supported agent runtimes. A clean test against
 `merc1305/findMate` discovered exactly one skill and installed its instructions,
 scripts, references, and agent metadata.
 
+The public skills.sh directory is install-driven: a skill appears only after a
+telemetry-enabled CLI installation. Its documented repository badge currently
+returns `resource not found` for FindMate. That is recorded as zero genuine
+directory exposure, not “fixed” with a maintainer install. The daily growth
+loop reads the public badge once and will record the first independent listing
+without collecting owner or device data itself.
+
 Decision: make the portable CLI the shortest install path, retain direct clone
 instructions as a transparent fallback, and document the CLI's optional
 anonymous telemetry rather than hiding it.
@@ -234,6 +241,7 @@ Test next:
 - conversion from marked GitHub submissions to machine-validated pool entries;
 - discovery and pinned installs through the native GitHub CLI skill channel;
 - opt-in discovery through the repository-owned Claude Code marketplace;
+- automatic state monitoring for skills.sh and the two existing catalog PRs;
 - measurement of the two existing catalog submissions after maintainer review.
 
 Reject:

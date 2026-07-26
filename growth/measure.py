@@ -17,6 +17,20 @@ DEFAULT_CONFIG = Path(__file__).with_name("strategies.json")
 DEFAULT_BASELINE = Path(__file__).with_name("baseline.json")
 API_ROOT = "https://api.github.com"
 PROFILE_REPLY_MARKER = "FINDMATE_OWNER_PROFILE_V1"
+SKILLS_SH_BADGE_URL = "https://www.skills.sh/b/merc1305/findMate"
+MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
+DISTRIBUTION_PULL_REQUESTS = (
+    {
+        "channel": "awesome_copilot",
+        "repository": "github/awesome-copilot",
+        "number": 2438,
+    },
+    {
+        "channel": "openhands_extensions",
+        "repository": "OpenHands/extensions",
+        "number": 419,
+    },
+)
 
 
 class GrowthError(ValueError):
@@ -99,6 +113,71 @@ def optional_github_json(
         return None, str(exc)
 
 
+def external_text(url: str) -> str:
+    request = Request(
+        url,
+        headers={
+            "Accept": "image/svg+xml,text/plain;q=0.8",
+            "User-Agent": "findmate-distribution-monitor/1.0",
+        },
+    )
+    try:
+        with urlopen(request, timeout=20) as response:
+            body = response.read(MAX_EXTERNAL_STATUS_BYTES + 1)
+    except (HTTPError, URLError, TimeoutError) as exc:
+        raise GrowthError(f"External status request failed: {exc}") from exc
+    if len(body) > MAX_EXTERNAL_STATUS_BYTES:
+        raise GrowthError("External status response exceeded 128 KiB")
+    return body.decode("utf-8", errors="replace")
+
+
+def badge_indicates_skills_sh_listing(svg: str) -> bool:
+    normalized = svg.casefold()
+    return "<svg" in normalized and "resource not found" not in normalized
+
+
+def optional_skills_sh_listing() -> tuple[bool | None, str | None]:
+    try:
+        return badge_indicates_skills_sh_listing(
+            external_text(SKILLS_SH_BADGE_URL)
+        ), None
+    except GrowthError as exc:
+        return None, str(exc)
+
+
+def summarize_distribution_pull_request(
+    channel: str,
+    repository: str,
+    number: int,
+    value: object | None,
+    error: str | None,
+) -> dict:
+    summary = {
+        "channel": channel,
+        "repository": repository,
+        "number": number,
+        "url": f"https://github.com/{repository}/pull/{number}",
+        "state": "unavailable",
+        "merged_at": None,
+        "updated_at": None,
+        "error": error,
+    }
+    if not isinstance(value, dict):
+        return summary
+    merged_at = value.get("merged_at")
+    state = value.get("state")
+    if isinstance(merged_at, str) and merged_at:
+        summary["state"] = "merged"
+        summary["merged_at"] = merged_at
+    elif state in {"open", "closed"}:
+        summary["state"] = state
+    updated_at = value.get("updated_at")
+    if isinstance(updated_at, str):
+        summary["updated_at"] = updated_at
+    summary["error"] = None
+    return summary
+
+
 def count_github_owner_submissions(comments: object) -> int:
     if not isinstance(comments, list):
         return 0
@@ -131,6 +210,7 @@ def build_status(
     traffic_errors: list[str] | None = None,
     github_thread_comments: list | None = None,
     github_thread_error: str | None = None,
+    distribution_surfaces: dict | None = None,
 ) -> dict:
     stars = repo_data.get("stargazers_count")
     if not isinstance(stars, int):
@@ -183,6 +263,7 @@ def build_status(
                 "schema, hash, consent, and expiry validation."
             ),
         },
+        "distribution_surfaces": distribution_surfaces or {},
         "experiments": experiments,
     }
 
@@ -223,6 +304,23 @@ def main() -> int:
             "/issues/2/comments?per_page=100",
             token,
         )
+        skills_sh_listed, skills_sh_error = optional_skills_sh_listing()
+        catalog_pull_requests = []
+        for item in DISTRIBUTION_PULL_REQUESTS:
+            value, error = optional_github_json(
+                item["repository"],
+                f"/pulls/{item['number']}",
+                token,
+            )
+            catalog_pull_requests.append(
+                summarize_distribution_pull_request(
+                    item["channel"],
+                    item["repository"],
+                    item["number"],
+                    value,
+                    error,
+                )
+            )
         status = build_status(
             args.repository,
             repo_data,
@@ -240,6 +338,18 @@ def main() -> int:
                 github_comments if isinstance(github_comments, list) else None
             ),
             github_thread_error=github_thread_error,
+            distribution_surfaces={
+                "skills_sh": {
+                    "listed": skills_sh_listed,
+                    "badge_url": SKILLS_SH_BADGE_URL,
+                    "error": skills_sh_error,
+                    "note": (
+                        "A listing appears only after a genuine telemetry-enabled "
+                        "skills CLI install; maintainer tests are not counted."
+                    ),
+                },
+                "catalog_pull_requests": catalog_pull_requests,
+            },
         )
     except GrowthError as exc:
         print(f"growth error: {exc}", file=sys.stderr)
