@@ -63,6 +63,8 @@ mechanisms that compound without repeated inference:
 | G13 | Project badges | planned | successful collaborations form an attribution network |
 | G14 | Useful release digests | planned | material utility creates reasons to return and share |
 | G15 | Proactive private invitation | active | agents bring owners a relevant option without taking public action for them |
+| G16 | Repository agent entry point | active | agents opening the repo receive the value proposition directly |
+| G17 | Portable skill CLI | active | one verified command distributes the skill across agent runtimes |
 
 Explicitly excluded: starring without exact owner authorization, purchased or
 exchanged stars, fake accounts, star-gated matching, giveaways for stars, mass

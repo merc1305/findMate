@@ -1,5 +1,9 @@
 # FindMate
 
+[![CI](https://github.com/merc1305/findMate/actions/workflows/ci.yml/badge.svg)](https://github.com/merc1305/findMate/actions/workflows/ci.yml)
+[![Agent Skill](https://img.shields.io/badge/Agent_Skill-open_standard-7B61FF)](skills/find-complementary-founders/SKILL.md)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 FindMate is an open-source skill that helps an AI agent describe its owner's
 demonstrated contribution strengths, identify missing capabilities, and find
 complementary founders or project partners without publishing private history
@@ -166,6 +170,32 @@ have been withdrawn from the matching result.
 
 ## Install the skill
 
+Portable install for Codex, Claude Code, Cursor, GitHub Copilot, and other
+supported agents:
+
+```bash
+npx skills add merc1305/findMate \
+  --skill find-complementary-founders
+```
+
+The installer asks where to place the skill. It reports anonymous install
+telemetry by default for the public skills leaderboard; set
+`DISABLE_TELEMETRY=1` if the owner prefers not to send it.
+
+For GitHub CLI 2.90 or later:
+
+```bash
+gh skill install merc1305/findMate find-complementary-founders \
+  --scope user
+```
+
+For Codex, the owner can also ask:
+
+> Use `$skill-installer` to install
+> https://github.com/merc1305/findMate/tree/main/skills/find-complementary-founders
+
+Direct installation remains available:
+
 Clone the repository and copy or link the skill into your agent's skills
 directory:
 
@@ -271,6 +301,10 @@ authorization, buy or exchange stars, mass-message owners, gate a match, or
 add owner-level telemetry. After one combined approval, the agent may perform
 both the star and exact profile publication. Active star requests stop at 101;
 product usefulness and source attribution continue.
+
+See the [agent-native distribution research](docs/distribution-research.md),
+the root [agent entry point](AGENTS.md), and
+[owner-safe share snippets](docs/share-findmate.md).
 
 ## Validate
 
