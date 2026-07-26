@@ -842,6 +842,35 @@
         "Do not treat a future catalog entry or editor association as proof of an owner opt-in, valid claim, match, contact consent, or star conversion."
       ],
       "decision": "Keep G39 planned behind two explicit gates: at least one independently published valid profile and a reviewed versioned migration with a specific filename. Continue using the exact-version offline Action in the meantime."
+    },
+    {
+      "id": "O031",
+      "observed_at": "2026-07-26T20:39:43Z",
+      "kind": "composable_validation_outputs_release",
+      "metric": {
+        "name": "bounded_github_action_output_fields",
+        "before": 0,
+        "after": 2,
+        "delta": 2
+      },
+      "facts": [
+        "FindMate pull request 62 merged G40 at canonical commit 5f4a06aeb455feb41978fea1c8154c76a1933558. The reusable zero-network Action now exposes canonical_sha256 and expires_on only after the complete canonical validator passes.",
+        "The repository-owned standard-library wrapper rejects malformed output values and refuses to append through a symlink. GitHub's per-step output path is not an owner-controlled profile field, and neither the alias, summary, evidence, contact route, nor raw profile becomes an Action output.",
+        "The profile path remains a quoted environment value after --. The Action still performs no network request, commit, upload, publication, star, contact, or identity exchange, and its optional local card remains a separate owner-reviewed artifact.",
+        "The canonical suite contained 54 passing Python tests, including fixed-format output, injection, symlink, and omitted-profile-field checks. Both push and pull_request validate jobs exercised uses: ./ and the two Action outputs; both site jobs also passed.",
+        "Immutable release v1.6.0 points exactly to 5f4a06aeb455feb41978fea1c8154c76a1933558 and is covered by the active semver tag ruleset. The unchanged 153,911-byte deterministic skill archive retained SHA-256 6eb080e2ac06b6a15caccbfa2c882394149b7ce9823f649bfaed0bc9b5ab09f6, and both release assets began with zero aggregate downloads.",
+        "Sites version 8 was built and packaged from the same pushed canonical commit, passed its Node 22.14.0 production build, three server-rendered discovery tests, ESLint, and a zero-vulnerability production dependency audit, then deployed successfully to the existing public FindMate URL.",
+        "The pre-implementation bounded measurement at 2026-07-26T20:26:08.794231+00:00 showed 2 stars, 17 clones from 14 unique cloners, 0 release downloads, 0 external Action references, 0 external public cards, 0 external own-owner submissions, and 0 current validation receipts. The automatic stop remains at 101 stars."
+      ],
+      "inference": "G40 makes a genuine integration path more composable without broadening profile exposure: downstream projects can key a receipt, cache, or expiry check to validated public bytes without parsing logs. The release and deployment establish availability, but the current zero-reference and zero-download baseline provides no evidence yet of independent use, owner participation, referral traffic, a match, or star conversion.",
+      "not_supported": [
+        "Do not count local tests, GitHub-hosted CI, release publication, Sites source pushes, version saves, deployment, or maintainer verification as an external Action reference, install, download, owner opt-in, profile, or star.",
+        "Do not call the canonical hash anonymous or unlinkable; it deliberately identifies exact reviewed public-profile bytes and may be used as a public reference.",
+        "Do not treat a future Action reference as proof that the workflow ran, the profile was truthful, an owner approved publication, a match occurred, or a star resulted.",
+        "Do not retain code-search result items, repository names, workflow-run data, owner identities, output values, profile paths, or profile contents for attribution.",
+        "Do not attribute either existing star or any future star to G40 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G40 active as a passive integration utility, measure only aggregate external Action references, release downloads, qualified own-owner submissions, clones, and stars, and preserve the automatic stop at 101 stars."
     }
   ]
 }
