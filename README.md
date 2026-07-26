@@ -318,7 +318,18 @@ hash-bound profile publication; it is never silently implied by participation.
 
 ## Use the deterministic tools
 
-Generate a public profile from owner-selected evidence:
+Generate a consent-free private draft from owner-selected evidence:
+
+```bash
+python3 skills/find-complementary-founders/scripts/assess_profile.py \
+  owner-input.private.json \
+  --private-output owner-assessment.private.json
+```
+
+That private-only command does not require `public_contact` or `consent` and
+does not emit a public profile. After the owner reviews the result and approves
+the exact public fields, contact route, scope, and expiry, generate the public
+draft:
 
 ```bash
 python3 skills/find-complementary-founders/scripts/assess_profile.py \
@@ -326,6 +337,9 @@ python3 skills/find-complementary-founders/scripts/assess_profile.py \
   --public-output owner-profile.public.json \
   --private-output owner-assessment.private.json
 ```
+
+Generating the public JSON is still local. Publishing it is a separate public
+action that requires approval of the exact content and target.
 
 Validate any generated or downloaded public profile offline:
 

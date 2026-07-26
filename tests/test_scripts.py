@@ -3,6 +3,7 @@ from __future__ import annotations
 import importlib.util
 import hashlib
 import json
+import sys
 import tempfile
 import unittest
 from datetime import datetime, timedelta, timezone
@@ -15,6 +16,13 @@ GROWTH = ROOT / "growth"
 EXAMPLES = ROOT / "examples"
 OUTREACH = ROOT / "outreach"
 RUSSIAN_ONBOARDING = ROOT / "docs" / "locales" / "ru" / "owner-onboarding.md"
+BUNDLED_RUSSIAN_ONBOARDING = (
+    ROOT
+    / "skills"
+    / "find-complementary-founders"
+    / "references"
+    / "owner-onboarding.ru.md"
+)
 PROFILE_SCHEMA = ROOT / "schemas" / "findmate-owner-profile-v1.schema.json"
 SUBMISSION_WORKFLOW = ROOT / ".github" / "workflows" / "validate-owner-profile.yml"
 ISSUE_TEMPLATE = ROOT / ".github" / "ISSUE_TEMPLATE"
@@ -137,6 +145,38 @@ class AssessProfileTests(unittest.TestCase):
         ):
             assess.write_json(Path(directory) / "private.json", private, private=True)
 
+    def test_private_only_cli_requires_no_public_consent(self):
+        value = owner_input()
+        value.pop("public_contact")
+        value.pop("consent")
+        with tempfile.TemporaryDirectory() as directory:
+            input_path = Path(directory) / "owner-input.private.json"
+            output_path = Path(directory) / "assessment.private.json"
+            input_path.write_text(json.dumps(value), encoding="utf-8")
+            with patch.object(
+                sys,
+                "argv",
+                [
+                    "assess_profile.py",
+                    str(input_path),
+                    "--private-output",
+                    str(output_path),
+                ],
+            ):
+                self.assertEqual(assess.main(), 0)
+            private = json.loads(output_path.read_text(encoding="utf-8"))
+        self.assertEqual(private["publication_state"], "private_draft_only")
+        self.assertNotIn("public_profile_preview", private)
+        with self.assertRaises(assess.ProfileError):
+            assess.build_profiles(value)
+
+    def test_future_public_consent_is_rejected(self):
+        value = owner_input()
+        tomorrow = datetime.now(timezone.utc).date() + timedelta(days=1)
+        value["consent"]["approved_at"] = tomorrow.isoformat()
+        with self.assertRaises(assess.ProfileError):
+            assess.build_profiles(value)
+
 
 class MatchProfileTests(unittest.TestCase):
     def test_candidate_covering_gap_ranks_high(self):
@@ -186,6 +226,26 @@ class MatchProfileTests(unittest.TestCase):
             path.write_text(json.dumps(profile), encoding="utf-8")
             with self.assertRaises(matcher.MatchError):
                 matcher.load_profile(path)
+
+    def test_same_alias_is_not_treated_as_same_owner(self):
+        profile, _ = assess.build_profiles(owner_input())
+        with tempfile.TemporaryDirectory() as directory:
+            owner_path = Path(directory) / "owner.public.json"
+            candidate_path = Path(directory) / "candidate.public.json"
+            owner_path.write_text(json.dumps(profile), encoding="utf-8")
+            candidate_path.write_text(json.dumps(profile), encoding="utf-8")
+            owner = matcher.load_profile(owner_path)
+            candidate = matcher.load_profile(candidate_path)
+            selected = matcher.exclude_owner_source(
+                owner,
+                [owner, candidate],
+            )
+        self.assertEqual(len(selected), 1)
+        self.assertEqual(selected[0]["alias"], owner["alias"])
+        self.assertNotEqual(
+            selected[0]["_source_path"],
+            owner["_source_path"],
+        )
 
 
 class PublisherTests(unittest.TestCase):
@@ -325,6 +385,17 @@ class ProfileCardTests(unittest.TestCase):
         with self.assertRaises(profile_card.CardError):
             profile_card.render_card(profile)
 
+    def test_card_allows_one_sided_seeking_dimensions(self):
+        for empty_field, expected in (
+            ("stages", "go-to-market"),
+            ("functions", "1→10"),
+        ):
+            profile, _ = assess.build_profiles(owner_input())
+            profile["seeking"][empty_field] = []
+            with self.subTest(empty_field=empty_field):
+                card = profile_card.render_card(profile)
+                self.assertIn(expected, card)
+
 
 class ProfileValidatorTests(unittest.TestCase):
     def test_generated_profile_is_valid_and_hash_matches_publishers(self):
@@ -371,6 +442,19 @@ class ProfileValidatorTests(unittest.TestCase):
             set(schema["required"]),
             profile_validator.ROOT_KEYS,
         )
+
+    def test_consent_cannot_postdate_generation_or_today(self):
+        profile, _ = assess.build_profiles(owner_input())
+        yesterday = datetime.now(timezone.utc) - timedelta(days=1)
+        profile["generated_at"] = yesterday.replace(microsecond=0).isoformat()
+        with self.assertRaises(profile_validator.ValidationError):
+            profile_validator.validate_profile(profile)
+
+        profile, _ = assess.build_profiles(owner_input())
+        tomorrow = datetime.now(timezone.utc).date() + timedelta(days=1)
+        profile["consent"]["approved_at"] = tomorrow.isoformat()
+        with self.assertRaises(profile_validator.ValidationError):
+            profile_validator.validate_profile(profile)
 
 
 class GitHubThreadTests(unittest.TestCase):
@@ -681,6 +765,10 @@ class LocaleDocsTests(unittest.TestCase):
         self.assertIn("только своего владельца", content)
         self.assertIn("отдельное согласие обоих людей", content)
         self.assertIn("101 и более звёздах", content)
+        self.assertEqual(
+            BUNDLED_RUSSIAN_ONBOARDING.read_text(encoding="utf-8"),
+            content,
+        )
 
 
 class DistributionManifestTests(unittest.TestCase):
@@ -703,7 +791,7 @@ class DistributionManifestTests(unittest.TestCase):
         self.assertEqual(marketplace["plugins"][0]["name"], "findmate")
         self.assertEqual(marketplace["plugins"][0]["source"], "./skills")
         self.assertEqual(plugin["name"], "findmate")
-        self.assertEqual(plugin["version"], "1.0.1")
+        self.assertEqual(plugin["version"], "1.0.2")
         self.assertEqual(plugin["license"], "MIT")
         self.assertEqual(plugin["skills"], "./")
         self.assertIn("Find a cofounder", plugin["description"])
