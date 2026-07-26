@@ -293,6 +293,12 @@ of `v*`. The setting is not retroactive, so record `v1.3.4` honestly as a
 mutable release whose tag is nevertheless protected. Verify future releases
 as immutable before describing them that way.
 
+`v1.3.5` is the first release published after that setting was enabled. GitHub
+reported it immutable, its protected tag resolved to the canonical release
+commit, and a pinned isolated install preserved source provenance and passed
+the canonical skill validator. That maintainer verification is a supply-chain
+check, not an external install or adoption signal.
+
 Source:
 
 - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills

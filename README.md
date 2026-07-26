@@ -73,7 +73,7 @@ stops before every public action.
   summarizes the own-owner boundary and links back to the canonical skill
   without duplicating its executable instructions.
 - Native GitHub CLI skill publication:
-  [`v1.3.4`](https://github.com/merc1305/findMate/releases/tag/v1.3.4)
+  [`v1.3.5`](https://github.com/merc1305/findMate/releases/tag/v1.3.5)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
@@ -282,7 +282,7 @@ To reproduce the tested release exactly:
 
 ```bash
 gh skill install merc1305/findMate find-complementary-founders \
-  --pin v1.3.4 \
+  --pin v1.3.5 \
   --scope user
 ```
 
@@ -293,7 +293,8 @@ includes its own [`LICENSE.txt`](skills/find-complementary-founders/LICENSE.txt)
 and declares `license: MIT` in its metadata.
 
 Semver release tags are protected from update or deletion, and release
-immutability is enabled for releases published after `v1.3.4`.
+immutability is enabled for releases published after `v1.3.4`. Release
+`v1.3.5` is the first pinned-install-tested release verified as immutable.
 
 Privacy details for the local-first workflow and its optional external
 transports are in [`PRIVACY.md`](PRIVACY.md).
