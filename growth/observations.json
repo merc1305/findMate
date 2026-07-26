@@ -926,6 +926,36 @@
         "Do not attribute either existing star or any future star to G30 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G30 active but release-gated, monitor the latest AAS tag once per daily loop, advertise the exact released install path only after included_expected_source, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O034",
+      "observed_at": "2026-07-26T21:17:58Z",
+      "kind": "complementarity_evidence_brief_release",
+      "metric": {
+        "name": "primary_source_evidence_briefs",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "FindMate pull request 66 merged G10 at canonical commit 1445d2f68216904aaaf07d9c0ef3492307121071. The new complementarity brief links the primary sources behind the protocol's cautious design choices and separates them from the unvalidated 0-to-1 / 1-to-n stage shorthand.",
+        "The bundled Agent Skill now carries the corrected European Management Journal systematic-review DOI 10.1016/j.emj.2022.10.010 and attributes that review to Janina Sundermeier and Natalie Mahlert.",
+        "The brief records study boundaries, association-versus-causation limits, explicit non-claims, and a prospective evaluation plan based on owner-reported outcomes rather than treating a profile score, shortlist, star, or message as company-formation success.",
+        "The release changes no matching algorithm, profile schema, GitHub Action, consent gate, publication behavior, contact rule, or own-owner invariant.",
+        "The canonical suite contained 56 passing Python tests, including citation and cautious-language regression checks. The Node 22.14.0 production site build, three rendered/discovery tests, ESLint, and production dependency audit also passed; the production dependency audit reported zero vulnerabilities.",
+        "Immutable release v1.6.1 points exactly to 1445d2f68216904aaaf07d9c0ef3492307121071. Its 16-file, 154,483-byte portable archive has SHA-256 acee70cd816b64c0a5302424ca44d50adff097b48764ff8ec37310e65233369d, and both release assets began with zero downloads.",
+        "Sites version 9 was built from the same pushed canonical commit and deployed successfully to the existing public FindMate URL.",
+        "The latest bounded baseline before this release remained two stars, zero external Action references, zero external Markdown cards, zero independent own-owner submissions, zero current validation receipts, and zero release downloads."
+      ],
+      "inference": "G10 adds durable trust and reference value for owners, agents, reviewers, and potential integrators without requiring repeated outreach. Publication proves availability and citation correctness, but the current baseline does not show that anyone independently read, cited, installed, tried, starred, submitted a profile through, or found a partner through the brief.",
+      "not_supported": [
+        "Do not call the stage shorthand psychometric, validated, diagnostic, predictive, or a complete description of a founder.",
+        "Do not claim the cited studies prove FindMate's matching process, ranking, owner profiles, company formation, or startup outcomes.",
+        "Do not treat repository tests, a release, a site deployment, an archive download, or a citation as an owner opt-in, profile, match, introduction, company, or star conversion.",
+        "Do not attribute either existing star or any future star to G10 without supported aggregate timing and referral or citation evidence.",
+        "Do not collect identities, private drafts, candidate details, contact routes, or browsing histories to measure evidence-brief adoption."
+      ],
+      "decision": "Keep G10 active as a passive utility, expose the evidence and its limits wherever the model is described, measure only aggregate referrals, citations or issue references, qualified own-owner submissions, release downloads, and stars, and preserve the automatic stop at 101 stars."
     }
   ]
 }
