@@ -19,6 +19,14 @@ SUBMISSION_WORKFLOW = ROOT / ".github" / "workflows" / "validate-owner-profile.y
 ISSUE_TEMPLATE = ROOT / ".github" / "ISSUE_TEMPLATE"
 CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 CLAUDE_PLUGIN = ROOT / "skills" / ".claude-plugin" / "plugin.json"
+CANONICAL_SKILL = ROOT / "skills" / "find-complementary-founders" / "SKILL.md"
+OPENAI_SKILL_UI = (
+    ROOT
+    / "skills"
+    / "find-complementary-founders"
+    / "agents"
+    / "openai.yaml"
+)
 
 
 def load_module(name: str, filename: str):
@@ -609,6 +617,17 @@ class LocaleDocsTests(unittest.TestCase):
 
 
 class DistributionManifestTests(unittest.TestCase):
+    def test_canonical_skill_metadata_contains_owner_search_intent(self):
+        content = CANONICAL_SKILL.read_text(encoding="utf-8")
+        frontmatter = content.split("---", 2)[1].casefold()
+        self.assertIn("find a cofounder", frontmatter)
+        self.assertIn("co-founder matching", frontmatter)
+        self.assertIn("founder strengths", frontmatter)
+
+        ui = OPENAI_SKILL_UI.read_text(encoding="utf-8")
+        self.assertIn("Privacy-safe cofounder matching", ui)
+        self.assertIn("$find-complementary-founders", ui)
+
     def test_claude_marketplace_reuses_the_canonical_skill_directory(self):
         marketplace = json.loads(CLAUDE_MARKETPLACE.read_text(encoding="utf-8"))
         plugin = json.loads(CLAUDE_PLUGIN.read_text(encoding="utf-8"))
@@ -617,9 +636,14 @@ class DistributionManifestTests(unittest.TestCase):
         self.assertEqual(marketplace["plugins"][0]["name"], "findmate")
         self.assertEqual(marketplace["plugins"][0]["source"], "./skills")
         self.assertEqual(plugin["name"], "findmate")
-        self.assertEqual(plugin["version"], "1.0.0")
+        self.assertEqual(plugin["version"], "1.0.1")
         self.assertEqual(plugin["license"], "MIT")
         self.assertEqual(plugin["skills"], "./")
+        self.assertIn("Find a cofounder", plugin["description"])
+        self.assertIn(
+            "Find a cofounder",
+            marketplace["plugins"][0]["description"],
+        )
         self.assertNotIn("displayName", plugin)
         self.assertNotIn("$schema", plugin)
         self.assertTrue(

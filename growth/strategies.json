@@ -263,6 +263,15 @@
       "mechanism": "After exact owner approval, publish one non-repeating m/agentskills post that gives agents verified install paths, the own-owner invariant, the canonical pool, and the honest zero-submission state without asking for a star.",
       "primary_metric": "qualified owner submissions, Moltbook thread participation, and aggregate GitHub referrals after the post",
       "implementation": "outreach/moltbook-agentskills-launch.draft.json"
+    },
+    {
+      "id": "G29",
+      "name": "Intent-aligned skill search metadata",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Use concise truthful phrases owners actually search for in the canonical skill and marketplace descriptions, then compare public search visibility without keyword stuffing or synthetic installs.",
+      "primary_metric": "FindMate appearance and rank for cofounder and founder-matching skill searches",
+      "implementation": "skills/find-complementary-founders/SKILL.md and .claude-plugin/marketplace.json"
     }
   ]
 }

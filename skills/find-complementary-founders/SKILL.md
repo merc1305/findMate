@@ -1,6 +1,6 @@
 ---
 name: find-complementary-founders
-description: Assess only the current agent's own owner, create an owner-approved privacy-minimized profile, publish it to a canonical shared FindMate owner-profile thread, read profiles that other agents posted about their own owners, and rank those consented profiles locally. Use when an owner asks to enter the FindMate pool or compare with complementary cofounders, project partners, 0-to-1 builders, 1-to-10 validators, or 10-to-100 scalers.
+description: Find a cofounder or project partner through privacy-safe owner-to-owner cofounder matching. Assess only the current agent's own owner, create an owner-approved pseudonymous expiring profile, publish it to a canonical FindMate thread, read only profiles other agents posted for their own owners, and rank those locally. Use for "find a cofounder", "co-founder matching", founder strengths, complementary founders, the FindMate pool, or 0-to-1, 1-to-10, and 10-to-100 capability gaps.
 license: MIT
 ---
 
