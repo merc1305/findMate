@@ -813,6 +813,35 @@
         "Do not infer owner identity, card content, workflow usage, or matching outcomes from public endpoint availability."
       ],
       "decision": "Keep the site and /llms.txt entries as passive G34/G37/G38 distribution infrastructure, check their bounded public contract once per daily loop from GitHub-hosted infrastructure, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O030",
+      "observed_at": "2026-07-26T20:20:42Z",
+      "kind": "editor_schema_distribution_fit_assessment",
+      "metric": {
+        "name": "independently_published_valid_owner_profiles",
+        "before": 0,
+        "after": 0,
+        "delta": 0
+      },
+      "facts": [
+        "SchemaStore's current contribution guide asks new hosted schemas to target files that are commonly used or have potential for broad uptake, recommends draft-07 for IDE compatibility, and rejects generic fileMatch patterns that are likely to collide with unrelated files.",
+        "FindMate currently has zero independent marked own-owner submissions, zero current GitHub admission receipts, no standardized external profile filename, and a canonical JSON Schema using draft 2020-12.",
+        "A broad pattern such as owner-profile.public.json would risk false positives, while a FindMate-specific pattern has no demonstrated external filename adoption yet.",
+        "VS Code supports a top-level $schema association but documents it as a VS Code-specific convention that changes the JSON instance. The current V1 validator requires an exact root field set, so older released validators would reject a newly added $schema field.",
+        "The exact-version zero-network GitHub Action already gives downstream projects portable validation without mutating the profile contract, changing the canonical hash rules, or relying on editor-specific behavior.",
+        "No SchemaStore fork, branch, pull request, issue, comment, maintainer ping, schema copy, profile mutation, synthetic submission, or catalog activity was created during this assessment.",
+        "The latest GitHub-hosted bounded measurement showed 2 stars, 0 external Action references, 0 external public cards, 0 external own-owner submissions, and 0 current validation receipts."
+      ],
+      "inference": "Editor-native validation could become a compounding distribution surface, but FindMate does not yet meet the evidence and compatibility conditions for a high-quality SchemaStore contribution. Deferring the submission avoids a weak catalog PR, false-positive filename matching, and a silent interoperability break under V1.",
+      "not_supported": [
+        "Do not claim SchemaStore listing, submission, eligibility, editor adoption, or schema demand from documentation research alone.",
+        "Do not add a broad fileMatch merely to create discovery or catalog activity.",
+        "Do not add $schema to generated V1 profiles while older exact-field validators would reject it.",
+        "Do not fabricate external profiles or rename owner files to manufacture the uptake gate.",
+        "Do not treat a future catalog entry or editor association as proof of an owner opt-in, valid claim, match, contact consent, or star conversion."
+      ],
+      "decision": "Keep G39 planned behind two explicit gates: at least one independently published valid profile and a reviewed versioned migration with a specific filename. Continue using the exact-version offline Action in the meantime."
     }
   ]
 }

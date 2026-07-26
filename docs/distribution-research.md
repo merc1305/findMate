@@ -351,6 +351,28 @@ Measure only the aggregate public count of the exact
 discard code-search items. A marker is an attribution hint, not proof of a
 unique owner, current profile, match, star conversion, or company.
 
+### Editor-native schema discovery needs a compatibility gate
+
+[SchemaStore's contribution guide](https://github.com/SchemaStore/schemastore/blob/master/CONTRIBUTING.md)
+asks a new hosted schema to target files that are commonly used or have
+potential for broad uptake. It also recommends draft-07 for current IDE
+compatibility and warns against generic `fileMatch` patterns that create false
+positives. FindMate currently has no independent owner-profile submission, no
+standard external profile filename, and a canonical draft 2020-12 schema.
+
+[VS Code can associate a schema](https://code.visualstudio.com/docs/languages/json#_mapping-in-the-json)
+through a top-level `$schema` property, but its documentation explicitly says
+that convention is VS Code-specific and changes the JSON instance. Adding the
+property to current `FINDMATE_OWNER_PROFILE_V1` output would make older strict
+validators reject otherwise equivalent profiles. Silently doing that under
+the same protocol version would trade editor convenience for interoperability.
+
+Decision: do not submit a premature SchemaStore PR, use a broad filename glob,
+or add `$schema` to V1 profiles. Revisit editor-native discovery after at least
+one independently published valid profile establishes uptake and a future
+version defines a specific filename plus backward-compatible migration. Until
+then, the exact-version offline Action is the portable validation surface.
+
 ### Native GitHub skill publication is a durable owned channel
 
 GitHub CLI 2.90 and later can validate, publish, search, preview, install,
