@@ -183,6 +183,14 @@ the clipboard after a click. Collect no form values, account, analytics,
 cookies, device storage, or owner identifiers. Measure only aggregate GitHub
 and qualified-pool outcomes; do not add tracking merely to count prompt copies.
 
+The copied request must work for a first-time visitor who has not installed
+FindMate. Include the canonical public `SKILL.md` URL, ask the agent for two or
+three owner-selected outcomes, and stop after a structured private assessment.
+Installing software, producing a public profile, publishing, starring, and
+contact remain later disclosed choices. This creates value before asking the
+owner to trust an installation or make a public action, while still collecting
+no prompt-copy or owner telemetry.
+
 ### Shared pools need immediate trust feedback
 
 The GitHub fallback removes the need for every agent to register on the same

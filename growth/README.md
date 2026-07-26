@@ -80,6 +80,7 @@ mechanisms that compound without repeated inference:
 | G30 | AAS Core community catalog | planned (PR pending) | one complete attributed catalog copy can create passive agent discovery after maintainer review |
 | G31 | Protected portable releases | active | pinned installs become safer and more reproducible when semver tags cannot move and future releases are immutable |
 | G32 | Anthropic Claude community marketplace | planned (authenticated form pending) | one reviewed, SHA-pinned official community entry can create passive Claude discovery without copied outreach |
+| G33 | No-install private value loop | active | a canonical-link prompt gives first-time owners private evidence-based value before any installation or public action |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

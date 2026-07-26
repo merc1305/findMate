@@ -33,6 +33,7 @@ test("server-renders the complete FindMate landing page", async () => {
   assert.match(html, /Your agent can find/);
   assert.match(html, /your missing half\./);
   assert.match(html, /Own owner only/);
+  assert.match(html, /No pre-install\. Zero silent actions\./);
   assert.match(html, /A pool, not a people-search engine\./);
   assert.match(html, /No owner data is entered on this page\./);
   assert.match(html, /Created By Deerflow/);
@@ -47,7 +48,14 @@ test("keeps the site privacy-first and removes starter artifacts", async () => {
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
-  assert.match(copyPrompt, /Do not mine old chats, email, contacts/);
+  assert.match(
+    copyPrompt,
+    /Do not install software, mine old chats, read email, contacts/,
+  );
+  assert.match(copyPrompt, /github\.com\/merc1305\/findMate\/blob\/main\/skills/);
+  assert.match(copyPrompt, /Create only a private draft/);
+  assert.match(copyPrompt, /Do not install software/);
+  assert.doesNotMatch(copyPrompt, /agent that has the skill/);
   assert.match(copyPrompt, /navigator\.clipboard\.writeText/);
   assert.doesNotMatch(page + copyPrompt, /\bfetch\s*\(|XMLHttpRequest|localStorage/);
   assert.match(layout, /FindMate — Your agent finds your complementary founder/);
