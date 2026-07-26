@@ -47,6 +47,21 @@ Source:
 
 - https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/classifying-your-repository-with-topics
 
+### Shared links can explain the value before the click
+
+GitHub repositories can define a social preview image for links shared on
+social platforms. GitHub recommends at least 640×320 pixels, with 1280×640 as
+the best display size, and accepts PNG, JPG, or GIF files under 1 MB.
+
+Decision: install one 1280×640, privacy-safe preview that states the use case
+and owner-control boundary. Treat it as a passive conversion experiment:
+compare aggregate visitors, referrers, and stars before and after installation,
+without adding trackers or claiming causation from the image alone.
+
+Source:
+
+- https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/customizing-your-repositorys-social-media-preview
+
 ### Aggregate attribution has a short window
 
 GitHub exposes clones, visitors, referrers, and popular content for the last 14
@@ -93,6 +108,7 @@ Test next:
 - an owner-approved share card;
 - localization of the proactive invitation;
 - a material first release;
+- a branded repository social preview;
 - catalog submissions after proof of adoption.
 
 Reject:

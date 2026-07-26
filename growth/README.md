@@ -66,6 +66,7 @@ mechanisms that compound without repeated inference:
 | G16 | Repository agent entry point | active | agents opening the repo receive the value proposition directly |
 | G17 | Portable skill CLI | active | one verified command distributes the skill across agent runtimes |
 | G18 | Curated Copilot catalog | active | a validated external catalog can distribute the skill without repeated outreach |
+| G19 | Branded social preview | active | every shared repository link carries a clear, recognizable explanation of the value |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

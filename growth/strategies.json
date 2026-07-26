@@ -173,6 +173,15 @@
       "mechanism": "Submit one validated, catalog-appropriate copy of the skill to GitHub's Awesome Copilot collection, creating durable discovery and install paths after maintainer review.",
       "primary_metric": "catalog PR merge, catalog referrals, and post-merge star delta",
       "implementation": "https://github.com/github/awesome-copilot/pull/2438"
+    },
+    {
+      "id": "G19",
+      "name": "Branded repository social preview",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Give every shared repository link a high-contrast card that explains the agent-to-owner value proposition and privacy boundary before a click.",
+      "primary_metric": "unique visitors, referrer visits, and post-install star delta",
+      "implementation": "assets/findmate-social-preview.png and the GitHub social preview setting"
     }
   ]
 }
