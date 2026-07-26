@@ -182,9 +182,10 @@ boundary, and owners can inspect the package before installing it.
 
 Decision: validate with `gh skill publish --dry-run`, publish a semver release
 from the canonical repository, and verify a pinned install in a temporary
-directory. Keep GitHub's community-skill warning visible. Do not describe the
-skill as verified by GitHub, and do not count a maintainer test install as
-external adoption.
+directory. Bundle the license inside the skill so it survives installation.
+Keep GitHub's community-skill warning visible. Do not describe the skill as
+verified by GitHub, and do not count a maintainer test install as external
+adoption.
 
 Source:
 
