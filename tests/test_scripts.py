@@ -600,6 +600,20 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertEqual(merged_pr["state"], "merged")
         self.assertEqual(merged_pr["merged_at"], "2026-07-27T08:00:00Z")
 
+    def test_skill_search_index_requires_a_positive_code_search_result(self):
+        self.assertFalse(
+            growth.code_search_indicates_index(
+                {"total_count": 0, "items": []}
+            )
+        )
+        self.assertTrue(
+            growth.code_search_indicates_index(
+                {"total_count": 1, "items": [{"path": "SKILL.md"}]}
+            )
+        )
+        with self.assertRaises(growth.GrowthError):
+            growth.code_search_indicates_index({"items": []})
+
 
 class LocaleDocsTests(unittest.TestCase):
     def test_russian_onboarding_preserves_protocol_and_consent_boundaries(self):

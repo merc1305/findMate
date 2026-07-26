@@ -212,6 +212,11 @@ the canonical metadata. Mirror the same value phrase in Claude marketplace
 metadata and owner-facing UI metadata. Do not stuff unrelated keywords or
 claim a search rank before the public index actually changes.
 
+The daily growth loop checks one exact repository-scoped GitHub Code Search
+query for the new phrase. It records `not indexed yet` until GitHub returns the
+canonical `SKILL.md`; this separates a merged metadata edit from real search
+exposure without generating synthetic installs or broad repeated searches.
+
 ### Claude plugin distribution can reuse the canonical skill
 
 Claude Code accepts a GitHub repository with
