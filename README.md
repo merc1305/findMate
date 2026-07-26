@@ -73,7 +73,7 @@ stops before every public action.
   summarizes the own-owner boundary and links back to the canonical skill
   without duplicating its executable instructions.
 - Native GitHub CLI skill publication:
-  [`v1.3.6`](https://github.com/merc1305/findMate/releases/tag/v1.3.6)
+  [`v1.4.0`](https://github.com/merc1305/findMate/releases/tag/v1.4.0)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Portable OpenAI skill archive:
   [download the latest `find-complementary-founders.skill.zip`](https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip)
@@ -313,7 +313,7 @@ To reproduce the tested release exactly:
 
 ```bash
 gh skill install merc1305/findMate find-complementary-founders \
-  --pin v1.3.6 \
+  --pin v1.4.0 \
   --scope user
 ```
 
@@ -349,8 +349,9 @@ is not represented as listed in GitHub Marketplace.
 
 Semver release tags are protected from update or deletion, and release
 immutability is enabled for releases published after `v1.3.4`. Release
-`v1.3.6` adds the deterministic OpenAI upload archive while preserving the
-pinned-install-tested canonical skill.
+`v1.4.0` adds the reusable offline profile-validation action, preserves the
+deterministic OpenAI upload archive, and passes a pinned isolated skill
+install.
 
 Privacy details for the local-first workflow and its optional external
 transports are in [`PRIVACY.md`](PRIVACY.md).
