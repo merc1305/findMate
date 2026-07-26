@@ -31,6 +31,10 @@ jobs:
           script: |
             const fs = require("fs");
             const status = JSON.parse(fs.readFileSync("growth-status.json", "utf8"));
+            const observationLog = JSON.parse(
+              fs.readFileSync("growth/observations.json", "utf8")
+            );
+            const observations = observationLog.observations.slice(-3);
             const promotion = status.promotion;
             const active = status.experiments.filter(
               (item) => item.effective_status === "active"
@@ -57,6 +61,14 @@ jobs:
               ...(active.length
                 ? active.map((item) => `- ${item.id}: ${item.name} — metric: ${item.primary_metric}`)
                 : ["- No active experiments."]),
+              "",
+              "## Latest recorded evidence",
+              "",
+              ...observations.flatMap((item) => [
+                `- **${item.id} · ${item.kind} · ${item.observed_at}**`,
+                `  - ${item.inference}`,
+                `  - Decision: ${item.decision}`
+              ]),
               "",
               "This workflow only reads aggregate GitHub metrics and updates this one issue. It never stars, messages, follows, or posts promotion. No owner-level telemetry is collected.",
               "",

@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "observations": [
+    {
+      "id": "O001",
+      "observed_at": "2026-07-26T10:40:01Z",
+      "kind": "star_conversion",
+      "metric": {
+        "name": "github_stars",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "The first star was created at 2026-07-26T10:33:49Z.",
+        "Release v1.0.0 was published at 2026-07-26T10:33:04Z.",
+        "Contributor issues G03 and G04 were created before the star.",
+        "The Moltbook V3 agent-loop update was published at 2026-07-26T10:35:02Z, after the star.",
+        "The synthetic demo was merged after the star."
+      ],
+      "inference": "The first conversion is consistent with the GitHub-native release and contributor-issue bundle. Current data cannot separate those exposures.",
+      "not_supported": [
+        "Do not attribute the first star to the later Moltbook V3 update.",
+        "Do not attribute the first star to the later synthetic demo."
+      ],
+      "decision": "Keep G09, G11, and G14 active; wait for referrer and subsequent-star data before choosing a winner."
+    },
+    {
+      "id": "O002",
+      "observed_at": "2026-07-26T10:47:41Z",
+      "kind": "distribution_launch",
+      "metric": {
+        "name": "external_catalog_pull_request",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "github/awesome-copilot pull request 2438 targets the official community catalog.",
+        "All automated checks passed, including spec compliance, valid references, scan, spelling, and generated index validation.",
+        "The pull request is waiting for required human review."
+      ],
+      "inference": "If accepted, the catalog creates an agent-native installation surface independent of FindMate's own inference loop.",
+      "not_supported": [
+        "Do not count the catalog as a working acquisition channel before merge and referral evidence."
+      ],
+      "decision": "Monitor the existing pull request; do not duplicate-submit the same skill to the same community."
+    }
+  ]
+}
