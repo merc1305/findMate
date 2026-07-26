@@ -39,10 +39,12 @@ jobs:
               raise SystemExit("Missing YAML frontmatter")
           lines = match.group(1).splitlines()
           keys = [line.split(":", 1)[0] for line in lines if ":" in line]
-          if keys != ["name", "description"]:
+          if keys != ["name", "description", "license"]:
               raise SystemExit(f"Unexpected frontmatter keys: {keys}")
           if "name: find-complementary-founders" not in match.group(1):
               raise SystemExit("Skill name does not match its directory")
+          if "license: MIT" not in match.group(1):
+              raise SystemExit("Skill must declare its bundled MIT license")
           if len(text.splitlines()) > 500:
               raise SystemExit("SKILL.md exceeds 500 lines")
           PY
