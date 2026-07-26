@@ -933,6 +933,19 @@ class GrowthLoopTests(unittest.TestCase):
                     "https://github.com/merc1305/findMate/releases/tag/v1.3.4"
                 ),
                 "immutable": False,
+                "assets": [
+                    {
+                        "name": growth.PORTABLE_SKILL_ASSET_NAME,
+                        "download_count": 3,
+                        "size": 153911,
+                        "digest": "sha256:" + "a" * 64,
+                    },
+                    {
+                        "name": growth.PORTABLE_SKILL_CHECKSUM_NAME,
+                        "download_count": 1,
+                        "size": 113,
+                    },
+                ],
             },
             None,
             [
@@ -947,6 +960,16 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertEqual(summary["latest_tag"], "v1.3.4")
         self.assertFalse(summary["latest_immutable"])
         self.assertTrue(summary["semver_tag_ruleset_active"])
+        self.assertTrue(summary["portable_skill_archive"]["present"])
+        self.assertEqual(
+            summary["portable_skill_archive"]["download_count"],
+            3,
+        )
+        self.assertEqual(
+            summary["portable_skill_archive"]["digest"],
+            "sha256:" + "a" * 64,
+        )
+        self.assertTrue(summary["portable_skill_checksum_present"])
         self.assertEqual(summary["errors"], [])
 
         unavailable = growth.summarize_release_supply_chain(
@@ -962,6 +985,7 @@ class GrowthLoopTests(unittest.TestCase):
         workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("release_supply_chain", workflow)
         self.assertIn("Latest skill release", workflow)
+        self.assertIn("Portable ChatGPT archive", workflow)
         self.assertIn("Semver tag protection", workflow)
 
     def test_claude_community_summary_requires_the_canonical_source(self):

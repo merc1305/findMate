@@ -31,8 +31,44 @@ Sources:
 
 - https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
 - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills
+- https://agentskills.io/client-implementation/adding-skills-support
 - https://www.skills.sh/docs/cli
 - https://github.com/openai/skills
+
+### One canonical skill can serve project discovery and ChatGPT upload
+
+The Agent Skills standard defines a skill as a directory containing
+`SKILL.md` plus optional scripts, references, and assets. It does not mandate
+one global install location. The client implementation guide recommends
+scanning `.agents/skills/` for cross-client project discovery, and GitHub
+Copilot recognizes that location.
+
+OpenAI documents that eligible ChatGPT users can select **Plugins → Skills →
+Create → Upload from your computer**. Uploaded skills are scanned before they
+become available; some require review or may be blocked. OpenAI also notes that
+personal skills may need to be added separately on desktop and web/mobile and
+that workspace controls can limit uploads. The public help article does not
+promise that an upload, scan, or installation is consent for any action inside
+the skill. A read-only check of the authenticated ChatGPT Pro upload dialog on
+July 26, 2026 displayed the accepted inputs as `.zip`, `.skill`, or `SKILL.md`.
+No file was selected or uploaded during that format check.
+
+Decision: expose a relative project-scope directory link at
+`.agents/skills/find-complementary-founders` so compatible clients see the
+same canonical skill after cloning. Publish a deterministic ZIP with one
+top-level `find-complementary-founders` directory for file-upload surfaces.
+The builder uses an explicit 16-file allowlist, fixed paths, timestamps, modes,
+and stored bytes; it rejects symlinks, unexpected files (including
+profile/private JSON artifacts), path traversal, and generated caches.
+Installation remains separate from assessment, publication, starring,
+messaging, and contact.
+
+Sources:
+
+- https://agentskills.io/specification
+- https://agentskills.io/client-implementation/adding-skills-support
+- https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills
+- https://help.openai.com/en/articles/20001066-skills-in-chatgpt/
 
 ### Agent-readable entry points can carry the value proposition
 

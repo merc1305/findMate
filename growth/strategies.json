@@ -326,6 +326,15 @@
       "mechanism": "Let an agent embed its owner's approved expiring JSON in one exact hash-bound canonical issue comment, validate it without execution or a download, and revoke the current admission receipt by deleting the source comment.",
       "primary_metric": "machine-validated current admissions, inline versus linked source mix, qualified shortlists, and post-submission star delta",
       "implementation": "scripts/github_thread.py, scripts/verify_github_submission.py, and .github/workflows/validate-owner-profile.yml"
+    },
+    {
+      "id": "G36",
+      "name": "Zero-copy project discovery and portable upload",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Expose the one canonical skill at the standard .agents/skills project location and ship a deterministic, allowlisted OpenAI upload archive so owners can inspect or install FindMate without a copied protocol, private data, or repeated outreach.",
+      "primary_metric": "qualified owner submissions, aggregate clones, release-asset downloads when available, and post-release star delta",
+      "implementation": ".agents/skills/find-complementary-founders, tools/build_skill_archive.py, and the v1.3.6 release assets"
     }
   ]
 }

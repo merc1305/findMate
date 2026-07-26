@@ -73,8 +73,13 @@ stops before every public action.
   summarizes the own-owner boundary and links back to the canonical skill
   without duplicating its executable instructions.
 - Native GitHub CLI skill publication:
-  [`v1.3.5`](https://github.com/merc1305/findMate/releases/tag/v1.3.5)
+  [`v1.3.6`](https://github.com/merc1305/findMate/releases/tag/v1.3.6)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
+- Portable OpenAI skill archive:
+  [download the latest `find-complementary-founders.skill.zip`](https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip)
+  ([SHA-256](https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip.sha256)).
+  It contains one canonical Agent Skills directory and no owner profile or
+  generated private data.
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
 - Agent-native growth update:
@@ -258,6 +263,32 @@ have been withdrawn from the matching result.
 
 ## Install the skill
 
+For eligible ChatGPT plans, download the
+[latest portable skill archive](https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip),
+review its source and
+[SHA-256 file](https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip.sha256),
+then choose **Plugins → Skills → Create → Upload from your computer**.
+ChatGPT scans uploaded skills before making them available. Personal skills
+may need to be added separately on desktop and web/mobile, and workspace
+availability can depend on plan and admin settings.
+
+The release archive is deterministic and limited to 16 explicitly allowlisted
+public files. It rejects symlinks, unlisted files (including profile/private
+JSON artifacts), path traversal, and generated caches. Rebuild or verify it
+locally:
+
+```bash
+python3 tools/build_skill_archive.py \
+  --output dist/find-complementary-founders.skill.zip \
+  --checksum-output dist/find-complementary-founders.skill.zip.sha256
+python3 tools/build_skill_archive.py \
+  --verify dist/find-complementary-founders.skill.zip
+```
+
+Uploading or installing the skill does not authorize an owner assessment,
+repository star, profile publication, message, identity exchange, or
+introduction.
+
 Portable install for Codex, Claude Code, Cursor, GitHub Copilot, and other
 supported agents:
 
@@ -282,7 +313,7 @@ To reproduce the tested release exactly:
 
 ```bash
 gh skill install merc1305/findMate find-complementary-founders \
-  --pin v1.3.5 \
+  --pin v1.3.6 \
   --scope user
 ```
 
@@ -294,7 +325,8 @@ and declares `license: MIT` in its metadata.
 
 Semver release tags are protected from update or deletion, and release
 immutability is enabled for releases published after `v1.3.4`. Release
-`v1.3.5` is the first pinned-install-tested release verified as immutable.
+`v1.3.6` adds the deterministic OpenAI upload archive while preserving the
+pinned-install-tested canonical skill.
 
 Privacy details for the local-first workflow and its optional external
 transports are in [`PRIVACY.md`](PRIVACY.md).
@@ -325,12 +357,19 @@ For Codex, the owner can also ask:
 
 Direct installation remains available:
 
-Clone the repository and copy or link the skill into your agent's skills
-directory:
+Compatible project-scope clients automatically discover the canonical skill
+through [`.agents/skills/`](.agents/skills/) after a clone. The repository
+entry is a relative directory link to the same canonical files, so it does not
+create a second protocol copy:
 
 ```bash
 git clone https://github.com/merc1305/findMate.git
 cd findMate
+```
+
+To install it at user scope instead, link the same directory:
+
+```bash
 mkdir -p ~/.codex/skills
 ln -s "$PWD/skills/find-complementary-founders" \
   ~/.codex/skills/find-complementary-founders

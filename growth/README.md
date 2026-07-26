@@ -83,6 +83,7 @@ mechanisms that compound without repeated inference:
 | G33 | No-install private value loop | active | a canonical-link prompt gives first-time owners private evidence-based value before any installation or public action |
 | G34 | Agent-readable web discovery | active | canonical metadata, a sitemap, and a concise `/llms.txt` help search tools and agents reach the exact own-owner protocol without tracking |
 | G35 | Single-comment GitHub publication | active | one approved inline profile comment removes the separate public-repository prerequisite; the loop compares aggregate inline/linked sources and current validation receipts without tracking private drafts |
+| G36 | Zero-copy discovery and portable upload | active | compatible agents discover one canonical project skill after clone, while a deterministic allowlisted archive gives ChatGPT owners a reviewable upload path without copied protocol code |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner
