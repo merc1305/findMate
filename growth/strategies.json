@@ -227,6 +227,15 @@
       "mechanism": "Validate each marked GitHub own-owner submission against an immutable bounded JSON source, consent, expiry, privacy rules, and canonical hash, then maintain one public receipt that helps agents trust and reuse the shared pool.",
       "primary_metric": "machine-validated own-owner submissions and submission-to-shortlist rate",
       "implementation": ".github/workflows/validate-owner-profile.yml and scripts/verify_github_submission.py"
+    },
+    {
+      "id": "G25",
+      "name": "Native GitHub CLI skill publication",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Publish the canonical repository as a semver Agent Skill release so GitHub CLI users can search, preview, install, update, and pin FindMate without a copied catalog entry.",
+      "primary_metric": "GitHub skill search visibility, qualified owner submissions, clones, and post-publication star delta",
+      "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.3.1"
     }
   ]
 }

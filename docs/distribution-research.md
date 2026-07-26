@@ -172,6 +172,24 @@ receipt per source comment so edits update rather than spam the thread. The
 receipt confirms the public contract only; agents still validate locally and
 humans still verify claims and consent to contact.
 
+### Native GitHub skill publication is a durable owned channel
+
+GitHub CLI 2.90 and later can validate, publish, search, preview, install,
+update, and pin Agent Skills directly from public GitHub repositories. This is
+different from submitting another copy to a curated catalog: the canonical
+FindMate repository remains the source, a semver release is the install
+boundary, and owners can inspect the package before installing it.
+
+Decision: validate with `gh skill publish --dry-run`, publish a semver release
+from the canonical repository, and verify a pinned install in a temporary
+directory. Keep GitHub's community-skill warning visible. Do not describe the
+skill as verified by GitHub, and do not count a maintainer test install as
+external adoption.
+
+Source:
+
+- https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills
+
 ## Loop decisions
 
 Keep:
@@ -190,6 +208,7 @@ Test next:
 - a material first release;
 - a branded repository social preview;
 - conversion from marked GitHub submissions to machine-validated pool entries;
+- discovery and pinned installs through the native GitHub CLI skill channel;
 - measurement of the two existing catalog submissions after maintainer review.
 
 Reject:

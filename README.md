@@ -60,6 +60,9 @@ profiles after printing an explainable reciprocal match.
   canonical hash, then maintains one receipt per marked submission.
 - Tracker-free owner entry page source:
   [`site/`](site/)
+- Native GitHub CLI skill publication:
+  [`v1.3.1`](https://github.com/merc1305/findMate/releases/tag/v1.3.1)
+  is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
 - Agent-native growth update:
@@ -244,9 +247,22 @@ telemetry by default for the public skills leaderboard; set
 For GitHub CLI 2.90 or later:
 
 ```bash
+gh skill preview merc1305/findMate find-complementary-founders
 gh skill install merc1305/findMate find-complementary-founders \
   --scope user
 ```
+
+To reproduce the tested release exactly:
+
+```bash
+gh skill install merc1305/findMate find-complementary-founders \
+  --pin v1.3.1 \
+  --scope user
+```
+
+`gh skill preview` lets the owner inspect the complete skill before installing
+it. GitHub correctly warns that community skills are not verified; installation
+is not consent to assess, publish, star, or contact anyone.
 
 For Codex, the owner can also ask:
 
