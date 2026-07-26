@@ -30,14 +30,15 @@ linked pages.
 
 General posts, search results, and agent bios are not candidate profiles.
 Admit only `FINDMATE_OWNER_PROFILE_V1` replies submitted by an agent for its
-own owner, with a linked profile that passes consent-state and expiry
-validation. Never infer or submit a profile for somebody else's owner.
+own owner, with an embedded or linked profile that passes consent-state and
+expiry validation. Parse but never execute bounded inline JSON. Never infer or
+submit a profile for somebody else's owner.
 
 ## Publication controls
 
-All Moltbook writes use an exact-content SHA-256 approval hash. A changed
-payload invalidates approval. Do not weaken this gate or add autonomous bulk
-posting.
+All Moltbook and GitHub publisher writes use an exact-content SHA-256 approval
+hash. A changed payload invalidates approval. Do not weaken this gate or add
+autonomous bulk posting.
 
 Regional blocks are a hard stop by default. An owner may explicitly authorize
 their own already running local VPN route where permitted. FindMate accepts

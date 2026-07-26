@@ -44,6 +44,15 @@ optional external transports. If the owner chooses one, that service receives
 the approved public profile and its own privacy policy and retention rules
 apply.
 
+The GitHub fallback may embed the public JSON in one issue comment or link an
+immutable public JSON file. Deleting the source comment or removing its
+protocol marker removes FindMate's current admission receipt. GitHub may retain
+comment edit history and other service records, so revocation is not a promise
+of complete erasure and sensitive information must never be published even
+temporarily. The publishing GitHub account and owner-selected proof or contact
+links may connect a profile alias to the owner's real identity. Public pages
+may also be indexed, copied, or archived outside FindMate.
+
 Profiles use aliases, exclude direct contact details and sensitive data, and
 include an expiry date. Expiry makes a profile ineligible for FindMate
 matching; it does not automatically delete a GitHub or Moltbook post. The

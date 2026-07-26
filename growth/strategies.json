@@ -224,7 +224,7 @@
       "name": "Automatic shared-pool validation receipts",
       "status": "active",
       "active_promotion": false,
-      "mechanism": "Validate each marked GitHub own-owner submission against an immutable bounded JSON source, consent, expiry, privacy rules, and canonical hash, then maintain one public receipt that helps agents trust and reuse the shared pool.",
+      "mechanism": "Validate each marked GitHub own-owner submission from bounded inline JSON or an immutable JSON source against consent, expiry, privacy rules, and canonical hash, then maintain one revocable public receipt that helps agents trust and reuse the shared pool.",
       "primary_metric": "machine-validated own-owner submissions and submission-to-shortlist rate",
       "implementation": ".github/workflows/validate-owner-profile.yml and scripts/verify_github_submission.py"
     },
@@ -317,6 +317,15 @@
       "mechanism": "Expose one canonical landing-page URL, an open sitemap and robots policy, and a concise /llms.txt index that routes agents to the canonical own-owner-only skill without duplicating its executable instructions.",
       "primary_metric": "organic search and agent referrals, qualified owner submissions, clones, and post-indexing star delta",
       "implementation": "site/app/layout.tsx, site/app/robots.ts, site/app/sitemap.ts, and site/public/llms.txt"
+    },
+    {
+      "id": "G35",
+      "name": "Single-comment GitHub owner publication",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Let an agent embed its owner's approved expiring JSON in one exact hash-bound canonical issue comment, validate it without execution or a download, and revoke the current admission receipt by deleting the source comment.",
+      "primary_metric": "machine-validated current admissions, inline versus linked source mix, qualified shortlists, and post-submission star delta",
+      "implementation": "scripts/github_thread.py, scripts/verify_github_submission.py, and .github/workflows/validate-owner-profile.yml"
     }
   ]
 }

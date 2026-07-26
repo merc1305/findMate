@@ -38,6 +38,7 @@ OPENAI_SKILL_UI = (
     / "openai.yaml"
 )
 PRIVACY_POLICY = ROOT / "PRIVACY.md"
+SECURITY_POLICY = ROOT / "SECURITY.md"
 CLAUDE_SUBMISSION = ROOT / "docs" / "claude-community-submission.md"
 
 
@@ -480,6 +481,29 @@ class GitHubThreadTests(unittest.TestCase):
         with self.assertRaises(github_thread.GitHubThreadError):
             github_thread.validate_draft(draft, "0" * 64)
 
+    def test_inline_profile_comment_is_the_low_friction_default(self):
+        profile, _ = assess.build_profiles(owner_input())
+        draft = github_thread.build_profile_comment_draft(profile)
+        body = draft["payload"]["body"]
+        self.assertIn("Owner-approved profile: inline", body)
+        self.assertIn(github_thread.INLINE_PROFILE_BEGIN, body)
+        self.assertIn(github_thread.INLINE_PROFILE_END, body)
+
+        submissions = github_thread.extract_marked_comments(
+            [{"body": body}]
+        )
+        self.assertEqual(len(submissions), 1)
+        self.assertEqual(submissions[0]["profile_source"], "inline")
+        self.assertEqual(submissions[0]["inline_profile"], profile)
+        self.assertIsNone(submissions[0]["profile_url"])
+        self.assertTrue(submissions[0]["syntactically_eligible"])
+        github_thread.validate_draft(draft, draft["approval_hash"])
+
+        invalid = dict(profile)
+        invalid["unexpected_public_field"] = "must be rejected before draft"
+        with self.assertRaises(github_thread.GitHubThreadError):
+            github_thread.build_profile_comment_draft(invalid)
+
     def test_thread_reader_returns_only_marked_submission_metadata(self):
         profile, _ = assess.build_profiles(owner_input())
         draft = github_thread.build_profile_comment_draft(
@@ -541,6 +565,95 @@ class GitHubSubmissionVerifierTests(unittest.TestCase):
         )
         self.assertNotIn("contact", result)
         self.assertNotIn("public_evidence", result)
+
+    def test_valid_inline_profile_is_admitted_without_network_loading(self):
+        profile, _ = assess.build_profiles(owner_input())
+        body = github_thread.build_profile_comment_draft(profile)[
+            "payload"
+        ]["body"]
+        result = submission_verifier.verify_comment(
+            body,
+            profile_loader=lambda _url: self.fail(
+                "inline profile reached the network loader"
+            ),
+        )
+        self.assertTrue(result["eligible"])
+        self.assertEqual(result["profile_source"], "inline")
+        self.assertEqual(result["alias"], profile["alias"])
+
+        broken_json = body.replace(
+            '"alias": "owner-one"',
+            '"alias": ',
+        )
+        rejected = submission_verifier.verify_comment(
+            broken_json,
+            profile_loader=lambda _url: self.fail(
+                "invalid inline profile reached the network loader"
+            ),
+        )
+        self.assertFalse(rejected["eligible"])
+        self.assertEqual(rejected["reason_code"], "profile_json_invalid")
+
+        oversized = body.replace(
+            github_thread.INLINE_PROFILE_BEGIN + "\n",
+            (
+                github_thread.INLINE_PROFILE_BEGIN
+                + "\n"
+                + " " * (github_thread.MAX_INLINE_PROFILE_BYTES + 1)
+            ),
+            1,
+        )
+        too_large = submission_verifier.verify_comment(
+            oversized,
+            profile_loader=lambda _url: self.fail(
+                "oversized inline profile reached the network loader"
+            ),
+        )
+        self.assertFalse(too_large["eligible"])
+        self.assertEqual(too_large["reason_code"], "profile_too_large")
+
+        ambiguous = body.replace(
+            "Owner-approved profile: inline",
+            (
+                "Owner-approved profile: inline\n"
+                "Owner-approved profile: "
+                "https://github.com/example/project/blob/"
+                + "a" * 40
+                + "/profile.public.json"
+            ),
+            1,
+        )
+        ambiguous_result = submission_verifier.verify_comment(
+            ambiguous,
+            profile_loader=lambda _url: self.fail(
+                "ambiguous inline profile reached the network loader"
+            ),
+        )
+        self.assertFalse(ambiguous_result["eligible"])
+        self.assertEqual(
+            ambiguous_result["reason_code"],
+            "comment_shape",
+        )
+
+        digest = profile_validator.validate_profile(profile)[
+            "canonical_sha256"
+        ]
+        duplicate_digest = body.replace(
+            f"Canonical profile SHA-256: {digest}",
+            (
+                f"Canonical profile SHA-256: {digest}\n"
+                f"Canonical profile SHA-256: {digest}"
+            ),
+            1,
+        )
+        duplicate_result = submission_verifier.verify_comment(
+            duplicate_digest,
+            profile_loader=lambda _url: self.fail(
+                "duplicate digest reached the network loader"
+            ),
+        )
+        self.assertFalse(duplicate_result["eligible"])
+        self.assertEqual(duplicate_result["reason_code"], "comment_shape")
 
     def test_mutable_or_non_github_profile_urls_are_rejected_before_download(self):
         body, profile = self.valid_comment_and_profile()
@@ -626,12 +739,47 @@ class GitHubSubmissionVerifierTests(unittest.TestCase):
         )
         self.assertEqual(result["reason_code"], "event_scope")
 
+    def test_deleted_source_comment_revokes_its_receipt(self):
+        result = submission_verifier.verify_event(
+            {
+                "action": "deleted",
+                "repository": {"full_name": "merc1305/findMate"},
+                "issue": {"number": 2},
+                "comment": {"id": 456, "body": "already deleted"},
+            },
+            profile_loader=lambda _url: self.fail(
+                "deleted comment reached the profile loader"
+            ),
+        )
+        self.assertTrue(result["revoked"])
+        self.assertFalse(result["eligible"])
+        self.assertEqual(result["reason_code"], "comment_deleted")
+        self.assertEqual(result["source_comment_id"], 456)
+
+        unmarked_edit = submission_verifier.verify_event(
+            {
+                "action": "edited",
+                "repository": {"full_name": "merc1305/findMate"},
+                "issue": {"number": 2},
+                "comment": {"id": 456, "body": "profile withdrawn"},
+            },
+            profile_loader=lambda _url: self.fail(
+                "unmarked edit reached the profile loader"
+            ),
+        )
+        self.assertFalse(unmarked_edit["source_marked"])
+        self.assertFalse(unmarked_edit["eligible"])
+
     def test_workflow_keeps_untrusted_body_out_of_shell_and_pins_actions(self):
         workflow = SUBMISSION_WORKFLOW.read_text(encoding="utf-8")
         self.assertNotIn("${{ github.event.comment.body }}", workflow)
         self.assertNotIn("pull_request_target", workflow)
         self.assertNotIn("GITHUB_TOKEN:", workflow)
         self.assertIn('--event "$GITHUB_EVENT_PATH"', workflow)
+        self.assertIn("- deleted", workflow)
+        self.assertIn("github.event.action == 'edited'", workflow)
+        self.assertIn("receipt.source_marked === false", workflow)
+        self.assertIn("deleteComment", workflow)
         self.assertRegex(workflow, r"actions/checkout@[0-9a-f]{40} # v6")
         self.assertRegex(workflow, r"actions/setup-python@[0-9a-f]{40} # v6")
         self.assertRegex(workflow, r"actions/github-script@[0-9a-f]{40} # v9")
@@ -678,6 +826,9 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertIn("synthetic; no owner data", result["demo"])
 
     def test_github_pool_count_excludes_ordinary_comments(self):
+        future_expiry = (
+            datetime.now(timezone.utc).date() + timedelta(days=7)
+        ).isoformat()
         comments = [
             {"body": "ordinary comment"},
             {
@@ -691,8 +842,42 @@ class GrowthLoopTests(unittest.TestCase):
                     ]
                 )
             },
+            {
+                "body": "\n".join(
+                    [
+                        "FINDMATE_OWNER_PROFILE_V1",
+                        "I represent my own owner.",
+                        "Owner-approved profile: inline",
+                        "Canonical profile SHA-256: " + "b" * 64,
+                        "Expires: 2026-08-24",
+                        "FINDMATE_PROFILE_JSON_BEGIN",
+                        "{}",
+                        "FINDMATE_PROFILE_JSON_END",
+                    ]
+                )
+            },
+            {
+                "body": "\n".join(
+                    [
+                        "<!-- findmate-validation:123 -->",
+                        "✅ **FindMate profile admitted to the machine-validated pool**",
+                        f"- Expires: `{future_expiry}`",
+                    ]
+                ),
+                "user": {"login": "github-actions[bot]"},
+            },
         ]
-        self.assertEqual(growth.count_github_owner_submissions(comments), 1)
+        self.assertEqual(growth.count_github_owner_submissions(comments), 2)
+        summary = growth.summarize_github_owner_pool(comments)
+        self.assertEqual(summary["inline_sources"], 1)
+        self.assertEqual(summary["linked_sources"], 1)
+        self.assertEqual(
+            summary["machine_validated_current_receipts"],
+            1,
+        )
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("GitHub submission sources", workflow)
+        self.assertIn("Machine-validated current GitHub admissions", workflow)
 
     def test_skills_sh_listing_requires_a_real_badge(self):
         missing = (
@@ -916,6 +1101,7 @@ class LocaleDocsTests(unittest.TestCase):
         self.assertIn("только своего владельца", content)
         self.assertIn("отдельное согласие обоих людей", content)
         self.assertIn("101 и более звёздах", content)
+        self.assertIn("могут связать псевдоним с реальной", content)
         self.assertEqual(
             BUNDLED_RUSSIAN_ONBOARDING.read_text(encoding="utf-8"),
             content,
@@ -942,7 +1128,7 @@ class DistributionManifestTests(unittest.TestCase):
         self.assertEqual(marketplace["plugins"][0]["name"], "findmate")
         self.assertEqual(marketplace["plugins"][0]["source"], "./skills")
         self.assertEqual(plugin["name"], "findmate")
-        self.assertEqual(plugin["version"], "1.0.2")
+        self.assertEqual(plugin["version"], "1.0.3")
         self.assertEqual(plugin["license"], "MIT")
         self.assertEqual(plugin["skills"], "./")
         self.assertIn("Find a cofounder", plugin["description"])
@@ -964,10 +1150,15 @@ class DistributionManifestTests(unittest.TestCase):
 
     def test_claude_submission_is_private_first_and_not_fabricated(self):
         privacy = PRIVACY_POLICY.read_text(encoding="utf-8")
+        security = SECURITY_POLICY.read_text(encoding="utf-8")
         submission = CLAUDE_SUBMISSION.read_text(encoding="utf-8")
         self.assertIn("has no account system", privacy)
         self.assertIn("Nothing is published without", privacy)
         self.assertIn("does not automatically delete", privacy)
+        self.assertIn("may embed the public JSON", privacy)
+        self.assertIn("comment edit history", privacy)
+        self.assertIn("may connect a profile alias", privacy)
+        self.assertIn("Parse but never execute bounded inline JSON", security)
         self.assertIn("Submission state: **not submitted**", submission)
         self.assertIn("Path within repository | `skills`", submission)
         self.assertIn("must not be", submission)

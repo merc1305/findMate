@@ -19,6 +19,8 @@ DEFAULT_CONFIG = Path(__file__).with_name("strategies.json")
 DEFAULT_BASELINE = Path(__file__).with_name("baseline.json")
 API_ROOT = "https://api.github.com"
 PROFILE_REPLY_MARKER = "FINDMATE_OWNER_PROFILE_V1"
+VALIDATION_RECEIPT_MARKER = "<!-- findmate-validation:"
+RECEIPT_EXPIRY_PATTERN = re.compile(r"^- Expires: `(\d{4}-\d{2}-\d{2})`$", re.M)
 SKILLS_SH_BADGE_URL = "https://www.skills.sh/b/merc1305/findMate"
 FINDMATE_SITE_URL = "https://findmate-owner-network.xvwbgtt855.chatgpt.site"
 WEB_DISCOVERY_URLS = {
@@ -434,24 +436,68 @@ def optional_claude_community_catalog() -> dict:
         return summarize_claude_community_catalog(None, str(exc))
 
 
-def count_github_owner_submissions(comments: object) -> int:
+def summarize_github_owner_pool(comments: object) -> dict:
+    summary = {
+        "marked_own_owner_submissions": 0,
+        "inline_sources": 0,
+        "linked_sources": 0,
+        "machine_validated_current_receipts": 0,
+    }
     if not isinstance(comments, list):
-        return 0
-    total = 0
+        return summary
+    today = datetime.now(timezone.utc).date()
     for comment in comments:
         if not isinstance(comment, dict):
             continue
         body = comment.get("body")
+        linked_source = (
+            isinstance(body, str)
+            and "Owner-approved profile: https://" in body
+        )
+        inline_source = (
+            isinstance(body, str)
+            and "Owner-approved profile: inline" in body
+            and "FINDMATE_PROFILE_JSON_BEGIN\n" in body
+            and "\nFINDMATE_PROFILE_JSON_END" in body
+        )
         if (
             isinstance(body, str)
             and body.startswith(f"{PROFILE_REPLY_MARKER}\n")
             and "I represent my own owner." in body
-            and "Owner-approved profile: https://" in body
+            and linked_source != inline_source
             and "Canonical profile SHA-256: " in body
             and "Expires: " in body
         ):
-            total += 1
-    return total
+            summary["marked_own_owner_submissions"] += 1
+            key = "inline_sources" if inline_source else "linked_sources"
+            summary[key] += 1
+
+        user = comment.get("user")
+        login = user.get("login") if isinstance(user, dict) else None
+        if (
+            isinstance(body, str)
+            and login == "github-actions[bot]"
+            and VALIDATION_RECEIPT_MARKER in body
+            and "✅ **FindMate profile admitted" in body
+        ):
+            expiry_match = RECEIPT_EXPIRY_PATTERN.search(body)
+            if expiry_match:
+                try:
+                    expires_on = datetime.strptime(
+                        expiry_match.group(1),
+                        "%Y-%m-%d",
+                    ).date()
+                except ValueError:
+                    continue
+                if expires_on >= today:
+                    summary["machine_validated_current_receipts"] += 1
+    return summary
+
+
+def count_github_owner_submissions(comments: object) -> int:
+    return summarize_github_owner_pool(comments)[
+        "marked_own_owner_submissions"
+    ]
 
 
 def build_status(
@@ -476,6 +522,11 @@ def build_status(
         raise GrowthError("Baseline lacks an integer stars value")
     stop_above = config["stop_active_promotion_above_stars"]
     state = promotion_state(stars, stop_above)
+    github_pool = (
+        summarize_github_owner_pool(github_thread_comments)
+        if github_thread_comments is not None
+        else None
+    )
 
     experiments = []
     for experiment in config["experiments"]:
@@ -509,8 +560,23 @@ def build_status(
         "owner_profile_pool": {
             "github_issue_number": 2,
             "github_marked_own_owner_submissions": (
-                count_github_owner_submissions(github_thread_comments)
-                if github_thread_comments is not None
+                github_pool["marked_own_owner_submissions"]
+                if github_pool is not None
+                else None
+            ),
+            "github_inline_sources": (
+                github_pool["inline_sources"]
+                if github_pool is not None
+                else None
+            ),
+            "github_linked_sources": (
+                github_pool["linked_sources"]
+                if github_pool is not None
+                else None
+            ),
+            "github_machine_validated_current_receipts": (
+                github_pool["machine_validated_current_receipts"]
+                if github_pool is not None
                 else None
             ),
             "github_error": github_thread_error,

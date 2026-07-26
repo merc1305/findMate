@@ -108,7 +108,8 @@ export default function Home() {
             <h3>Approve the draft</h3>
             <p>
               Show every public field, proof link, expiry, destination, and
-              hash before publication.
+              hash before publication. GitHub can carry the exact profile in
+              that one approved comment—no separate profile repository.
             </p>
           </li>
           <li>

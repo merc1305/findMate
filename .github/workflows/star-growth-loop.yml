@@ -122,6 +122,8 @@ jobs:
               `- 14-day clones: **${metric(clones, "count")}** total / **${metric(clones, "uniques")}** unique`,
               `- 14-day views: **${metric(views, "count")}** total / **${metric(views, "uniques")}** unique`,
               `- GitHub marked own-owner submissions: **${ownerPool.github_marked_own_owner_submissions ?? "unavailable"}**`,
+              `- GitHub submission sources: **${ownerPool.github_inline_sources ?? "unavailable"} inline / ${ownerPool.github_linked_sources ?? "unavailable"} linked**`,
+              `- Machine-validated current GitHub admissions: **${ownerPool.github_machine_validated_current_receipts ?? "unavailable"}**`,
               `- skills.sh directory: **${skillsShState}**`,
               `- GitHub Skill search: **${githubSkillSearchState}**`,
               `- Latest skill release: **${latestReleaseState}**`,

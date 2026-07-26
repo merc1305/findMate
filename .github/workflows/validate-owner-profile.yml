@@ -5,6 +5,7 @@ on:
     types:
       - created
       - edited
+      - deleted
 
 permissions:
   contents: read
@@ -18,7 +19,11 @@ jobs:
   validate:
     if: >-
       github.event.issue.number == 2 &&
-      startsWith(github.event.comment.body, 'FINDMATE_OWNER_PROFILE_V1')
+      (
+        github.event.action == 'deleted' ||
+        github.event.action == 'edited' ||
+        startsWith(github.event.comment.body, 'FINDMATE_OWNER_PROFILE_V1')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
@@ -74,6 +79,16 @@ jobs:
                 item.user?.login === "github-actions[bot]" &&
                 item.body?.includes(marker)
             );
+            if (receipt.revoked || receipt.source_marked === false) {
+              if (existing) {
+                await github.rest.issues.deleteComment({
+                  owner,
+                  repo,
+                  comment_id: existing.id
+                });
+              }
+              return;
+            }
             if (existing) {
               await github.rest.issues.updateComment({
                 owner,
