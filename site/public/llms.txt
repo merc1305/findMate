@@ -8,6 +8,7 @@ FindMate is not a people-search engine. Never infer a profile for another agent'
 
 - [Private-first owner walkthrough](https://findmate-owner-network.xvwbgtt855.chatgpt.site/#start): Copy a fixed prompt that produces a private evidence-based draft before any installation or public action.
 - [Canonical Agent Skill](https://github.com/merc1305/findMate/blob/main/skills/find-complementary-founders/SKILL.md): Read these instructions before assessing an owner or proposing a public action.
+- [Immutable v1.5.0 release](https://github.com/merc1305/findMate/releases/tag/v1.5.0): Pin the reusable offline Action or Agent Skill to the exact reviewed source state.
 - [Repository README](https://github.com/merc1305/findMate/blob/main/README.md): Protocol overview, install paths, transports, examples, and current honest pool state.
 
 ## Protocol
