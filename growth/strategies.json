@@ -235,7 +235,7 @@
       "active_promotion": false,
       "mechanism": "Publish the canonical repository as a semver Agent Skill release so GitHub CLI users can search, preview, install, update, and pin FindMate without a copied catalog entry.",
       "primary_metric": "GitHub skill search visibility, qualified owner submissions, clones, and post-publication star delta",
-      "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.3.6"
+      "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.4.0"
     },
     {
       "id": "G26",
@@ -251,8 +251,8 @@
       "name": "Automatic distribution-surface monitor",
       "status": "active",
       "active_promotion": false,
-      "mechanism": "Check bounded public state for skills.sh, GitHub skill search, protected releases, the exact-source Claude community catalog, and three existing catalog pull requests once per daily growth run so real distribution is distinguished from maintainer tests without install telemetry or repeated outreach.",
-      "primary_metric": "first genuine directory listing, search index, protected release, and catalog state transitions",
+      "mechanism": "Check bounded public state for skills.sh, GitHub skill search, aggregate external Action references, protected releases, the exact-source Claude community catalog, and three existing catalog pull requests once per daily growth run so real distribution is distinguished from maintainer tests without owner telemetry or repeated outreach.",
+      "primary_metric": "first genuine directory listing, search index, external Action reference, protected release, and catalog state transitions",
       "implementation": "growth/measure.py and .github/workflows/star-growth-loop.yml"
     },
     {
@@ -289,7 +289,7 @@
       "active_promotion": false,
       "mechanism": "Publish tested semver Agent Skill releases, protect every v* tag from update or deletion, enable immutable future releases, and verify each release through a pinned isolated install.",
       "primary_metric": "pinned install success, protected latest release state, qualified owner submissions, and post-release star delta",
-      "implementation": "https://github.com/merc1305/findMate/rules/19770813 and https://github.com/merc1305/findMate/releases/tag/v1.3.6"
+      "implementation": "https://github.com/merc1305/findMate/rules/19770813 and https://github.com/merc1305/findMate/releases/tag/v1.4.0"
     },
     {
       "id": "G32",
@@ -334,7 +334,7 @@
       "active_promotion": false,
       "mechanism": "Expose the one canonical skill at the standard .agents/skills project location and ship a deterministic, allowlisted OpenAI upload archive so owners can inspect or install FindMate without a copied protocol, private data, or repeated outreach.",
       "primary_metric": "qualified owner submissions, aggregate clones, release-asset downloads when available, and post-release star delta",
-      "implementation": ".agents/skills/find-complementary-founders, tools/build_skill_archive.py, and the v1.3.6 release assets"
+      "implementation": ".agents/skills/find-complementary-founders, tools/build_skill_archive.py, and the v1.3.6-or-later release assets"
     },
     {
       "id": "G37",

@@ -722,6 +722,37 @@
         "Do not infer, publish, star, message, or contact anyone merely because the skill became discoverable or downloadable."
       ],
       "decision": "Keep G36 active as passive distribution infrastructure, report only aggregate archive downloads plus qualified pool outcomes, wait for independent use, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O027",
+      "observed_at": "2026-07-26T19:43:26Z",
+      "kind": "reusable_offline_validation_action_release",
+      "metric": {
+        "name": "external_github_action_workflow_references",
+        "before": 0,
+        "after": 0,
+        "delta": 0
+      },
+      "facts": [
+        "FindMate pull request 54 merged G37 at canonical commit b4b8a0b213841d1388c1b57621072d44820bb89a: a root composite action exposes the canonical privacy, consent, expiry, and schema validator to downstream GitHub workflows.",
+        "The action passes the caller-selected path through an environment variable, quotes it as one positional value after --, invokes code relative to GITHUB_ACTION_PATH, requests no write permission, and performs no network request.",
+        "The repository CI exercised the action through uses: ./ on both push and pull_request runs; both validate jobs and both site jobs passed. The canonical suite contained 52 passing Python tests.",
+        "An exact-tag clean checkout of v1.4.0 resolved commit b4b8a0b213841d1388c1b57621072d44820bb89a and validated the canonical public fixture through the same composite-action command.",
+        "Immutable release v1.4.0 points to the verified merge commit and is covered by the active semver tag ruleset. Its 153,911-byte deterministic skill archive retained SHA-256 6eb080e2ac06b6a15caccbfa2c882394149b7ce9823f649bfaed0bc9b5ab09f6; both release assets began with zero aggregate downloads.",
+        "Official GitHub CLI 2.96 accepted the skill publication dry run with the known nonblocking project-skill-directory warning. A separate isolated install pinned to v1.4.0 resolved the exact release commit, copied the complete skill, and passed canonical skill validation; this maintainer test is not counted as adoption.",
+        "GitHub's authenticated public code-search API accepted the bounded exact-prefix query and returned zero external workflow references. The monitor stores only total_count and discards repository names, result items, workflow runs, owner identities, and profile data.",
+        "FindMate documents direct owner/repository@exact-tag reuse but does not represent this multi-purpose repository as listed in GitHub Marketplace.",
+        "At 2026-07-26T19:43:26.002573+00:00 FindMate had 2 stars, 0 forks, 0 watchers, 17 clones from 14 unique cloners, 0 views, no referrers, 0 external own-owner submissions, 0 current validation receipts, and 0 external Action workflow references. The automatic stop remains at 101 stars."
+      ],
+      "inference": "G37 creates a passive utility and attribution surface: another project can enforce the shared public-profile contract with one exact-version step, and a public workflow reference can route maintainers back to FindMate. The release is technically usable and measured without owner-level telemetry, but zero external references means there is no evidence yet of independent adoption, a workflow run, owner participation, a match, or star conversion.",
+      "not_supported": [
+        "Do not count local CI, the exact-tag checkout, release publication, archive assets, publisher dry run, or isolated maintainer install as an external Action reference or independent adoption.",
+        "Do not treat a future public workflow reference as proof that the workflow ran, validated a real owner, produced a match, caused a star, or formed a company.",
+        "Do not retain code-search result items, repository names, owner identities, profile paths, profile content, workflow-run data, or stargazer identities for attribution.",
+        "Do not call FindMate listed or approved in GitHub Marketplace without the separate published listing and review state.",
+        "Do not attribute either existing star or any future star to G37 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G37 active as a zero-network integration surface, measure only its aggregate public workflow-reference count in the bounded daily loop, wait for independent use, and preserve the automatic stop at 101 stars."
     }
   ]
 }
