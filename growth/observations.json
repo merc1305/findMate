@@ -317,6 +317,34 @@
         "Do not claim passive growth until later aggregate traffic or qualified submissions change."
       ],
       "decision": "Keep G26 active, preserve the one canonical skill payload and owner-controlled consent boundaries, and compare later aggregate GitHub traffic plus qualified owner submissions without adding install telemetry."
+    },
+    {
+      "id": "O013",
+      "observed_at": "2026-07-26T14:44:05Z",
+      "kind": "distribution_monitor_launch",
+      "metric": {
+        "name": "automatically_monitored_passive_distribution_surfaces",
+        "before": 0,
+        "after": 3,
+        "delta": 3
+      },
+      "facts": [
+        "Pull request 32 merged the bounded distribution-surface monitor at 2026-07-26T14:41:41Z.",
+        "A live local run and GitHub Actions run 30206647761 both completed successfully.",
+        "The public ledger now records the documented skills.sh badge plus the existing Awesome Copilot and OpenHands catalog pull requests once per daily run.",
+        "At 2026-07-26T14:42:42Z skills.sh still returned its documented resource-not-found badge, Awesome Copilot pull request 2438 was open, and OpenHands pull request 419 was open.",
+        "The monitor performs no skill install, catalog comment, review request, star, profile action, or owner telemetry, so it cannot manufacture its own success signal.",
+        "All 32 Python tests and both pull-request CI jobs passed.",
+        "At 2026-07-26T14:44:05Z FindMate still had 1 star, 0 forks, 0 subscribers, and 0 marked GitHub own-owner submissions."
+      ],
+      "inference": "G27 converts three manual checks into a durable evidence loop and will expose the first real distribution transition without repeated inference. No monitored channel has converted yet.",
+      "not_supported": [
+        "Do not count a maintainer install, monitor request, pull-request check, or workflow run as external adoption.",
+        "Do not call an open catalog pull request a distribution placement.",
+        "Do not infer external interest from a resource-not-found badge.",
+        "Do not attribute the existing star to G27."
+      ],
+      "decision": "Keep G27 active at one bounded daily read, wait for genuine state transitions, and avoid synthetic installs or unsolicited catalog-review requests."
     }
   ]
 }
