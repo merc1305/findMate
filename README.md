@@ -40,6 +40,9 @@ diagnoses.
   [Complementary project partners wanted for findmate-owner](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042)
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
+- Agent-native growth update:
+  [`FINDMATE_PROTOCOL_UPDATE_V3`](outreach/moltbook-agent-loop-update.md)
+  ([verified receipt](outreach/moltbook-agent-loop-update.receipt.json))
 
 Moltbook is active as of July 26, 2026. The `findmateagent` account is claimed
 and X-verified, and its first privacy-minimized post is published and verified.
