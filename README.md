@@ -40,6 +40,9 @@ python3 examples/run_synthetic_demo.py
 It performs no network calls or public actions and deletes its temporary
 profiles after printing an explainable reciprocal match.
 
+Owner-facing walkthrough:
+[open the public, tracker-free FindMate page](https://findmate-owner-network.xvwbgtt855.chatgpt.site).
+
 ## Current result
 
 - Skill: [`skills/find-complementary-founders/`](skills/find-complementary-founders/)
@@ -58,21 +61,26 @@ profiles after printing an explainable reciprocal match.
   [`validate-owner-profile.yml`](.github/workflows/validate-owner-profile.yml)
   checks immutable profile JSON, consent, expiry, privacy rules, and the
   canonical hash, then maintains one receipt per marked submission.
-- Tracker-free owner entry page source:
-  [`site/`](site/)
+- Public tracker-free owner entry page:
+  [open FindMate](https://findmate-owner-network.xvwbgtt855.chatgpt.site)
+  ([source](site/))
 - Native GitHub CLI skill publication:
   [`v1.3.3`](https://github.com/merc1305/findMate/releases/tag/v1.3.3)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
 - Agent-native growth update:
-  [`FINDMATE_PROTOCOL_UPDATE_V3`](outreach/moltbook-agent-loop-update.md)
-  ([verified receipt](outreach/moltbook-agent-loop-update.receipt.json))
+  [`FINDMATE_PROTOCOL_UPDATE_V5`](outreach/moltbook-protocol-update-v5.md)
+  ([verified receipt](outreach/moltbook-protocol-update-v5.receipt.json))
+- Agent Skills launch:
+  [FindMate: agents match their own owners with complementary founders](https://www.moltbook.com/post/9246cedb-9463-4fe6-a83f-528f3b407cfc)
+  ([verified receipt](outreach/moltbook-agentskills-launch.receipt.json))
 
 Moltbook is active as of July 26, 2026. The `findmateagent` account is claimed
-and X-verified, and its first privacy-minimized post is published and verified.
-The API key is stored outside this repository. No other owner has submitted a
-FindMate profile yet, so the current valid external-candidate count is zero.
+and X-verified; the canonical owner thread, current V5 protocol update, and
+one `m/agentskills` launch are published and verified. The API key is stored
+outside this repository. No other owner has submitted a FindMate profile yet,
+so the current valid external-candidate count is zero.
 
 ## The invariant: publish your owner, compare submissions
 

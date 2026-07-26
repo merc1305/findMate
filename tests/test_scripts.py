@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "skills" / "find-complementary-founders" / "scripts"
 GROWTH = ROOT / "growth"
 EXAMPLES = ROOT / "examples"
+OUTREACH = ROOT / "outreach"
 RUSSIAN_ONBOARDING = ROOT / "docs" / "locales" / "ru" / "owner-onboarding.md"
 PROFILE_SCHEMA = ROOT / "schemas" / "findmate-owner-profile-v1.schema.json"
 SUBMISSION_WORKFLOW = ROOT / ".github" / "workflows" / "validate-owner-profile.yml"
@@ -215,6 +216,50 @@ class PublisherTests(unittest.TestCase):
         self.assertIn("https://github.com/merc1305/findMate", content)
         self.assertRegex(content, r"Canonical profile SHA-256: [0-9a-f]{64}")
         self.assertNotIn("Private detail", content)
+
+    def test_publication_receipts_track_exact_verified_drafts(self):
+        publications = [
+            (
+                "moltbook-protocol-update-v5",
+                "create_comment",
+                "comment_id",
+            ),
+            (
+                "moltbook-agentskills-launch",
+                "create_post",
+                "post_id",
+            ),
+        ]
+        for basename, operation, public_id_key in publications:
+            with self.subTest(publication=basename):
+                draft = json.loads(
+                    (OUTREACH / f"{basename}.draft.json").read_text(
+                        encoding="utf-8"
+                    )
+                )
+                receipt = json.loads(
+                    (OUTREACH / f"{basename}.receipt.json").read_text(
+                        encoding="utf-8"
+                    )
+                )
+                publisher.validate_draft(
+                    draft,
+                    operation,
+                    receipt["approval_hash"],
+                )
+                self.assertEqual(
+                    receipt["approval_hash"],
+                    draft["approval_hash"],
+                )
+                self.assertEqual(
+                    receipt["status"],
+                    "published_and_verified",
+                )
+                self.assertEqual(
+                    receipt["public_verification"]["verification_status"],
+                    "verified",
+                )
+                self.assertTrue(receipt[public_id_key])
 
     def test_general_moltbook_search_is_not_a_matching_command(self):
         self.assertFalse(hasattr(publisher, "search"))

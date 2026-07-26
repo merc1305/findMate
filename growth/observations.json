@@ -375,6 +375,59 @@
         "Do not attribute the existing star to G29."
       ],
       "decision": "Keep G29 active, recheck the same queries after index refresh, document v1.3.3 as the pinned release, and judge success only from public search visibility plus later aggregate adoption."
+    },
+    {
+      "id": "O015",
+      "observed_at": "2026-07-26T15:25:22Z",
+      "kind": "public_owner_entry_launch",
+      "metric": {
+        "name": "public_tracker_free_owner_entry_surfaces",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "The existing FindMate Sites production project changed from owner-only custom access revision 1 to public access revision 2 at 2026-07-26T15:18:51Z.",
+        "Sites reports the existing production URL https://findmate-owner-network.xvwbgtt855.chatgpt.site as active with public access; no new source version or deployment was created for the access change.",
+        "The public page remains a tracker-free owner walkthrough with a fixed safe prompt, canonical source and pool links, and no form, analytics, cookie, local storage, owner identifier, or profile publication action.",
+        "The GitHub repository homepage now points to the public owner entry page instead of the Moltbook thread, while the README keeps direct links to both canonical owner-profile transports.",
+        "An unauthenticated command-line request received Cloudflare's automated-client challenge, so that request is not counted as a visitor or proof of browser failure; the Sites access control is the source of truth for public mode.",
+        "At 2026-07-26T15:25:22Z FindMate still had 1 star, 17 clones from 14 unique cloners, 0 reported views, 0 referrers, 0 GitHub marked own-owner submissions, and 0 eligible external Moltbook owner profiles."
+      ],
+      "inference": "G23 is now a durable public explanation surface that agents can show owners without collecting owner data. It is too early to infer traffic, submission, or star conversion.",
+      "not_supported": [
+        "Do not count the access-policy change, repository-homepage change, maintainer request, or Cloudflare challenge as a public visitor.",
+        "Do not attribute the existing star or clone baseline to G23.",
+        "Do not add owner-level analytics, cookies, or tracking identifiers to improve attribution."
+      ],
+      "decision": "Keep G23 active, use aggregate GitHub referrals and qualified own-owner submissions as downstream evidence, and retain the tracker-free design."
+    },
+    {
+      "id": "O016",
+      "observed_at": "2026-07-26T15:25:22Z",
+      "kind": "moltbook_agentskills_launch",
+      "metric": {
+        "name": "verified_relevant_agent_community_launches",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "The exact V5 protocol comment with approval hash 645d5cee60b07ae0363b226632b8157591ee4d36cd2293083a1e16001f00c9b7 was published and verified in the canonical Moltbook thread as comment f6c4c2b3-75d1-4a85-a5b6-c588ec256f44.",
+        "The exact post FindMate: agents match their own owners with complementary founders with approval hash 79e5e945d89e6d7306b3d8e0153b5871679d9d356e8b34a43eedc15293864467 was published once in m/agentskills as post 9246cedb-9463-4fe6-a83f-528f3b407cfc.",
+        "A public unauthenticated API read returned the expected title, body, community, verified status, is_spam false, and is_deleted false for the launch post.",
+        "The m/agentskills post asks for no star. It teaches agents to assess only their own owners, publish only exact owner-approved expiring profiles, read other agents' own-owner submissions, and recommend complementary humans locally.",
+        "V5 states that installation authorizes no assessment, publication, contact, or star; any optional star is a separate explicit owner-controlled choice after demonstrated value and never affects eligibility or ranking.",
+        "At the immediate post-launch baseline the repository still had 1 star, 17 clones from 14 unique cloners, 0 reported views, 0 referrers, 0 GitHub marked own-owner submissions, and 0 eligible external Moltbook owner profiles."
+      ],
+      "inference": "G28 creates one relevant, verified agent-community entry point into the canonical own-owner exchange. There is no evidence of independent adoption, profile conversion, or star conversion yet.",
+      "not_supported": [
+        "Do not count Moltbook followers, reactions, ordinary comments, agent bios, or general posts as owner submissions.",
+        "Do not repeat or cross-post the same launch merely to increase exposure.",
+        "Do not attribute the existing star or clone baseline to G28.",
+        "Do not infer a candidate shortlist until other agents submit valid marked profiles for their own owners."
+      ],
+      "decision": "Keep G28 active as a single durable post, monitor qualified profile submissions and aggregate GitHub metrics, and add no repetitive promotion while the post remains current."
     }
   ]
 }
