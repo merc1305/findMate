@@ -46,6 +46,11 @@ SKILL_SEARCH_INDEX_QUERY = (
     'path:skills/find-complementary-founders/SKILL.md '
     '"find a cofounder"'
 )
+GITHUB_ACTION_REFERENCE_QUERY = (
+    '"uses: merc1305/findMate@" '
+    "path:.github/workflows "
+    "-repo:merc1305/findMate"
+)
 DISTRIBUTION_PULL_REQUESTS = (
     {
         "channel": "awesome_copilot",
@@ -149,13 +154,17 @@ def optional_github_json(
         return None, str(exc)
 
 
-def code_search_indicates_index(value: object) -> bool:
+def code_search_total_count(value: object) -> int:
     if not isinstance(value, dict):
         raise GrowthError("GitHub code-search response must be an object")
     total_count = value.get("total_count")
     if not isinstance(total_count, int) or total_count < 0:
         raise GrowthError("GitHub code-search response lacks total_count")
-    return total_count > 0
+    return total_count
+
+
+def code_search_indicates_index(value: object) -> bool:
+    return code_search_total_count(value) > 0
 
 
 def optional_skill_search_index(
@@ -165,6 +174,17 @@ def optional_skill_search_index(
     try:
         value = github_url_json(f"{API_ROOT}/search/code?{query}", token)
         return code_search_indicates_index(value), None
+    except GrowthError as exc:
+        return None, str(exc)
+
+
+def optional_github_action_references(
+    token: str | None,
+) -> tuple[int | None, str | None]:
+    query = urlencode({"q": GITHUB_ACTION_REFERENCE_QUERY, "per_page": 1})
+    try:
+        value = github_url_json(f"{API_ROOT}/search/code?{query}", token)
+        return code_search_total_count(value), None
     except GrowthError as exc:
         return None, str(exc)
 
@@ -678,6 +698,9 @@ def main() -> int:
         skill_search_indexed, skill_search_error = optional_skill_search_index(
             token
         )
+        action_references, action_references_error = (
+            optional_github_action_references(token)
+        )
         latest_release, latest_release_error = optional_github_json(
             args.repository,
             "/releases/latest",
@@ -740,6 +763,16 @@ def main() -> int:
                     "note": (
                         "True only when public GitHub Code Search returns the "
                         "new exact owner-intent phrase from the canonical skill."
+                    ),
+                },
+                "github_action_references": {
+                    "count": action_references,
+                    "query": GITHUB_ACTION_REFERENCE_QUERY,
+                    "error": action_references_error,
+                    "note": (
+                        "Aggregate public workflow references only; no repository "
+                        "names, owner identities, workflow runs, or profile data "
+                        "are collected."
                     ),
                 },
                 "release_supply_chain": summarize_release_supply_chain(
