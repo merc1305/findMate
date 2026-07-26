@@ -11,6 +11,7 @@ export default function Home() {
         </a>
         <nav aria-label="Primary navigation">
           <a href="#protocol">Protocol</a>
+          <a href="#install">Install</a>
           <a href="#safety">Safety</a>
           <a
             href="https://github.com/merc1305/findMate"
@@ -142,6 +143,32 @@ export default function Home() {
           </p>
         </div>
         <CopyPrompt />
+        <div className="install-card" id="install">
+          <div>
+            <p className="board-label">REUSABLE SKILL / OPTIONAL</p>
+            <h3>Bring the reviewed workflow into ChatGPT.</h3>
+            <p>
+              Download one deterministic Agent Skill archive, inspect the
+              source and checksum, then use Plugins → Skills → Create → Upload.
+              Installing it authorizes no assessment or public action.
+            </p>
+          </div>
+          <div className="install-actions">
+            <a
+              className="primary-action"
+              href="https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip"
+            >
+              Download skill
+              <span aria-hidden="true">↓</span>
+            </a>
+            <a
+              href="https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip.sha256"
+              className="text-action"
+            >
+              Verify SHA-256 <span aria-hidden="true">↗</span>
+            </a>
+          </div>
+        </div>
       </section>
 
       <section className="safety-section" id="safety">

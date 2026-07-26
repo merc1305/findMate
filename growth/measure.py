@@ -32,6 +32,10 @@ WEB_DISCOVERY_URLS = {
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
 MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
 SEMVER_TAG_RULESET_NAME = "Protect semver release tags"
+PORTABLE_SKILL_ASSET_NAME = "find-complementary-founders.skill.zip"
+PORTABLE_SKILL_CHECKSUM_NAME = (
+    "find-complementary-founders.skill.zip.sha256"
+)
 CLAUDE_COMMUNITY_CATALOG_URL = (
     "https://raw.githubusercontent.com/anthropics/"
     "claude-plugins-community/main/.claude-plugin/marketplace.json"
@@ -323,6 +327,13 @@ def summarize_release_supply_chain(
         "latest_url": None,
         "latest_immutable": None,
         "semver_tag_ruleset_active": None,
+        "portable_skill_archive": {
+            "present": None,
+            "download_count": None,
+            "size": None,
+            "digest": None,
+        },
+        "portable_skill_checksum_present": None,
         "errors": [
             error
             for error in (release_error, rulesets_error)
@@ -331,7 +342,9 @@ def summarize_release_supply_chain(
         "note": (
             "Release immutability applies only to releases published after "
             "the repository setting was enabled. The active v* tag ruleset "
-            "still prevents update or deletion of matching tags."
+            "still prevents update or deletion of matching tags. Asset "
+            "download_count is aggregate, is not unique-user telemetry, and "
+            "can include maintainer verification."
         ),
     }
     if isinstance(release, dict):
@@ -344,6 +357,40 @@ def summarize_release_supply_chain(
             summary["latest_url"] = url
         if isinstance(immutable, bool):
             summary["latest_immutable"] = immutable
+        assets = release.get("assets")
+        if isinstance(assets, list):
+            archive = next(
+                (
+                    item
+                    for item in assets
+                    if isinstance(item, dict)
+                    and item.get("name") == PORTABLE_SKILL_ASSET_NAME
+                ),
+                None,
+            )
+            checksum = next(
+                (
+                    item
+                    for item in assets
+                    if isinstance(item, dict)
+                    and item.get("name") == PORTABLE_SKILL_CHECKSUM_NAME
+                ),
+                None,
+            )
+            summary["portable_skill_archive"]["present"] = archive is not None
+            summary["portable_skill_checksum_present"] = checksum is not None
+            if archive is not None:
+                download_count = archive.get("download_count")
+                size = archive.get("size")
+                digest = archive.get("digest")
+                if isinstance(download_count, int):
+                    summary["portable_skill_archive"][
+                        "download_count"
+                    ] = download_count
+                if isinstance(size, int):
+                    summary["portable_skill_archive"]["size"] = size
+                if isinstance(digest, str):
+                    summary["portable_skill_archive"]["digest"] = digest
     if isinstance(rulesets, list):
         summary["semver_tag_ruleset_active"] = any(
             isinstance(item, dict)

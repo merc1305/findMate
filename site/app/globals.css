@@ -196,11 +196,51 @@ footer {
 }
 
 .hero-actions,
-.closing-actions {
+.closing-actions,
+.install-actions {
   display: flex;
   align-items: center;
   gap: 28px;
   margin-top: 38px;
+}
+
+.install-card {
+  margin-top: 42px;
+  border: 1px solid var(--ink);
+  padding: clamp(24px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: clamp(28px, 5vw, 72px);
+  align-items: end;
+  background: var(--acid);
+}
+
+.install-card h3 {
+  font-family: var(--display);
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+  margin: 18px 0;
+}
+
+.install-card p:not(.board-label) {
+  max-width: 720px;
+  margin: 0;
+  color: #3e4230;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.install-actions {
+  margin-top: 0;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 220px;
+}
+
+.install-actions .text-action {
+  align-self: center;
 }
 
 .primary-action {
@@ -817,6 +857,15 @@ footer p {
 
   .open-section {
     grid-template-columns: 1fr;
+  }
+
+  .install-card {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .install-actions {
+    width: min(100%, 340px);
   }
 
   footer {

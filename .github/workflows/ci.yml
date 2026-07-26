@@ -22,6 +22,14 @@ jobs:
           python3 -m py_compile skills/find-complementary-founders/scripts/*.py
           python3 -m py_compile growth/measure.py
           python3 -m py_compile examples/run_synthetic_demo.py
+          python3 -m py_compile tools/build_skill_archive.py
+      - name: Build the portable skill archive
+        run: |
+          python3 tools/build_skill_archive.py \
+            --output /tmp/find-complementary-founders.skill.zip \
+            --checksum-output /tmp/find-complementary-founders.skill.zip.sha256
+          python3 tools/build_skill_archive.py \
+            --verify /tmp/find-complementary-founders.skill.zip
       - name: Validate the canonical public profile
         run: |
           python3 skills/find-complementary-founders/scripts/validate_profile.py \

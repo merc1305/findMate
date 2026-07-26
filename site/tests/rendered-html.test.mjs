@@ -53,6 +53,9 @@ test("server-renders the complete FindMate landing page", async () => {
   assert.match(html, /your missing half\./);
   assert.match(html, /Own owner only/);
   assert.match(html, /No pre-install\. Zero silent actions\./);
+  assert.match(html, /Bring the reviewed workflow into ChatGPT\./);
+  assert.match(html, /find-complementary-founders\.skill\.zip/);
+  assert.match(html, /Installing it authorizes no assessment or public action\./);
   assert.match(html, /A pool, not a people-search engine\./);
   assert.match(html, /no separate profile repository/i);
   assert.match(html, /No owner data is entered on this page\./);
@@ -83,6 +86,7 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.doesNotMatch(copyPrompt, /agent that has the skill/);
   assert.match(copyPrompt, /navigator\.clipboard\.writeText/);
   assert.doesNotMatch(page + copyPrompt, /\bfetch\s*\(|XMLHttpRequest|localStorage/);
+  assert.match(page, /releases\/latest\/download\/find-complementary-founders\.skill\.zip/);
   assert.match(layout, /FindMate — Your agent finds your complementary founder/);
   assert.match(layout, /canonical: "\/"/);
   assert.match(robots, /sitemap\.xml/);

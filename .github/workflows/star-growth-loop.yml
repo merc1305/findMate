@@ -89,6 +89,14 @@ jobs:
                 : releaseSupplyChain.semver_tag_ruleset_active === false
                   ? "not active"
                   : "unavailable";
+            const portableArchive =
+              releaseSupplyChain.portable_skill_archive || {};
+            const portableArchiveState =
+              portableArchive.present === true
+                ? `published — ${Number.isInteger(portableArchive.download_count) ? portableArchive.download_count : "unavailable"} aggregate download(s)`
+                : portableArchive.present === false
+                  ? "not attached to the latest release"
+                  : "unavailable";
             const claudeCommunityState =
               claudeCommunity.state === "listed_expected_source"
                 ? `listed from canonical source${
@@ -127,6 +135,7 @@ jobs:
               `- skills.sh directory: **${skillsShState}**`,
               `- GitHub Skill search: **${githubSkillSearchState}**`,
               `- Latest skill release: **${latestReleaseState}**`,
+              `- Portable ChatGPT archive: **${portableArchiveState}**`,
               `- Semver tag protection: **${semverTagState}**`,
               `- Anthropic Claude community marketplace: **${claudeCommunityState}**`,
               `- Public web discovery layer: **${webDiscoveryState}**`,
