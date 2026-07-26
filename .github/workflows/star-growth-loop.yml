@@ -85,6 +85,7 @@ jobs:
               `- GitHub Skill search: **${githubSkillSearchState}**`,
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
+              `- AAS Core catalog PR: **${channelState("aas_core")}**`,
               "",
               "## Active experiments",
               "",

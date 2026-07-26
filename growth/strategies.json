@@ -251,7 +251,7 @@
       "name": "Automatic distribution-surface monitor",
       "status": "active",
       "active_promotion": false,
-      "mechanism": "Check the documented public skills.sh badge and two existing catalog pull requests once per daily growth run so real external distribution is distinguished from maintainer tests without install telemetry or repeated outreach.",
+      "mechanism": "Check the documented public skills.sh badge and three existing catalog pull requests once per daily growth run so real external distribution is distinguished from maintainer tests without install telemetry or repeated outreach.",
       "primary_metric": "first genuine skills.sh listing and catalog PR state transitions",
       "implementation": "growth/measure.py and .github/workflows/star-growth-loop.yml"
     },
@@ -272,6 +272,15 @@
       "mechanism": "Use concise truthful phrases owners actually search for in the canonical skill and marketplace descriptions, then compare public search visibility without keyword stuffing or synthetic installs.",
       "primary_metric": "FindMate appearance and rank for cofounder and founder-matching skill searches",
       "implementation": "skills/find-complementary-founders/SKILL.md, .claude-plugin/marketplace.json, and growth/measure.py"
+    },
+    {
+      "id": "G30",
+      "name": "AAS Core community catalog distribution",
+      "status": "planned",
+      "active_promotion": false,
+      "mechanism": "Contribute one complete, attributed, source-only copy to the AAS Core community catalog so agents can discover the own-owner protocol through an established skill library without repeated outreach.",
+      "primary_metric": "catalog PR merge, catalog referrals, qualified owner submissions, and post-merge star delta",
+      "implementation": "https://github.com/sickn33/agentic-awesome-skills/pull/992"
     }
   ]
 }
