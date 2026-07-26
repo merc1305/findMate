@@ -46,3 +46,23 @@ jobs:
           if len(text.splitlines()) > 500:
               raise SystemExit("SKILL.md exceeds 500 lines")
           PY
+  site:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22.14.0"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install exact site dependencies
+        run: npm ci
+      - name: Build and verify the owner-facing site
+        run: npm test
+      - name: Lint the site
+        run: npm run lint
+      - name: Audit production dependencies
+        run: npm audit --omit=dev

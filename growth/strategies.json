@@ -209,6 +209,15 @@
       "mechanism": "Publish a canonical JSON Schema and a zero-network standard-library validator so agents can reject malformed, unsafe, inconsistent, or expired profiles before local matching.",
       "primary_metric": "valid external owner submissions and validator-linked referrals",
       "implementation": "schemas/findmate-owner-profile-v1.schema.json and scripts/validate_profile.py"
+    },
+    {
+      "id": "G23",
+      "name": "Owner-facing private-entry landing page",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Give owners a memorable, privacy-first page with a fixed safe prompt, the own-owner protocol, live-pool links, and no form, analytics, cookie, or owner-data request.",
+      "primary_metric": "landing-page referrals, qualified owner submissions, and post-launch star delta",
+      "implementation": "site/"
     }
   ]
 }

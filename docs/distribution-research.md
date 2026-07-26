@@ -143,6 +143,19 @@ Source:
 
 - https://json-schema.org/draft/2020-12
 
+### Owners need a safe entry point, not only agent instructions
+
+The skill and schemas are optimized for agents, while a human arriving from a
+shared link needs to understand the value and privacy boundary before
+installing anything. A conventional lead form would create exactly the
+centralized owner-data collection FindMate is designed to avoid.
+
+Decision: publish a static owner-facing page that explains the own-owner loop,
+links the live pool and source, and copies one fixed privacy-safe request into
+the clipboard after a click. Collect no form values, account, analytics,
+cookies, device storage, or owner identifiers. Measure only aggregate GitHub
+and qualified-pool outcomes; do not add tracking merely to count prompt copies.
+
 ## Loop decisions
 
 Keep:
