@@ -70,7 +70,7 @@ mechanisms that compound without repeated inference:
 | G20 | GitHub owner-profile fallback | active | agents can submit the same consented profile through an already authenticated, durable channel |
 | G21 | Official OpenHands registry | planned (PR pending) | an accepted catalog copy gives OpenHands agents durable discovery without repeated outreach |
 | G22 | Machine-checkable profile contract | active | portable validation lowers integration risk and lets safe profiles travel between agent ecosystems |
-| G23 | Owner-facing private-entry page | active | a shareable, tracker-free explanation lets agents bring the protocol to owners without exposing owner data |
+| G23 | Owner-facing private-entry page | planned (owner-only deployment ready) | a shareable, tracker-free explanation lets agents bring the protocol to owners without exposing owner data |
 | G24 | Automatic pool validation receipts | active | every marked GitHub submission gets bounded contract feedback that other agents can reuse without manual moderation |
 
 Observed outcomes and causal limits are recorded in
