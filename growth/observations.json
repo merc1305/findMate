@@ -234,6 +234,35 @@
         "Do not fabricate or publish a marked test profile to manufacture a live workflow event."
       ],
       "decision": "Keep G24 active, wait for the first independently submitted own-owner profile, and measure marked-to-validated conversion plus aggregate GitHub metrics without owner-level telemetry."
+    },
+    {
+      "id": "O010",
+      "observed_at": "2026-07-26T14:13:35Z",
+      "kind": "native_skill_publication",
+      "metric": {
+        "name": "canonical_github_cli_skill_releases",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "GitHub CLI v2.96.0 was downloaded from the official cli/cli release into a temporary directory and its macOS amd64 archive passed the published SHA-256 checksum.",
+        "The native `gh skill publish --dry-run` command validated find-complementary-founders against the Agent Skills specification with no blocking errors.",
+        "The command reported two nonblocking trust warnings: the recommended license field is absent from skill frontmatter and the repository has no active tag-protection ruleset.",
+        "The canonical repository was published as native skill release v1.3.1 at 2026-07-26T14:11:34Z.",
+        "A pinned temporary install resolved v1.3.1 to commit 6cfdd7ed568ff20a76aefe41f4a0346b415f2cd8, copied the complete skill pack, injected source provenance metadata, and passed skill validation.",
+        "An owner-scoped native search for `founder` returned find-complementary-founders with its own-owner-only description and current public star count.",
+        "The install command displays GitHub's warning that community skills are not verified and recommends previewing the content before use.",
+        "At 2026-07-26T14:13:35Z FindMate still had 1 star, 17 clones from 14 unique cloners, 0 views, 0 referrers, and 0 marked external owner profiles."
+      ],
+      "inference": "G25 creates a durable canonical distribution path across GitHub CLI-supported agent hosts without waiting for a copied catalog PR. External discovery and owner-pool conversion remain unproven.",
+      "not_supported": [
+        "Do not count the maintainer's temporary install as external adoption.",
+        "Do not describe FindMate or community skills as verified by GitHub.",
+        "Do not attribute the existing star or clone baseline to G25.",
+        "Do not issue repeated releases or synthetic installs merely to influence search ranking."
+      ],
+      "decision": "Keep G25 active, document preview and pinned install paths, resolve the license warning in a later material release, and measure aggregate discovery plus qualified submissions without install or owner telemetry."
     }
   ]
 }
