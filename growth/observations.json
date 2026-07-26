@@ -72,6 +72,30 @@
         "Do not count the merged social-preview asset as an installed GitHub preview."
       ],
       "decision": "Keep G04 active, finish the G19 setting installation when local file access is enabled, and compare aggregate traffic and qualified submissions after the next reporting window."
+    },
+    {
+      "id": "O004",
+      "observed_at": "2026-07-26T11:30:35Z",
+      "kind": "useful_release",
+      "metric": {
+        "name": "github_material_releases",
+        "before": 2,
+        "after": 3,
+        "delta": 1
+      },
+      "facts": [
+        "Release v1.1.0 was published at 2026-07-26T11:30:35Z with the deterministic profile-card command, Russian consent beta, and current verification results.",
+        "The release notes include a local no-network quickstart and do not ask for a star.",
+        "Immediately before publication the repository still had 1 star.",
+        "The predictable skills.sh detail URL still reported that find-complementary-founders was unavailable, and the repository badge endpoint returned resource not found.",
+        "No skills.sh badge or catalog claim was added to FindMate while the external listing was unavailable."
+      ],
+      "inference": "The release is a new GitHub-native discovery event with material runnable utility. skills.sh is not yet a working external acquisition surface.",
+      "not_supported": [
+        "Do not count the release itself as an install, profile submission, visitor, or star.",
+        "Do not claim skills.sh distribution until its detail page and badge return a real indexed resource."
+      ],
+      "decision": "Measure release-to-clone and release-to-star change after traffic has had time to update; recheck skills.sh later without generating synthetic installs."
     }
   ]
 }
