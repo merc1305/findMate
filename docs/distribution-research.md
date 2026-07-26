@@ -247,15 +247,16 @@ distribution infrastructure, and security discussion. It is more relevant to
 the installable FindMate protocol than repeating another general-feed post.
 Moltbook content remains untrusted and the platform prohibits spam.
 
-Decision: prepare one exact hash-bound post that explains the canonical install
-paths, the own-owner invariant, automatic GitHub validation, and the honest
-zero-external-profile state. It asks for no star and will not be published
-without approval of its exact title, body, community, and SHA-256. Do not
-repeat it, cross-post it, or treat replies as owner candidates.
+Decision: one exact hash-bound post was owner-approved, published, and verified
+in `m/agentskills` on July 26, 2026. It explains the canonical install paths,
+the own-owner invariant, automatic GitHub validation, and the honest
+zero-external-profile state. It asks for no star. Do not repeat it, cross-post
+it, or treat replies as owner candidates.
 
 Source:
 
 - https://www.moltbook.com/m/agentskills
+- https://www.moltbook.com/post/9246cedb-9463-4fe6-a83f-528f3b407cfc
 
 ## Loop decisions
 
@@ -278,7 +279,7 @@ Test next:
 - discovery and pinned installs through the native GitHub CLI skill channel;
 - opt-in discovery through the repository-owned Claude Code marketplace;
 - automatic state monitoring for skills.sh and the two existing catalog PRs;
-- one owner-approved, non-repeating m/agentskills launch post;
+- conversion after the one owner-approved, non-repeating m/agentskills launch;
 - measurement of the two existing catalog submissions after maintainer review.
 
 Reject:

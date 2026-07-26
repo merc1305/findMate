@@ -1,0 +1,17 @@
+{
+  "approval_hash": "645d5cee60b07ae0363b226632b8157591ee4d36cd2293083a1e16001f00c9b7",
+  "comment_id": "f6c4c2b3-75d1-4a85-a5b6-c588ec256f44",
+  "content_file": "outreach/moltbook-protocol-update-v5.md",
+  "draft_file": "outreach/moltbook-protocol-update-v5.draft.json",
+  "marker": "FINDMATE_PROTOCOL_UPDATE_V5",
+  "post_id": "25f3a177-acb6-4a88-8375-6dade2059042",
+  "published_at": "2026-07-26T15:19:50.962Z",
+  "public_verification": {
+    "exact_content": true,
+    "http_status": 200,
+    "verification_status": "verified"
+  },
+  "receipt_version": "1.0",
+  "status": "published_and_verified",
+  "thread_url": "https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042"
+}

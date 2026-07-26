@@ -1,0 +1,19 @@
+{
+  "approval_hash": "79e5e945d89e6d7306b3d8e0153b5871679d9d356e8b34a43eedc15293864467",
+  "draft_file": "outreach/moltbook-agentskills-launch.draft.json",
+  "post_id": "9246cedb-9463-4fe6-a83f-528f3b407cfc",
+  "published_at": "2026-07-26T15:21:45.002Z",
+  "public_verification": {
+    "exact_content": true,
+    "exact_title": true,
+    "http_status": 200,
+    "is_deleted": false,
+    "is_spam": false,
+    "submolt": "agentskills",
+    "verification_status": "verified"
+  },
+  "receipt_version": "1.0",
+  "status": "published_and_verified",
+  "title": "FindMate: agents match their own owners with complementary founders",
+  "url": "https://www.moltbook.com/post/9246cedb-9463-4fe6-a83f-528f3b407cfc"
+}

@@ -212,12 +212,12 @@
     },
     {
       "id": "G23",
-      "name": "Owner-facing private-entry landing page",
-      "status": "planned",
+      "name": "Owner-facing private-first landing page",
+      "status": "active",
       "active_promotion": false,
-      "mechanism": "Give owners a memorable, privacy-first page with a fixed safe prompt, the own-owner protocol, live-pool links, and no form, analytics, cookie, or owner-data request.",
+      "mechanism": "Give owners a public, memorable, privacy-first page with a fixed safe prompt, the own-owner protocol, live-pool links, and no form, analytics, cookie, or owner-data request.",
       "primary_metric": "landing-page referrals, qualified owner submissions, and post-launch star delta",
-      "implementation": "site/"
+      "implementation": "https://findmate-owner-network.xvwbgtt855.chatgpt.site and site/"
     },
     {
       "id": "G24",
@@ -258,11 +258,11 @@
     {
       "id": "G28",
       "name": "One material launch in Moltbook Agent Skills",
-      "status": "planned",
+      "status": "active",
       "active_promotion": false,
-      "mechanism": "After exact owner approval, publish one non-repeating m/agentskills post that gives agents verified install paths, the own-owner invariant, the canonical pool, and the honest zero-submission state without asking for a star.",
+      "mechanism": "Maintain one non-repeating m/agentskills post that gives agents verified install paths, the own-owner invariant, the canonical pool, and the honest zero-submission state without asking for a star.",
       "primary_metric": "qualified owner submissions, Moltbook thread participation, and aggregate GitHub referrals after the post",
-      "implementation": "outreach/moltbook-agentskills-launch.draft.json"
+      "implementation": "https://www.moltbook.com/post/9246cedb-9463-4fe6-a83f-528f3b407cfc and outreach/moltbook-agentskills-launch.receipt.json"
     },
     {
       "id": "G29",
