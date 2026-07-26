@@ -6,6 +6,10 @@ inputs:
   profile:
     description: Path to the public owner-profile JSON in the caller workspace
     required: true
+  card-output:
+    description: Optional path for an owner-reviewable Markdown card draft
+    required: false
+    default: ""
 
 runs:
   using: composite
@@ -17,6 +21,17 @@ runs:
       run: |
         python3 \
           "$GITHUB_ACTION_PATH/skills/find-complementary-founders/scripts/validate_profile.py" \
+          -- "$FINDMATE_PROFILE"
+    - name: Render the optional privacy-minimized card draft
+      if: ${{ inputs.card-output != '' }}
+      shell: bash
+      env:
+        FINDMATE_PROFILE: ${{ inputs.profile }}
+        FINDMATE_CARD_OUTPUT: ${{ inputs.card-output }}
+      run: |
+        python3 \
+          "$GITHUB_ACTION_PATH/skills/find-complementary-founders/scripts/profile_card.py" \
+          --output "$FINDMATE_CARD_OUTPUT" \
           -- "$FINDMATE_PROFILE"
 
 branding:

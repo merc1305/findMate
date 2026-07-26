@@ -42,6 +42,20 @@ sought, expiry, canonical profile hash, and protocol source. It intentionally
 omits the contact route and raw proof. Inspect it with the owner and obtain
 separate approval for the exact card and destination before sharing it.
 
+The same local draft can be created in a downstream GitHub workflow after the
+canonical validator passes:
+
+```yaml
+- uses: merc1305/findMate@v1.5.0
+  with:
+    profile: owner-profile.public.json
+    card-output: findmate-owner.card.md
+```
+
+This step writes only the selected workspace file. It does not commit, upload,
+or publish the card. Treat a public profile's approval and approval to share
+the rendered card at a named destination as separate decisions.
+
 Do not add a legal name, direct contact detail, precise location, private
 evidence, or unapproved claim to make a share more engaging. Source
 attribution may remain after the repository reaches 101 stars; active star

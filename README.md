@@ -334,18 +334,21 @@ permissions:
 
 steps:
   - uses: actions/checkout@v6
-  - uses: merc1305/findMate@v1.4.0
+  - uses: merc1305/findMate@v1.5.0
     with:
       profile: owner-profile.public.json
+      card-output: findmate-owner.card.md
 ```
 
 The action runs offline and fails on a malformed, unsafe, or expired profile.
 It treats the path as data rather than shell code, requests no write
-permission, and uses an exact protected release tag. Running it does not
-authorize assessment, publication, a repository star, contact, or identity
-exchange. See the complete [security boundary and integration
-notes](docs/github-action.md). FindMate is directly reusable as an action but
-is not represented as listed in GitHub Marketplace.
+permission, and uses an exact protected release tag. The optional
+`card-output` writes a privacy-minimized local draft; the action never commits,
+uploads, or publishes it. Running it does not authorize assessment,
+publication, a repository star, contact, or identity exchange. See the
+complete [security boundary and integration notes](docs/github-action.md).
+FindMate is directly reusable as an action but is not represented as listed in
+GitHub Marketplace.
 
 Semver release tags are protected from update or deletion, and release
 immutability is enabled for releases published after `v1.3.4`. Release

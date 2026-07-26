@@ -51,6 +51,10 @@ GITHUB_ACTION_REFERENCE_QUERY = (
     "path:.github/workflows "
     "-repo:merc1305/findMate"
 )
+PROFILE_CARD_REFERENCE_QUERY = (
+    '"FINDMATE_OWNER_PROFILE_CARD_V1" '
+    "-repo:merc1305/findMate"
+)
 DISTRIBUTION_PULL_REQUESTS = (
     {
         "channel": "awesome_copilot",
@@ -182,6 +186,17 @@ def optional_github_action_references(
     token: str | None,
 ) -> tuple[int | None, str | None]:
     query = urlencode({"q": GITHUB_ACTION_REFERENCE_QUERY, "per_page": 1})
+    try:
+        value = github_url_json(f"{API_ROOT}/search/code?{query}", token)
+        return code_search_total_count(value), None
+    except GrowthError as exc:
+        return None, str(exc)
+
+
+def optional_profile_card_references(
+    token: str | None,
+) -> tuple[int | None, str | None]:
+    query = urlencode({"q": PROFILE_CARD_REFERENCE_QUERY, "per_page": 1})
     try:
         value = github_url_json(f"{API_ROOT}/search/code?{query}", token)
         return code_search_total_count(value), None
@@ -701,6 +716,9 @@ def main() -> int:
         action_references, action_references_error = (
             optional_github_action_references(token)
         )
+        card_references, card_references_error = (
+            optional_profile_card_references(token)
+        )
         latest_release, latest_release_error = optional_github_json(
             args.repository,
             "/releases/latest",
@@ -773,6 +791,16 @@ def main() -> int:
                         "Aggregate public workflow references only; no repository "
                         "names, owner identities, workflow runs, or profile data "
                         "are collected."
+                    ),
+                },
+                "public_profile_card_references": {
+                    "count": card_references,
+                    "query": PROFILE_CARD_REFERENCE_QUERY,
+                    "error": card_references_error,
+                    "note": (
+                        "Aggregate public marker references only; code-search "
+                        "items, repository names, owner identities, card contents, "
+                        "and profile data are discarded."
                     ),
                 },
                 "release_supply_chain": summarize_release_supply_chain(

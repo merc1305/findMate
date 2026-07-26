@@ -11,7 +11,7 @@ permissions:
 
 steps:
   - uses: actions/checkout@v6
-  - uses: merc1305/findMate@v1.4.0
+  - uses: merc1305/findMate@v1.5.0
     with:
       profile: owner-profile.public.json
 ```
@@ -19,6 +19,24 @@ steps:
 The exact semver tag is protected and the corresponding release is immutable.
 FindMate intentionally does not publish a moving `v1` tag. Callers therefore
 choose when to review and adopt a new validator version.
+
+## Optional card draft
+
+After validation passes, the same action can write a deterministic,
+privacy-minimized Markdown card:
+
+```yaml
+- uses: merc1305/findMate@v1.5.0
+  with:
+    profile: owner-profile.public.json
+    card-output: findmate-owner.card.md
+```
+
+`card-output` is optional. When supplied, the action creates or replaces that
+exact caller-selected path in the workspace. It does not commit, upload, or
+publish the file. The card deliberately omits contact routes and raw evidence,
+but the owner must still inspect and approve the exact card and destination
+before another step publishes it.
 
 ## Security boundary
 
@@ -33,6 +51,8 @@ The action:
 - performs no network request and requests no write permission;
 - reads the selected file and prints the validator's JSON result, including
   the canonical profile hash;
+- writes only the caller-selected `card-output` path when that optional input
+  is non-empty, and refuses to write through a symlink;
 - fails the step when the file violates the schema, privacy rules, explicit
   consent requirements, or expiry policy.
 
