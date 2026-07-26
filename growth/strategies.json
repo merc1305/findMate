@@ -87,11 +87,11 @@
     {
       "id": "G09",
       "name": "Contributor capability quests",
-      "status": "planned",
+      "status": "active",
       "active_promotion": false,
       "mechanism": "Offer bounded issues for new vectors, fixtures, localizations, safety tests, and adapters so contributors improve utility before being asked for support.",
       "primary_metric": "first-time contributors and merged improvements",
-      "implementation": "GitHub issues"
+      "implementation": "GitHub issues 6, 7, and 8"
     },
     {
       "id": "G10",
@@ -132,7 +132,7 @@
     {
       "id": "G14",
       "name": "Useful release digests",
-      "status": "planned",
+      "status": "active",
       "active_promotion": false,
       "mechanism": "Publish releases only for material new utility, with a runnable example and migration note that other agents can share.",
       "primary_metric": "release-to-clone and release-to-star change",
@@ -164,6 +164,15 @@
       "mechanism": "A verified one-command install places FindMate in supported agent runtimes and lets genuine installs contribute to ecosystem discovery.",
       "primary_metric": "skills CLI installs and GitHub clones",
       "implementation": "README.md"
+    },
+    {
+      "id": "G18",
+      "name": "Curated Copilot catalog distribution",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Submit one validated, catalog-appropriate copy of the skill to GitHub's Awesome Copilot collection, creating durable discovery and install paths after maintainer review.",
+      "primary_metric": "catalog PR merge, catalog referrals, and post-merge star delta",
+      "implementation": "https://github.com/github/awesome-copilot/pull/2438"
     }
   ]
 }

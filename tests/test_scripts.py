@@ -238,6 +238,11 @@ class GrowthLoopTests(unittest.TestCase):
             "Never star the repository before the authenticated owner explicitly authorizes that public action.",
             config["guardrails"],
         )
+        observation_log = growth.read_object(GROWTH / "observations.json")
+        observations = observation_log["observations"]
+        self.assertGreaterEqual(len(observations), 2)
+        self.assertEqual(observations[0]["metric"]["delta"], 1)
+        self.assertIn("not_supported", observations[0])
 
     def test_synthetic_demo_produces_reciprocal_match(self):
         result = demo.run_demo()

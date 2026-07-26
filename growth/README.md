@@ -56,15 +56,20 @@ mechanisms that compound without repeated inference:
 | G06 | Runtime adapters | planned | reduces installation friction in more agent ecosystems |
 | G07 | Localized owner onboarding | planned | makes consent understandable in the owner's language |
 | G08 | Approved outcome stories | planned | real outcomes explain value without hype |
-| G09 | Contributor quests | planned | useful contributions create invested advocates |
+| G09 | Contributor quests | active | useful contributions create invested advocates |
 | G10 | Research notes | planned | reusable knowledge earns durable references |
 | G11 | Repository metadata | active | improves relevant organic discovery |
 | G12 | Aggregate growth ledger | active | makes decisions accountable and self-correcting |
 | G13 | Project badges | planned | successful collaborations form an attribution network |
-| G14 | Useful release digests | planned | material utility creates reasons to return and share |
+| G14 | Useful release digests | active | material utility creates reasons to return and share |
 | G15 | Proactive private invitation | active | agents bring owners a relevant option without taking public action for them |
 | G16 | Repository agent entry point | active | agents opening the repo receive the value proposition directly |
 | G17 | Portable skill CLI | active | one verified command distributes the skill across agent runtimes |
+| G18 | Curated Copilot catalog | active | a validated external catalog can distribute the skill without repeated outreach |
+
+Observed outcomes and causal limits are recorded in
+[`observations.json`](observations.json). An exposure is not called a winner
+until its timing and available referral data support that claim.
 
 Explicitly excluded: starring without exact owner authorization, purchased or
 exchanged stars, fake accounts, star-gated matching, giveaways for stars, mass
