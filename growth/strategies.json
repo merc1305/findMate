@@ -308,6 +308,15 @@
       "mechanism": "Give first-time owners one tracker-free prompt that points their existing agent at the canonical public skill, produces an evidence-based private draft, and stops before installation or every public action.",
       "primary_metric": "aggregate landing-page referrals, clones, qualified profile submissions, and post-deployment star delta",
       "implementation": "site/app/CopyPrompt.tsx and https://findmate-owner-network.xvwbgtt855.chatgpt.site"
+    },
+    {
+      "id": "G34",
+      "name": "Agent-readable and canonical web discovery",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Expose one canonical landing-page URL, an open sitemap and robots policy, and a concise /llms.txt index that routes agents to the canonical own-owner-only skill without duplicating its executable instructions.",
+      "primary_metric": "organic search and agent referrals, qualified owner submissions, clones, and post-indexing star delta",
+      "implementation": "site/app/layout.tsx, site/app/robots.ts, site/app/sitemap.ts, and site/public/llms.txt"
     }
   ]
 }

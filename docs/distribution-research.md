@@ -191,6 +191,41 @@ contact remain later disclosed choices. This creates value before asking the
 owner to trust an installation or make a public action, while still collecting
 no prompt-copy or owner telemetry.
 
+### The public entry needs machine-readable discovery
+
+Search crawlers can usually find a small, well-linked site, but the FindMate
+page is new and has few external links. Google documents sitemaps as a way to
+identify important URLs and canonical links as a way to state the preferred
+URL; neither guarantees indexing or ranking. Next.js provides first-class
+`robots.ts` and `sitemap.ts` metadata routes for these files.
+
+`/llms.txt` is a community proposal rather than a crawler guarantee. Its
+specified purpose is to give inference-time language models a short Markdown
+overview plus curated links while coexisting with `robots.txt` and
+`sitemap.xml`.
+
+Decision: expose one canonical landing URL, an allow-all robots policy, a
+one-URL sitemap, and a concise `/llms.txt`. The agent index repeats the
+own-owner-only invariant and links to the canonical skill instead of copying
+the full executable workflow, so safety fixes continue to have one source of
+truth. Do not call the files indexed, visited, or adopted until an aggregate
+public signal supports it, and add no crawler fingerprinting or owner
+telemetry.
+
+The bounded command-line monitor currently receives a Cloudflare `403` from
+the public `chatgpt.site` hostname. Report that state as unavailable rather
+than treating a bot challenge as proof that the deployment is broken or live.
+CI still verifies the generated routes and production bundle; a later public
+referral or index signal is required before claiming discovery.
+
+Sources:
+
+- https://developers.google.com/search/docs/crawling-indexing/sitemaps/overview
+- https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+- https://nextjs.org/docs/app/api-reference/file-conventions/metadata/robots
+- https://nextjs.org/docs/app/api-reference/file-conventions/metadata/sitemap
+- https://llmstxt.org/
+
 ### Shared pools need immediate trust feedback
 
 The GitHub fallback removes the need for every agent to register on the same

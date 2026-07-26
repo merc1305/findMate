@@ -20,6 +20,13 @@ DEFAULT_BASELINE = Path(__file__).with_name("baseline.json")
 API_ROOT = "https://api.github.com"
 PROFILE_REPLY_MARKER = "FINDMATE_OWNER_PROFILE_V1"
 SKILLS_SH_BADGE_URL = "https://www.skills.sh/b/merc1305/findMate"
+FINDMATE_SITE_URL = "https://findmate-owner-network.xvwbgtt855.chatgpt.site"
+WEB_DISCOVERY_URLS = {
+    "landing": FINDMATE_SITE_URL,
+    "robots": f"{FINDMATE_SITE_URL}/robots.txt",
+    "sitemap": f"{FINDMATE_SITE_URL}/sitemap.xml",
+    "llms": f"{FINDMATE_SITE_URL}/llms.txt",
+}
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
 MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
 SEMVER_TAG_RULESET_NAME = "Protect semver release tags"
@@ -160,7 +167,10 @@ def external_text(url: str) -> str:
     request = Request(
         url,
         headers={
-            "Accept": "image/svg+xml,text/plain;q=0.8",
+            "Accept": (
+                "text/plain,application/xml,text/markdown,text/html,"
+                "image/svg+xml;q=0.8"
+            ),
             "User-Agent": "findmate-distribution-monitor/1.0",
         },
     )
@@ -209,6 +219,62 @@ def optional_skills_sh_listing() -> tuple[bool | None, str | None]:
         ), None
     except GrowthError as exc:
         return None, str(exc)
+
+
+def summarize_web_discovery(
+    documents: dict[str, str],
+    errors: dict[str, str],
+) -> dict:
+    landing = documents.get("landing", "")
+    robots = documents.get("robots", "")
+    sitemap = documents.get("sitemap", "")
+    llms = documents.get("llms", "")
+    checks = {
+        "canonical_landing": (
+            f'rel="canonical" href="{FINDMATE_SITE_URL}"' in landing
+            or f'rel="canonical" href="{FINDMATE_SITE_URL}/"' in landing
+        ),
+        "robots_links_sitemap": (
+            f"Sitemap: {FINDMATE_SITE_URL}/sitemap.xml" in robots
+        ),
+        "sitemap_lists_landing": (
+            f"<loc>{FINDMATE_SITE_URL}</loc>" in sitemap
+            or f"<loc>{FINDMATE_SITE_URL}/</loc>" in sitemap
+        ),
+        "llms_routes_to_canonical_skill": (
+            llms.startswith("# FindMate\n")
+            and "assess only its own owner" in llms
+            and (
+                "github.com/merc1305/findMate/blob/main/skills/"
+                "find-complementary-founders/SKILL.md"
+            )
+            in llms
+        ),
+    }
+    return {
+        "site_url": FINDMATE_SITE_URL,
+        "endpoint_urls": WEB_DISCOVERY_URLS,
+        "live": all(checks.values()) if not errors else None,
+        "checks": checks,
+        "errors": errors,
+        "note": (
+            "Live means only that four bounded public documents expose the "
+            "expected canonical and own-owner discovery contract. It does "
+            "not prove indexing, a visit, an agent read, an install, a "
+            "profile submission, or a star."
+        ),
+    }
+
+
+def optional_web_discovery() -> dict:
+    documents: dict[str, str] = {}
+    errors: dict[str, str] = {}
+    for name, url in WEB_DISCOVERY_URLS.items():
+        try:
+            documents[name] = external_text(url)
+        except GrowthError as exc:
+            errors[name] = str(exc)
+    return summarize_web_discovery(documents, errors)
 
 
 def summarize_distribution_pull_request(
@@ -509,6 +575,7 @@ def main() -> int:
             token,
         )
         claude_community = optional_claude_community_catalog()
+        web_discovery = optional_web_discovery()
         catalog_pull_requests = []
         for item in DISTRIBUTION_PULL_REQUESTS:
             value, error = optional_github_json(
@@ -568,6 +635,7 @@ def main() -> int:
                     repository_rulesets_error,
                 ),
                 "claude_community": claude_community,
+                "web_discovery": web_discovery,
                 "catalog_pull_requests": catalog_pull_requests,
             },
         )

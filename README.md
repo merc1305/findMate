@@ -67,6 +67,10 @@ stops before every public action.
 - Public tracker-free owner entry page:
   [open FindMate](https://findmate-owner-network.xvwbgtt855.chatgpt.site)
   ([source](site/))
+- Agent-readable web index:
+  [`/llms.txt`](https://findmate-owner-network.xvwbgtt855.chatgpt.site/llms.txt)
+  summarizes the own-owner boundary and links back to the canonical skill
+  without duplicating its executable instructions.
 - Native GitHub CLI skill publication:
   [`v1.3.4`](https://github.com/merc1305/findMate/releases/tag/v1.3.4)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.

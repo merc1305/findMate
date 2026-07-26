@@ -52,6 +52,8 @@ jobs:
               distribution.release_supply_chain || {};
             const claudeCommunity =
               distribution.claude_community || {};
+            const webDiscovery =
+              distribution.web_discovery || {};
             const catalogPullRequests =
               distribution.catalog_pull_requests || [];
             const channelState = (channel) => {
@@ -101,6 +103,12 @@ jobs:
                   : claudeCommunity.state === "name_conflict"
                     ? "name conflict — not FindMate"
                     : "unavailable";
+            const webDiscoveryState =
+              webDiscovery.live === true
+                ? "live canonical + robots + sitemap + agent index"
+                : webDiscovery.live === false
+                  ? "not fully live"
+                  : "unavailable";
             const stopLine = promotion.stopped
               ? "STOPPED — the repository is above 100 stars. Active star requests must remain off."
               : `ACTIVE — ${promotion.stars_until_stop} star(s) remain before the stop state at 101.`;
@@ -119,6 +127,7 @@ jobs:
               `- Latest skill release: **${latestReleaseState}**`,
               `- Semver tag protection: **${semverTagState}**`,
               `- Anthropic Claude community marketplace: **${claudeCommunityState}**`,
+              `- Public web discovery layer: **${webDiscoveryState}**`,
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
               `- AAS Core catalog PR: **${channelState("aas_core")}**`,
