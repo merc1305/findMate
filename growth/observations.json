@@ -485,6 +485,37 @@
         "Do not post unsolicited catalog-review reminders or repeat the same catalog submission."
       ],
       "decision": "Keep G31 active as passive release infrastructure, monitor the latest release and tag ruleset in the bounded public ledger, verify the next release as immutable, and let all three catalog pull requests follow normal maintainer review."
+    },
+    {
+      "id": "O019",
+      "observed_at": "2026-07-26T17:11:33Z",
+      "kind": "claude_community_submission_preparation",
+      "metric": {
+        "name": "official_catalog_surfaces_with_exact_source_monitoring",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Anthropic's current plugin documentation routes third-party submissions to the reviewed claude-plugins-community marketplace through an authenticated Console form rather than pull requests.",
+        "Approved community entries pass plugin validation and safety screening, are pinned to a source commit, and are synchronized into Anthropic's public catalog.",
+        "The public Console form requires a repository URL, optional repository path and homepage, plugin name, description, example use cases, at least one tested platform, a license, an optional privacy-policy URL, the authenticated account email, and acceptance of Anthropic's directory terms.",
+        "FindMate now has a public privacy policy and a complete non-sensitive submission packet. The account email and legal acceptance are deliberately excluded because they belong to the authenticated human account holder.",
+        "Claude Code 2.1.74 successfully validated both the repository marketplace and the plugin manifest at skills/.claude-plugin/plugin.json.",
+        "The bounded daily monitor downloaded Anthropic's public catalog as untrusted JSON, found 2269 plugin entries and zero exact findmate entries, and will count a future listing only if its source resolves to merc1305/findMate.",
+        "A name collision from another source is reported separately and cannot be counted as FindMate distribution.",
+        "The Block agent-skills catalog was deferred because 35 submissions were open while only five merged pull requests were visible; Awesome Claude Code explicitly requires human submissions and had recommendations disabled; Composio's catalog showed no merged pull request in the preceding seven days. No new catalog submission was created merely to add surface count.",
+        "At 2026-07-26T17:11:33Z FindMate still had 1 star, 0 forks, 0 watchers, 0 marked GitHub own-owner submissions, and no verified external profile conversion."
+      ],
+      "inference": "G32 is technically ready for one high-quality official review path and has exact public-state monitoring, while three weaker or policy-incompatible channels were correctly rejected. Preparation is not a form submission, catalog acceptance, install, profile, referral, or star conversion.",
+      "not_supported": [
+        "Do not submit the form without the authenticated account holder supplying their email and accepting Anthropic's terms.",
+        "Do not call FindMate submitted or under review until a real form receipt exists.",
+        "Do not call FindMate listed until the public catalog contains the exact canonical source.",
+        "Do not submit to deferred catalogs merely to increase the number of links or pull requests.",
+        "Do not attribute the existing star to G32."
+      ],
+      "decision": "Keep G32 planned with the authenticated form pending, preserve the exact submission packet, monitor the official catalog once per daily loop, and record a receipt before changing its state to submitted."
     }
   ]
 }

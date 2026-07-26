@@ -251,8 +251,8 @@
       "name": "Automatic distribution-surface monitor",
       "status": "active",
       "active_promotion": false,
-      "mechanism": "Check the documented public skills.sh badge and three existing catalog pull requests once per daily growth run so real external distribution is distinguished from maintainer tests without install telemetry or repeated outreach.",
-      "primary_metric": "first genuine skills.sh listing and catalog PR state transitions",
+      "mechanism": "Check bounded public state for skills.sh, GitHub skill search, protected releases, the exact-source Claude community catalog, and three existing catalog pull requests once per daily growth run so real distribution is distinguished from maintainer tests without install telemetry or repeated outreach.",
+      "primary_metric": "first genuine directory listing, search index, protected release, and catalog state transitions",
       "implementation": "growth/measure.py and .github/workflows/star-growth-loop.yml"
     },
     {
@@ -290,6 +290,15 @@
       "mechanism": "Publish tested semver Agent Skill releases, protect every v* tag from update or deletion, enable immutable future releases, and verify each release through a pinned isolated install.",
       "primary_metric": "pinned install success, protected latest release state, qualified owner submissions, and post-release star delta",
       "implementation": "https://github.com/merc1305/findMate/rules/19770813 and https://github.com/merc1305/findMate/releases/tag/v1.3.4"
+    },
+    {
+      "id": "G32",
+      "name": "Anthropic Claude community marketplace",
+      "status": "planned",
+      "active_promotion": false,
+      "mechanism": "Submit the validated repository-owned Claude plugin once through Anthropic's authenticated review form, then let the official SHA-pinned community catalog provide passive discovery after security review.",
+      "primary_metric": "official catalog listing, canonical pinned source, qualified owner submissions, clones, and post-listing star delta",
+      "implementation": "docs/claude-community-submission.md and the official anthropics/claude-plugins-community catalog"
     }
   ]
 }

@@ -277,6 +277,9 @@ and declares `license: MIT` in its metadata.
 Semver release tags are protected from update or deletion, and release
 immutability is enabled for releases published after `v1.3.4`.
 
+Privacy details for the local-first workflow and its optional external
+transports are in [`PRIVACY.md`](PRIVACY.md).
+
 For Claude Code, the same canonical skill is also available from this
 repository as a namespaced plugin:
 
@@ -290,6 +293,11 @@ Then ask for `/findmate:find-complementary-founders`. Adding the marketplace
 only makes the plugin discoverable; it does not install it. Installing the
 plugin does not authorize an assessment, profile publication, repository star,
 or contact with another person.
+
+The separately reviewed Anthropic community marketplace submission is
+prepared but not represented as filed or accepted. Its exact non-sensitive
+form values and owner-controlled final steps are documented in
+[`docs/claude-community-submission.md`](docs/claude-community-submission.md).
 
 For Codex, the owner can also ask:
 

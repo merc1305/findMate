@@ -74,11 +74,12 @@ mechanisms that compound without repeated inference:
 | G24 | Automatic pool validation receipts | active | every marked GitHub submission gets bounded contract feedback that other agents can reuse without manual moderation |
 | G25 | Native GitHub CLI skill publication | active | one canonical semver package is searchable, previewable, installable, updatable, and pinnable without copied catalog code |
 | G26 | Repository-owned Claude Code marketplace | active | Claude owners can discover and separately install one namespaced plugin without a copied skill or maintainer outreach |
-| G27 | Automatic distribution-surface monitor | active | one daily read distinguishes genuine skills.sh discovery and catalog acceptance from maintainer verification tests |
+| G27 | Automatic distribution-surface monitor | active | bounded daily reads distinguish genuine search, directory, release, and catalog transitions from maintainer verification tests |
 | G28 | One material m/agentskills launch | active | one verified, non-repeating agent-community post can route independent agents into the canonical own-owner loop without repeated outreach |
 | G29 | Intent-aligned skill search metadata | active | truthful owner-language triggers improve discovery in native skill search without extra outreach |
 | G30 | AAS Core community catalog | planned (PR pending) | one complete attributed catalog copy can create passive agent discovery after maintainer review |
 | G31 | Protected portable releases | active | pinned installs become safer and more reproducible when semver tags cannot move and future releases are immutable |
+| G32 | Anthropic Claude community marketplace | planned (authenticated form pending) | one reviewed, SHA-pinned official community entry can create passive Claude discovery without copied outreach |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

@@ -50,6 +50,8 @@ jobs:
               distribution.github_skill_search || {};
             const releaseSupplyChain =
               distribution.release_supply_chain || {};
+            const claudeCommunity =
+              distribution.claude_community || {};
             const catalogPullRequests =
               distribution.catalog_pull_requests || [];
             const channelState = (channel) => {
@@ -85,6 +87,20 @@ jobs:
                 : releaseSupplyChain.semver_tag_ruleset_active === false
                   ? "not active"
                   : "unavailable";
+            const claudeCommunityState =
+              claudeCommunity.state === "listed_expected_source"
+                ? `listed from canonical source${
+                    claudeCommunity.source_sha
+                      ? ` at ${claudeCommunity.source_sha.slice(0, 7)}`
+                      : ""
+                  }`
+                : claudeCommunity.state === "not_listed"
+                  ? "not listed"
+                  : claudeCommunity.state === "canonical_source_unpinned"
+                    ? "canonical source without a valid SHA pin — not counted"
+                  : claudeCommunity.state === "name_conflict"
+                    ? "name conflict — not FindMate"
+                    : "unavailable";
             const stopLine = promotion.stopped
               ? "STOPPED — the repository is above 100 stars. Active star requests must remain off."
               : `ACTIVE — ${promotion.stars_until_stop} star(s) remain before the stop state at 101.`;
@@ -102,6 +118,7 @@ jobs:
               `- GitHub Skill search: **${githubSkillSearchState}**`,
               `- Latest skill release: **${latestReleaseState}**`,
               `- Semver tag protection: **${semverTagState}**`,
+              `- Anthropic Claude community marketplace: **${claudeCommunityState}**`,
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
               `- AAS Core catalog PR: **${channelState("aas_core")}**`,

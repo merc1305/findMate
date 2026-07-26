@@ -37,6 +37,8 @@ OPENAI_SKILL_UI = (
     / "agents"
     / "openai.yaml"
 )
+PRIVACY_POLICY = ROOT / "PRIVACY.md"
+CLAUDE_SUBMISSION = ROOT / "docs" / "claude-community-submission.md"
 
 
 def load_module(name: str, filename: str):
@@ -777,6 +779,73 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertIn("Latest skill release", workflow)
         self.assertIn("Semver tag protection", workflow)
 
+    def test_claude_community_summary_requires_the_canonical_source(self):
+        not_listed = growth.summarize_claude_community_catalog(
+            {"plugins": [{"name": "another-plugin"}]},
+            None,
+        )
+        self.assertFalse(not_listed["listed"])
+        self.assertEqual(not_listed["state"], "not_listed")
+        self.assertEqual(not_listed["catalog_plugin_count"], 1)
+
+        listed = growth.summarize_claude_community_catalog(
+            {
+                "plugins": [
+                    {
+                        "name": "findmate",
+                        "source": {
+                            "url": "https://github.com/merc1305/findMate.git",
+                            "sha": "a" * 40,
+                        },
+                    }
+                ]
+            },
+            None,
+        )
+        self.assertTrue(listed["listed"])
+        self.assertEqual(listed["state"], "listed_expected_source")
+        self.assertEqual(listed["source_sha"], "a" * 40)
+
+        unpinned = growth.summarize_claude_community_catalog(
+            {
+                "plugins": [
+                    {
+                        "name": "findmate",
+                        "source": {
+                            "url": "https://github.com/merc1305/findMate.git",
+                        },
+                    }
+                ]
+            },
+            None,
+        )
+        self.assertFalse(unpinned["listed"])
+        self.assertEqual(
+            unpinned["state"],
+            "canonical_source_unpinned",
+        )
+
+        conflict = growth.summarize_claude_community_catalog(
+            {
+                "plugins": [
+                    {
+                        "name": "findmate",
+                        "source": {
+                            "url": "https://github.com/other/findmate.git",
+                            "sha": "b" * 40,
+                        },
+                    }
+                ]
+            },
+            None,
+        )
+        self.assertFalse(conflict["listed"])
+        self.assertEqual(conflict["state"], "name_conflict")
+
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("claude_community", workflow)
+        self.assertIn("Anthropic Claude community marketplace", workflow)
+
     def test_skill_search_index_requires_a_positive_code_search_result(self):
         self.assertFalse(
             growth.code_search_indicates_index(
@@ -850,6 +919,16 @@ class DistributionManifestTests(unittest.TestCase):
         )
         self.assertNotIn("hooks", plugin)
         self.assertNotIn("mcpServers", plugin)
+
+    def test_claude_submission_is_private_first_and_not_fabricated(self):
+        privacy = PRIVACY_POLICY.read_text(encoding="utf-8")
+        submission = CLAUDE_SUBMISSION.read_text(encoding="utf-8")
+        self.assertIn("has no account system", privacy)
+        self.assertIn("Nothing is published without", privacy)
+        self.assertIn("does not automatically delete", privacy)
+        self.assertIn("Submission state: **not submitted**", submission)
+        self.assertIn("Path within repository | `skills`", submission)
+        self.assertIn("must not be", submission)
 
 
 if __name__ == "__main__":
