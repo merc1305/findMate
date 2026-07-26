@@ -10,6 +10,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPTS = ROOT / "skills" / "find-complementary-founders" / "scripts"
+GROWTH = ROOT / "growth"
 
 
 def load_module(name: str, filename: str):
@@ -23,6 +24,17 @@ def load_module(name: str, filename: str):
 assess = load_module("assess_profile", "assess_profile.py")
 matcher = load_module("match_profiles", "match_profiles.py")
 publisher = load_module("moltbook_publish", "moltbook_publish.py")
+
+
+def load_growth_module(name: str, filename: str):
+    spec = importlib.util.spec_from_file_location(name, GROWTH / filename)
+    module = importlib.util.module_from_spec(spec)
+    assert spec.loader is not None
+    spec.loader.exec_module(module)
+    return module
+
+
+growth = load_growth_module("growth_measure", "measure.py")
 
 
 def owner_input(alias: str = "owner-one") -> dict:
@@ -167,6 +179,8 @@ class PublisherTests(unittest.TestCase):
         self.assertTrue(content.startswith("FINDMATE_OWNER_PROFILE_V1\n"))
         self.assertIn("I represent my own owner", content)
         self.assertIn("the owner approved", content)
+        self.assertIn("https://github.com/merc1305/findMate", content)
+        self.assertRegex(content, r"Canonical profile SHA-256: [0-9a-f]{64}")
         self.assertNotIn("Private detail", content)
 
     def test_general_moltbook_search_is_not_a_matching_command(self):
@@ -204,6 +218,24 @@ class PublisherTests(unittest.TestCase):
                 self.assertRaises(publisher.PublishError),
             ):
                 publisher.socks_proxy_from_env()
+
+
+class GrowthLoopTests(unittest.TestCase):
+    def test_active_promotion_stops_only_above_one_hundred(self):
+        self.assertTrue(growth.promotion_state(100, 100)["active_promotion"])
+        state = growth.promotion_state(101, 100)
+        self.assertFalse(state["active_promotion"])
+        self.assertTrue(state["stopped"])
+        self.assertEqual(state["stars_until_stop"], 0)
+
+    def test_strategy_portfolio_is_valid_and_nontrivial(self):
+        config = growth.read_object(GROWTH / "strategies.json")
+        growth.validate_strategy_config(config)
+        self.assertGreaterEqual(len(config["experiments"]), 10)
+        self.assertIn(
+            "Never star the repository before the authenticated owner explicitly authorizes that public action.",
+            config["guardrails"],
+        )
 
 
 if __name__ == "__main__":

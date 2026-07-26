@@ -1,0 +1,106 @@
+name: Ethical star growth loop
+
+on:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: findmate-star-growth-loop
+  cancel-in-progress: true
+
+jobs:
+  measure:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Measure aggregate growth
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 growth/measure.py --output growth-status.json
+      - name: Update the single public growth ledger
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require("fs");
+            const status = JSON.parse(fs.readFileSync("growth-status.json", "utf8"));
+            const promotion = status.promotion;
+            const active = status.experiments.filter(
+              (item) => item.effective_status === "active"
+            );
+            const metric = (value, key) =>
+              value && Number.isInteger(value[key]) ? value[key] : "unavailable";
+            const clones = status.traffic_14d.clones;
+            const views = status.traffic_14d.views;
+            const stopLine = promotion.stopped
+              ? "STOPPED — the repository is above 100 stars. Active star requests must remain off."
+              : `ACTIVE — ${promotion.stars_until_stop} star(s) remain before the stop state at 101.`;
+            const body = [
+              "# FindMate ethical growth ledger",
+              "",
+              `Last measured: ${status.observed_at}`,
+              "",
+              `- Stars: **${status.stars}** (${status.star_delta_from_baseline >= 0 ? "+" : ""}${status.star_delta_from_baseline} from baseline)`,
+              `- Promotion state: **${stopLine}**`,
+              `- 14-day clones: **${metric(clones, "count")}** total / **${metric(clones, "uniques")}** unique`,
+              `- 14-day views: **${metric(views, "count")}** total / **${metric(views, "uniques")}** unique`,
+              "",
+              "## Active experiments",
+              "",
+              ...(active.length
+                ? active.map((item) => `- ${item.id}: ${item.name} — metric: ${item.primary_metric}`)
+                : ["- No active experiments."]),
+              "",
+              "This workflow only reads aggregate GitHub metrics and updates this one issue. It never stars, messages, follows, or posts promotion. No owner-level telemetry is collected.",
+              "",
+              "Plan and guardrails: [growth/README.md](https://github.com/merc1305/findMate/blob/main/growth/README.md)"
+            ].join("\n");
+
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const title = "Growth loop: useful owner matching to 101 stars";
+            const issues = await github.paginate(github.rest.issues.listForRepo, {
+              owner,
+              repo,
+              state: "all",
+              per_page: 100
+            });
+            const existing = issues.find(
+              (item) => !item.pull_request && item.title === title
+            );
+            if (existing) {
+              await github.rest.issues.update({
+                owner,
+                repo,
+                issue_number: existing.number,
+                body,
+                state: promotion.stopped ? "closed" : "open",
+                state_reason: promotion.stopped ? "completed" : undefined
+              });
+            } else {
+              const created = await github.rest.issues.create({
+                owner, repo, title, body
+              });
+              if (promotion.stopped) {
+                await github.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number: created.data.number,
+                  state: "closed",
+                  state_reason: "completed"
+                });
+              }
+            }
+      - name: Upload measurement artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: star-growth-status
+          path: growth-status.json
+          retention-days: 30
