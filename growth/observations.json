@@ -289,6 +289,34 @@
         "Do not attribute the existing star to the license improvement."
       ],
       "decision": "Use v1.3.2 as the documented pinned release, keep the generic GitHub community-skill warning, and defer tag-protection changes until their release-management tradeoff is reviewed."
+    },
+    {
+      "id": "O012",
+      "observed_at": "2026-07-26T14:32:44Z",
+      "kind": "claude_marketplace_launch",
+      "metric": {
+        "name": "repository_owned_agent_marketplaces",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Pull request 30 merged the repository-owned Claude Code marketplace at 2026-07-26T14:31:44Z.",
+        "The marketplace exposes the existing canonical skill directory as the namespaced findmate plugin instead of maintaining a copied skill.",
+        "Claude Code 2.1.74 validated the marketplace with no warnings, remotely cloned merc1305/findMate from GitHub, installed findmate@findmate-plugins version 1.0.0 in an isolated configuration directory, enabled it, and validated the installed plugin with no warnings.",
+        "The isolated installed skill payload matched the canonical skills/find-complementary-founders directory.",
+        "The plugin adds no hook, MCP server, account, telemetry, background process, or public action; marketplace registration, installation, assessment, publication, contact, and a GitHub star remain separate owner-controlled decisions.",
+        "All 30 Python tests and both pull-request CI jobs passed, and the native GitHub skill publisher dry-run still had no skill-level warning.",
+        "At 2026-07-26T14:32:44Z FindMate still had 1 star, 0 forks, 0 subscribers, 17 clones from 14 unique cloners, 0 views, 0 referrers, and 0 marked GitHub own-owner submissions."
+      ],
+      "inference": "G26 adds a low-friction, repository-owned distribution surface that can compound when Claude owners deliberately install it. External installation, owner-pool conversion, and star conversion remain unproven.",
+      "not_supported": [
+        "Do not count the maintainer's isolated local or remote installation tests as external adoption.",
+        "Do not treat adding or installing the plugin as consent to assess or publish an owner.",
+        "Do not attribute the existing star or clone baseline to G26.",
+        "Do not claim passive growth until later aggregate traffic or qualified submissions change."
+      ],
+      "decision": "Keep G26 active, preserve the one canonical skill payload and owner-controlled consent boundaries, and compare later aggregate GitHub traffic plus qualified owner submissions without adding install telemetry."
     }
   ]
 }
