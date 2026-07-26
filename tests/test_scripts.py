@@ -25,6 +25,7 @@ BUNDLED_RUSSIAN_ONBOARDING = (
 )
 PROFILE_SCHEMA = ROOT / "schemas" / "findmate-owner-profile-v1.schema.json"
 SUBMISSION_WORKFLOW = ROOT / ".github" / "workflows" / "validate-owner-profile.yml"
+GROWTH_WORKFLOW = ROOT / ".github" / "workflows" / "star-growth-loop.yml"
 ISSUE_TEMPLATE = ROOT / ".github" / "ISSUE_TEMPLATE"
 CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
 CLAUDE_PLUGIN = ROOT / "skills" / ".claude-plugin" / "plugin.json"
@@ -736,6 +737,45 @@ class GrowthLoopTests(unittest.TestCase):
         )
         self.assertEqual(merged_pr["state"], "merged")
         self.assertEqual(merged_pr["merged_at"], "2026-07-27T08:00:00Z")
+
+    def test_release_supply_chain_summary_is_explicit(self):
+        summary = growth.summarize_release_supply_chain(
+            {
+                "tag_name": "v1.3.4",
+                "html_url": (
+                    "https://github.com/merc1305/findMate/releases/tag/v1.3.4"
+                ),
+                "immutable": False,
+            },
+            None,
+            [
+                {
+                    "name": growth.SEMVER_TAG_RULESET_NAME,
+                    "target": "tag",
+                    "enforcement": "active",
+                }
+            ],
+            None,
+        )
+        self.assertEqual(summary["latest_tag"], "v1.3.4")
+        self.assertFalse(summary["latest_immutable"])
+        self.assertTrue(summary["semver_tag_ruleset_active"])
+        self.assertEqual(summary["errors"], [])
+
+        unavailable = growth.summarize_release_supply_chain(
+            None,
+            "release unavailable",
+            None,
+            "rulesets unavailable",
+        )
+        self.assertIsNone(unavailable["latest_tag"])
+        self.assertIsNone(unavailable["semver_tag_ruleset_active"])
+        self.assertEqual(len(unavailable["errors"]), 2)
+
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("release_supply_chain", workflow)
+        self.assertIn("Latest skill release", workflow)
+        self.assertIn("Semver tag protection", workflow)
 
     def test_skill_search_index_requires_a_positive_code_search_result(self):
         self.assertFalse(

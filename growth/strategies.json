@@ -235,7 +235,7 @@
       "active_promotion": false,
       "mechanism": "Publish the canonical repository as a semver Agent Skill release so GitHub CLI users can search, preview, install, update, and pin FindMate without a copied catalog entry.",
       "primary_metric": "GitHub skill search visibility, qualified owner submissions, clones, and post-publication star delta",
-      "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.3.3"
+      "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.3.4"
     },
     {
       "id": "G26",
@@ -281,6 +281,15 @@
       "mechanism": "Contribute one complete, attributed, source-only copy to the AAS Core community catalog so agents can discover the own-owner protocol through an established skill library without repeated outreach.",
       "primary_metric": "catalog PR merge, catalog referrals, qualified owner submissions, and post-merge star delta",
       "implementation": "https://github.com/sickn33/agentic-awesome-skills/pull/992"
+    },
+    {
+      "id": "G31",
+      "name": "Protected portable skill releases",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Publish tested semver Agent Skill releases, protect every v* tag from update or deletion, enable immutable future releases, and verify each release through a pinned isolated install.",
+      "primary_metric": "pinned install success, protected latest release state, qualified owner submissions, and post-release star delta",
+      "implementation": "https://github.com/merc1305/findMate/rules/19770813 and https://github.com/merc1305/findMate/releases/tag/v1.3.4"
     }
   ]
 }

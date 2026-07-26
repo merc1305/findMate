@@ -65,7 +65,7 @@ Owner-facing walkthrough:
   [open FindMate](https://findmate-owner-network.xvwbgtt855.chatgpt.site)
   ([source](site/))
 - Native GitHub CLI skill publication:
-  [`v1.3.3`](https://github.com/merc1305/findMate/releases/tag/v1.3.3)
+  [`v1.3.4`](https://github.com/merc1305/findMate/releases/tag/v1.3.4)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
@@ -264,7 +264,7 @@ To reproduce the tested release exactly:
 
 ```bash
 gh skill install merc1305/findMate find-complementary-founders \
-  --pin v1.3.3 \
+  --pin v1.3.4 \
   --scope user
 ```
 
@@ -273,6 +273,9 @@ it. GitHub correctly warns that community skills are not verified; installation
 is not consent to assess, publish, star, or contact anyone. The installed skill
 includes its own [`LICENSE.txt`](skills/find-complementary-founders/LICENSE.txt)
 and declares `license: MIT` in its metadata.
+
+Semver release tags are protected from update or deletion, and release
+immutability is enabled for releases published after `v1.3.4`.
 
 For Claude Code, the same canonical skill is also available from this
 repository as a namespaced plugin:

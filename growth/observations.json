@@ -456,6 +456,35 @@
         "Do not attribute the existing star to G30."
       ],
       "decision": "Keep G30 in planned pending-review state, monitor pull request 992 in the bounded daily ledger, and perform no duplicate AAS Core outreach."
+    },
+    {
+      "id": "O018",
+      "observed_at": "2026-07-26T16:49:50Z",
+      "kind": "review_driven_portable_release",
+      "metric": {
+        "name": "actionable_external_review_findings_resolved",
+        "before": 0,
+        "after": 5,
+        "delta": 5
+      },
+      "facts": [
+        "Automated review of the AAS Core contribution identified five actionable portability and consent defects: private assessment incorrectly required publication consent, approval time could follow generation or be in the future, stage-only or function-only seeking criteria were rejected, a repeated alias could be mistaken for the same owner, and the portable Russian onboarding reference was missing.",
+        "FindMate pull request 40 merged canonical fixes for all five findings and synchronized the repaired source into AAS Core pull request 992.",
+        "All 40 canonical Python tests, the Agent Skill validator, and both Claude plugin validators passed after the fixes.",
+        "GitHub CLI 2.96.0 was downloaded from the official release, its SHA-256 was verified against the official checksum list, and the native publisher dry-run passed.",
+        "Release v1.3.4 was published from canonical commit c78a78b0280f4168294b72f38aa39317e7b7d7b8, then a pinned isolated install preserved source provenance and completed a private-only smoke test with mode 0600 and no public profile preview.",
+        "The AAS Core repair commit de27483362823267200ad98c89ebb465471b2db2 passed Socket and Snyk checks; upstream Actions still require normal maintainer approval and are not treated as adoption.",
+        "Repository release immutability was enabled after v1.3.4 was published, and active ruleset 19770813 now prevents update or deletion of v* tags. Release v1.3.4 is therefore recorded honestly as mutable while its tag is protected; future releases must be verified immutable.",
+        "At 2026-07-26T16:49:50Z FindMate still had 1 star, 0 forks, 0 watchers, 17 clones from 14 unique cloners, 0 reported views, 0 marked GitHub own-owner submissions, and no eligible external Moltbook owner profiles."
+      ],
+      "inference": "External review materially improved private-first consent, temporal validation, matching correctness, portability, and reproducible installation. These are quality and passive-conversion prerequisites, not evidence of independent adoption or star conversion.",
+      "not_supported": [
+        "Do not count maintainer installs, review findings, validation runs, security checks, workflow runs, or the maintainer-owned catalog fork as external adoption.",
+        "Do not describe v1.3.4 as an immutable release; only its semver tag is protected.",
+        "Do not attribute the existing star, clones, or any future star to G31 without a supported aggregate signal.",
+        "Do not post unsolicited catalog-review reminders or repeat the same catalog submission."
+      ],
+      "decision": "Keep G31 active as passive release infrastructure, monitor the latest release and tag ruleset in the bounded public ledger, verify the next release as immutable, and let all three catalog pull requests follow normal maintainer review."
     }
   ]
 }
