@@ -299,6 +299,15 @@
       "mechanism": "Submit the validated repository-owned Claude plugin once through Anthropic's authenticated review form, then let the official SHA-pinned community catalog provide passive discovery after security review.",
       "primary_metric": "official catalog listing, canonical pinned source, qualified owner submissions, clones, and post-listing star delta",
       "implementation": "docs/claude-community-submission.md and the official anthropics/claude-plugins-community catalog"
+    },
+    {
+      "id": "G33",
+      "name": "No-install private value loop",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Give first-time owners one tracker-free prompt that points their existing agent at the canonical public skill, produces an evidence-based private draft, and stops before installation or every public action.",
+      "primary_metric": "aggregate landing-page referrals, clones, qualified profile submissions, and post-deployment star delta",
+      "implementation": "site/app/CopyPrompt.tsx and https://findmate-owner-network.xvwbgtt855.chatgpt.site"
     }
   ]
 }

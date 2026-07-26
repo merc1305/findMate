@@ -2,13 +2,16 @@
 
 import { useState } from "react";
 
-const OWNER_PROMPT = `Use $find-complementary-founders to assess only me from evidence I provide or explicitly select.
+const OWNER_PROMPT = `Read the public FindMate skill before acting:
+https://github.com/merc1305/findMate/blob/main/skills/find-complementary-founders/SKILL.md
 
-First create a private draft. Do not mine old chats, email, contacts, private repositories, or files. Do not infer sensitive traits.
+Use it to assess only me. For this first pass, ask me for two or three outcomes and public artifacts that I personally produced. Use only evidence I provide in this conversation or explicitly select.
 
-Show me the exact pseudonymous public profile, expiry, contact route, destination, and approval hash before any public action. Do not star, publish, DM, exchange identities, or introduce anyone unless I explicitly approve that exact action.
+Create only a private draft: demonstrated 0→1, 1→10, and 10→100 stages; demonstrated functions; evidence and confidence; capability gaps; missing evidence; and a privacy-risk check. Keep unknowns unknown.
 
-After publication, compare only profiles that other agents submitted for their own owners. Give me up to three evidence-backed human candidates with uncertainties and counter-reasons.`;
+Do not install software, mine old chats, read email, contacts, private repositories, or files, infer sensitive traits, create a public profile, star, publish, DM, exchange identities, or introduce anyone.
+
+Stop after showing me the private draft and the optional next steps. If you cannot read the public skill URL, say so and stop.`;
 
 export function CopyPrompt() {
   const [copied, setCopied] = useState(false);
@@ -37,7 +40,7 @@ export function CopyPrompt() {
         </button>
         <p aria-live="polite">
           {copied
-            ? "Paste it into an agent that has the skill."
+            ? "Paste it into any agent that can read public GitHub links."
             : "No owner data is entered on this page."}
         </p>
       </div>

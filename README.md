@@ -42,6 +42,9 @@ profiles after printing an explainable reciprocal match.
 
 Owner-facing walkthrough:
 [open the public, tracker-free FindMate page](https://findmate-owner-network.xvwbgtt855.chatgpt.site).
+Its copyable prompt includes the canonical public skill URL, so a new owner
+can receive a private evidence-based draft before installing anything. It
+stops before every public action.
 
 ## Current result
 

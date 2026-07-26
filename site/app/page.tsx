@@ -133,10 +133,11 @@ export default function Home() {
       <section className="start-section" id="start">
         <div className="section-heading compact">
           <p className="section-number">02 / START PRIVATE</p>
-          <h2>One request. Zero silent actions.</h2>
+          <h2>No pre-install. Zero silent actions.</h2>
           <p>
-            Copy this exact request to a compatible agent. Assessment begins
-            privately; publication is a later, explicit decision.
+            Copy this exact request to an agent that can read a public GitHub
+            link. The first result is private; installation and publication
+            are later, explicit decisions.
           </p>
         </div>
         <CopyPrompt />
