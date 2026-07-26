@@ -4,6 +4,8 @@
 from __future__ import annotations
 
 import argparse
+import base64
+import binascii
 import json
 import os
 import re
@@ -11,7 +13,7 @@ import sys
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 
 DEFAULT_REPOSITORY = "merc1305/findMate"
@@ -31,6 +33,7 @@ WEB_DISCOVERY_URLS = {
 }
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
 MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
+MAX_AAS_SKILL_BYTES = 512 * 1024
 SEMVER_TAG_RULESET_NAME = "Protect semver release tags"
 PORTABLE_SKILL_ASSET_NAME = "find-complementary-founders.skill.zip"
 PORTABLE_SKILL_CHECKSUM_NAME = (
@@ -41,6 +44,9 @@ CLAUDE_COMMUNITY_CATALOG_URL = (
     "claude-plugins-community/main/.claude-plugin/marketplace.json"
 )
 CLAUDE_COMMUNITY_EXPECTED_SOURCE = "https://github.com/merc1305/findMate"
+AAS_CORE_REPOSITORY = "sickn33/agentic-awesome-skills"
+AAS_CORE_SKILL_PATH = "skills/find-complementary-founders/SKILL.md"
+AAS_CORE_EXPECTED_SOURCE = "source_repo: merc1305/findMate"
 SKILL_SEARCH_INDEX_QUERY = (
     'repo:merc1305/findMate '
     'path:skills/find-complementary-founders/SKILL.md '
@@ -519,6 +525,89 @@ def optional_claude_community_catalog() -> dict:
         return summarize_claude_community_catalog(None, str(exc))
 
 
+def summarize_aas_core_release(
+    release: object | None,
+    release_error: str | None,
+    skill_file: object | None,
+    skill_error: str | None,
+) -> dict:
+    summary = {
+        "repository": AAS_CORE_REPOSITORY,
+        "skill_path": AAS_CORE_SKILL_PATH,
+        "latest_tag": None,
+        "latest_url": None,
+        "included": None,
+        "state": "unavailable",
+        "error": release_error,
+        "note": (
+            "A merged catalog pull request is not counted as released "
+            "availability. Included means the exact canonical-source "
+            "attribution exists at the latest published AAS release tag."
+        ),
+    }
+    if not isinstance(release, dict):
+        return summary
+    tag = release.get("tag_name")
+    url = release.get("html_url")
+    if not isinstance(tag, str) or not tag:
+        summary["error"] = "AAS latest release lacks tag_name"
+        return summary
+    summary["latest_tag"] = tag
+    if isinstance(url, str):
+        summary["latest_url"] = url
+
+    if skill_error:
+        if "HTTP Error 404" in skill_error:
+            summary["included"] = False
+            summary["state"] = "not_in_latest_release"
+            summary["error"] = None
+        else:
+            summary["error"] = skill_error
+        return summary
+    if not isinstance(skill_file, dict):
+        summary["error"] = "AAS release skill response must be an object"
+        return summary
+    if skill_file.get("type") != "file":
+        summary["error"] = "AAS release skill path is not a file"
+        return summary
+    size = skill_file.get("size")
+    encoded = skill_file.get("content")
+    if (
+        not isinstance(size, int)
+        or size < 0
+        or size > MAX_AAS_SKILL_BYTES
+    ):
+        summary["error"] = "AAS release skill size is invalid"
+        return summary
+    if skill_file.get("encoding") != "base64" or not isinstance(encoded, str):
+        summary["error"] = "AAS release skill content is not base64"
+        return summary
+    try:
+        decoded = base64.b64decode(
+            encoded.replace("\n", ""),
+            validate=True,
+        ).decode("utf-8")
+    except (binascii.Error, UnicodeError, ValueError) as exc:
+        summary["error"] = f"AAS release skill content is invalid: {exc}"
+        return summary
+    if len(decoded.encode("utf-8")) != size:
+        summary["error"] = "AAS release skill size does not match content"
+        return summary
+
+    canonical = (
+        "name: find-complementary-founders" in decoded
+        and AAS_CORE_EXPECTED_SOURCE in decoded
+    )
+    summary["included"] = canonical
+    summary["state"] = (
+        "included_expected_source"
+        if canonical
+        else "unexpected_source"
+    )
+    summary["error"] = None
+    return summary
+
+
 def summarize_github_owner_pool(comments: object) -> dict:
     summary = {
         "marked_own_owner_submissions": 0,
@@ -731,6 +820,24 @@ def main() -> int:
             token,
         )
         claude_community = optional_claude_community_catalog()
+        aas_release, aas_release_error = optional_github_json(
+            AAS_CORE_REPOSITORY,
+            "/releases/latest",
+            token,
+        )
+        aas_skill_file: object | None = None
+        aas_skill_error: str | None = None
+        if isinstance(aas_release, dict):
+            aas_tag = aas_release.get("tag_name")
+            if isinstance(aas_tag, str) and aas_tag:
+                aas_skill_file, aas_skill_error = optional_github_json(
+                    AAS_CORE_REPOSITORY,
+                    (
+                        f"/contents/{AAS_CORE_SKILL_PATH}"
+                        f"?ref={quote(aas_tag, safe='')}"
+                    ),
+                    token,
+                )
         web_discovery = optional_web_discovery()
         catalog_pull_requests = []
         for item in DISTRIBUTION_PULL_REQUESTS:
@@ -813,6 +920,12 @@ def main() -> int:
                     repository_rulesets_error,
                 ),
                 "claude_community": claude_community,
+                "aas_core_release": summarize_aas_core_release(
+                    aas_release,
+                    aas_release_error,
+                    aas_skill_file,
+                    aas_skill_error,
+                ),
                 "web_discovery": web_discovery,
                 "catalog_pull_requests": catalog_pull_requests,
             },

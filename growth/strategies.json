@@ -278,8 +278,8 @@
       "name": "AAS Core community catalog distribution",
       "status": "active",
       "active_promotion": false,
-      "mechanism": "Maintain one complete, attributed, source-only copy in the AAS Core community catalog so agents can discover the own-owner protocol through an established skill library without repeated outreach.",
-      "primary_metric": "catalog PR merge, catalog referrals, qualified owner submissions, and post-merge star delta",
+      "mechanism": "Maintain one complete, attributed, source-only copy in the AAS Core community catalog so agents can discover the own-owner protocol through an established skill library without repeated outreach, and advertise its install path only after a published AAS release contains the exact canonical-source entry.",
+      "primary_metric": "catalog PR merge, released-catalog inclusion, catalog referrals, qualified owner submissions, and post-release star delta",
       "implementation": "https://github.com/sickn33/agentic-awesome-skills/pull/992 (merged 2026-07-26)"
     },
     {

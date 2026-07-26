@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import base64
 import importlib.util
 import hashlib
 import json
@@ -993,6 +994,67 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertIn("Latest skill release", workflow)
         self.assertIn("Portable ChatGPT archive", workflow)
         self.assertIn("Semver tag protection", workflow)
+
+    def test_aas_release_requires_the_skill_at_the_latest_tag(self):
+        release = {
+            "tag_name": "v15.4.0",
+            "html_url": (
+                "https://github.com/sickn33/agentic-awesome-skills/"
+                "releases/tag/v15.4.0"
+            ),
+        }
+        missing = growth.summarize_aas_core_release(
+            release,
+            None,
+            None,
+            "GitHub request failed: HTTP Error 404: Not Found",
+        )
+        self.assertFalse(missing["included"])
+        self.assertEqual(missing["state"], "not_in_latest_release")
+        self.assertIsNone(missing["error"])
+
+        source = (
+            "---\n"
+            "name: find-complementary-founders\n"
+            "source_repo: merc1305/findMate\n"
+            "---\n"
+        ).encode("utf-8")
+        included = growth.summarize_aas_core_release(
+            release,
+            None,
+            {
+                "type": "file",
+                "size": len(source),
+                "encoding": "base64",
+                "content": base64.b64encode(source).decode("ascii"),
+            },
+            None,
+        )
+        self.assertTrue(included["included"])
+        self.assertEqual(included["state"], "included_expected_source")
+        self.assertEqual(included["latest_tag"], "v15.4.0")
+
+        different = source.replace(
+            b"merc1305/findMate",
+            b"another/sourceRepo",
+        )
+        unexpected = growth.summarize_aas_core_release(
+            release,
+            None,
+            {
+                "type": "file",
+                "size": len(different),
+                "encoding": "base64",
+                "content": base64.b64encode(different).decode("ascii"),
+            },
+            None,
+        )
+        self.assertFalse(unexpected["included"])
+        self.assertEqual(unexpected["state"], "unexpected_source")
+
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("aas_core_release", workflow)
+        self.assertIn("AAS Core released catalog", workflow)
 
     def test_claude_community_summary_requires_the_canonical_source(self):
         not_listed = growth.summarize_claude_community_catalog(
