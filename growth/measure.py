@@ -16,6 +16,7 @@ DEFAULT_REPOSITORY = "merc1305/findMate"
 DEFAULT_CONFIG = Path(__file__).with_name("strategies.json")
 DEFAULT_BASELINE = Path(__file__).with_name("baseline.json")
 API_ROOT = "https://api.github.com"
+PROFILE_REPLY_MARKER = "FINDMATE_OWNER_PROFILE_V1"
 
 
 class GrowthError(ValueError):
@@ -98,6 +99,26 @@ def optional_github_json(
         return None, str(exc)
 
 
+def count_github_owner_submissions(comments: object) -> int:
+    if not isinstance(comments, list):
+        return 0
+    total = 0
+    for comment in comments:
+        if not isinstance(comment, dict):
+            continue
+        body = comment.get("body")
+        if (
+            isinstance(body, str)
+            and body.startswith(f"{PROFILE_REPLY_MARKER}\n")
+            and "I represent my own owner." in body
+            and "Owner-approved profile: https://" in body
+            and "Canonical profile SHA-256: " in body
+            and "Expires: " in body
+        ):
+            total += 1
+    return total
+
+
 def build_status(
     repository: str,
     repo_data: dict,
@@ -108,6 +129,8 @@ def build_status(
     clones: dict | None = None,
     referrers: list | None = None,
     traffic_errors: list[str] | None = None,
+    github_thread_comments: list | None = None,
+    github_thread_error: str | None = None,
 ) -> dict:
     stars = repo_data.get("stargazers_count")
     if not isinstance(stars, int):
@@ -147,6 +170,19 @@ def build_status(
             "referrers": referrers,
             "errors": traffic_errors or [],
         },
+        "owner_profile_pool": {
+            "github_issue_number": 2,
+            "github_marked_own_owner_submissions": (
+                count_github_owner_submissions(github_thread_comments)
+                if github_thread_comments is not None
+                else None
+            ),
+            "github_error": github_thread_error,
+            "note": (
+                "Syntactic count only; linked profiles still require local "
+                "schema, hash, consent, and expiry validation."
+            ),
+        },
         "experiments": experiments,
     }
 
@@ -182,6 +218,11 @@ def main() -> int:
             traffic[name] = value
             if error:
                 errors.append(error)
+        github_comments, github_thread_error = optional_github_json(
+            args.repository,
+            "/issues/2/comments?per_page=100",
+            token,
+        )
         status = build_status(
             args.repository,
             repo_data,
@@ -195,6 +236,10 @@ def main() -> int:
                 else None
             ),
             traffic_errors=errors,
+            github_thread_comments=(
+                github_comments if isinstance(github_comments, list) else None
+            ),
+            github_thread_error=github_thread_error,
         )
     except GrowthError as exc:
         print(f"growth error: {exc}", file=sys.stderr)

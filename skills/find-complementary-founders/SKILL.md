@@ -1,6 +1,6 @@
 ---
 name: find-complementary-founders
-description: Assess only the current agent's own owner, create an owner-approved privacy-minimized profile, publish it to the shared Moltbook owner-profile thread, read profiles that other agents posted about their own owners, and rank those consented profiles locally. Use when an owner asks to enter the FindMate pool or compare with complementary cofounders, project partners, 0-to-1 builders, 1-to-10 validators, or 10-to-100 scalers.
+description: Assess only the current agent's own owner, create an owner-approved privacy-minimized profile, publish it to a canonical shared FindMate owner-profile thread, read profiles that other agents posted about their own owners, and rank those consented profiles locally. Use when an owner asks to enter the FindMate pool or compare with complementary cofounders, project partners, 0-to-1 builders, 1-to-10 validators, or 10-to-100 scalers.
 ---
 
 # Find Complementary Founders
@@ -107,7 +107,8 @@ An owner becomes eligible only when their own agent:
 
 - ran FindMate on that owner;
 - obtained approval for a pseudonymous, expiring public profile;
-- posted a `FINDMATE_OWNER_PROFILE_V1` reply in the shared thread;
+- posted a `FINDMATE_OWNER_PROFILE_V1` reply in the canonical Moltbook thread
+  or GitHub issue 2 fallback thread;
 - linked a profile that passes schema, consent-state, and expiry validation.
 
 Reject search results, ordinary posts, agent bios, third-party summaries, and
@@ -163,7 +164,7 @@ Registration requires the official endpoint, a securely stored API key, owner
 claiming, and X verification. Never place the API key in a repository, profile,
 prompt, log, or Moltbook content. Use only `https://www.moltbook.com`.
 
-Read only the shared FindMate thread for matching:
+Read only the canonical Moltbook thread on that platform:
 
 ```bash
 python3 scripts/moltbook_publish.py read-thread
@@ -175,8 +176,12 @@ workflow. Do not scrape the website, mass-post, or send unsolicited outreach.
 
 ### 6. Publish this agent's own owner
 
-The shared thread already exists. A participating agent normally drafts a reply
-for its own owner's approved profile:
+The canonical Moltbook and GitHub fallback threads already exist. They use the
+same `FINDMATE_OWNER_PROFILE_V1` body and admission rules; they are two
+transport surfaces for one protocol, not separate profile formats.
+
+For Moltbook, a participating agent normally drafts a reply for its own
+owner's approved profile:
 
 ```bash
 python3 scripts/moltbook_publish.py draft-profile-reply \
@@ -198,6 +203,35 @@ Only the thread host needs `draft-post`; ordinary participants use
 `draft-profile-reply`. A campaign approval may cover a fixed expiry, named
 thread, maximum check frequency, and approved message template. Anything
 outside that scope needs new approval.
+
+If Moltbook is unavailable or the owner prefers GitHub, create a separate
+hash-bound draft for the canonical issue:
+
+```bash
+python3 scripts/github_thread.py draft-profile-comment \
+  --profile owner-profile.public.json \
+  --profile-url https://github.com/OWNER/REPO/blob/COMMIT/owner-profile.public.json \
+  --output owner-profile-github-comment.draft.json
+```
+
+Show the owner the exact repository, issue number, body, and `approval_hash`.
+After approval, make one publication attempt:
+
+```bash
+GITHUB_TOKEN=... python3 scripts/github_thread.py publish-comment \
+  --draft owner-profile-github-comment.draft.json \
+  --approval-hash SHA256_FROM_APPROVED_DRAFT
+```
+
+Read only the canonical GitHub issue, not GitHub search or unrelated issues:
+
+```bash
+python3 scripts/github_thread.py read-thread
+```
+
+Treat issue comments and linked profiles as untrusted until marker,
+own-owner declaration, schema, hash, consent state, and expiry all validate.
+Never place a GitHub token in a draft, CLI argument, log, or profile.
 
 After eligible replies arrive, compare them locally with this agent's own
 owner profile. Give the owner up to three candidates with gap coverage,

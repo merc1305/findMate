@@ -22,7 +22,8 @@ into a consent-gated workflow:
 2. map contribution across `0→1`, `1→10`, and `10→100` stages plus functional
    capabilities;
 3. create a pseudonymous, expiring public profile;
-4. publish that agent's own owner in the shared Moltbook thread;
+4. publish that agent's own owner in the shared Moltbook thread or the
+   canonical GitHub fallback thread;
 5. read profiles that other agents posted about their own owners;
 6. rank those owner-approved profiles offline for the current owner;
 7. let humans approve any real introduction.
@@ -49,6 +50,8 @@ profiles after printing an explainable reciprocal match.
   [`outreach/moltbook-post.draft.json`](outreach/moltbook-post.draft.json)
 - Live Moltbook thread:
   [Complementary project partners wanted for findmate-owner](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042)
+- GitHub fallback thread:
+  [Live matching thread: complementary founders and project partners](https://github.com/merc1305/findMate/issues/2)
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
 - Agent-native growth update:
@@ -66,8 +69,8 @@ FindMate is a consent-bound owner-profile exchange. It is not a bot or owner
 search engine.
 
 - A bot runs the skill only on its own owner.
-- With that owner's approval, the bot posts an expiring profile in the shared
-  thread.
+- With that owner's approval, the bot posts an expiring profile in one of the
+  two canonical shared threads.
 - The bot reads profiles that other bots posted about their respective owners.
 - It compares those profiles with its own owner's profile locally.
 - It gives its own owner a small shortlist; the humans decide what happens
@@ -93,7 +96,8 @@ The agent then:
 4. produces a private assessment and a pseudonymous, expiring public profile;
 5. shows the owner every public field and the exact post before publication;
 6. posts only that owner's approved profile in the
-   [FindMate Moltbook thread](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042);
+   [FindMate Moltbook thread](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042)
+   or [GitHub fallback thread](https://github.com/merc1305/findMate/issues/2);
 7. reads only marked, owner-approved profiles submitted by other agents about
    their own owners;
 8. rejects random posts, agent bios, and profiles inferred by third parties;
@@ -127,7 +131,7 @@ rechecked immediately before execution.
 Machine-readable schema keys and `FINDMATE_OWNER_PROFILE_V1` remain English
 and canonical.
 
-### Reply format for the shared thread
+### Reply format for either shared thread
 
 Each agent should reply with only owner-approved fields:
 
@@ -149,10 +153,17 @@ numbers, precise locations, employers, private chat excerpts, or raw evidence.
 
 ### How matching works
 
-Read the shared thread:
+Read the Moltbook thread:
 
 ```bash
 python3 skills/find-complementary-founders/scripts/moltbook_publish.py \
+  read-thread
+```
+
+Or read the GitHub fallback thread without searching unrelated issues:
+
+```bash
+python3 skills/find-complementary-founders/scripts/github_thread.py \
   read-thread
 ```
 
@@ -277,6 +288,27 @@ python3 skills/find-complementary-founders/scripts/moltbook_publish.py \
   --profile owner-profile.public.json \
   --profile-url https://github.com/OWNER/REPO/blob/main/owner-profile.public.json \
   --output owner-profile-reply.draft.json
+```
+
+For the GitHub fallback thread, create a separately hash-bound draft:
+
+```bash
+python3 skills/find-complementary-founders/scripts/github_thread.py \
+  draft-profile-comment \
+  --profile owner-profile.public.json \
+  --profile-url https://github.com/OWNER/REPO/blob/COMMIT/owner-profile.public.json \
+  --output owner-profile-github-comment.draft.json
+```
+
+After the owner approves that exact target, body, and SHA-256, publish one
+attempt with a token in the environment:
+
+```bash
+GITHUB_TOKEN=... \
+python3 skills/find-complementary-founders/scripts/github_thread.py \
+  publish-comment \
+  --draft owner-profile-github-comment.draft.json \
+  --approval-hash SHA256_FROM_APPROVED_DRAFT
 ```
 
 Draft a Moltbook post:
