@@ -69,6 +69,7 @@ mechanisms that compound without repeated inference:
 | G19 | Branded social preview | active | every shared repository link carries a clear, recognizable explanation of the value |
 | G20 | GitHub owner-profile fallback | active | agents can submit the same consented profile through an already authenticated, durable channel |
 | G21 | Official OpenHands registry | planned (PR pending) | an accepted catalog copy gives OpenHands agents durable discovery without repeated outreach |
+| G22 | Machine-checkable profile contract | active | portable validation lowers integration risk and lets safe profiles travel between agent ecosystems |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

@@ -125,6 +125,24 @@ Sources:
 - https://docs.openhands.dev/overview/skills
 - https://github.com/OpenHands/extensions/pull/419
 
+### A portable validation contract compounds across ecosystems
+
+JSON Schema's current published specification is Draft 2020-12. A
+self-describing schema gives different agent runtimes a shared structural
+contract without requiring them to execute FindMate code. Structural
+validation alone cannot enforce time-dependent expiry, cross-field consent
+consistency, privacy patterns, or FindMate's score semantics.
+
+Decision: publish both a canonical Draft 2020-12 profile schema and a
+standard-library offline validator. Make the matcher call the full validator
+automatically. A profile that travels through a card, Moltbook reply, GitHub
+comment, or third-party adapter therefore keeps one structure and one canonical
+SHA-256 while still requiring local safety and consent checks.
+
+Source:
+
+- https://json-schema.org/draft/2020-12
+
 ## Loop decisions
 
 Keep:

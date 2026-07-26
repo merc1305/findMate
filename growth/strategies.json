@@ -200,6 +200,15 @@
       "mechanism": "Contribute one catalog-safe, fully attributed copy to OpenHands' public extensions registry so agents can discover the own-owner assessment and matching workflow from an existing trusted catalog.",
       "primary_metric": "catalog PR merge, catalog referrals, qualified owner submissions, and post-merge star delta",
       "implementation": "https://github.com/OpenHands/extensions/pull/419"
+    },
+    {
+      "id": "G22",
+      "name": "Machine-checkable owner-profile contract",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Publish a canonical JSON Schema and a zero-network standard-library validator so agents can reject malformed, unsafe, inconsistent, or expired profiles before local matching.",
+      "primary_metric": "valid external owner submissions and validator-linked referrals",
+      "implementation": "schemas/findmate-owner-profile-v1.schema.json and scripts/validate_profile.py"
     }
   ]
 }

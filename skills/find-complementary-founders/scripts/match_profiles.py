@@ -5,9 +5,9 @@ from __future__ import annotations
 
 import argparse
 import glob
+import importlib.util
 import json
 import sys
-from datetime import date, datetime, timezone
 from pathlib import Path
 
 LEVEL_VALUE = {
@@ -30,6 +30,23 @@ class MatchError(ValueError):
     """Raised for an invalid public profile."""
 
 
+_PROFILE_VALIDATOR = None
+
+
+def profile_validator():
+    global _PROFILE_VALIDATOR
+    if _PROFILE_VALIDATOR is not None:
+        return _PROFILE_VALIDATOR
+    path = Path(__file__).with_name("validate_profile.py")
+    spec = importlib.util.spec_from_file_location("findmate_profile_validator", path)
+    if spec is None or spec.loader is None:
+        raise MatchError("Cannot load the FindMate public-profile validator")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    _PROFILE_VALIDATOR = module
+    return module
+
+
 def load_profile(path: Path) -> dict:
     try:
         value = json.loads(path.read_text(encoding="utf-8"))
@@ -43,23 +60,11 @@ def load_profile(path: Path) -> dict:
 
 
 def validate_profile(profile: dict, path: Path) -> None:
-    if profile.get("profile_type") != "founder-collaboration":
-        raise MatchError(f"{path} is not a founder-collaboration profile")
-    alias = profile.get("alias")
-    if not isinstance(alias, str) or not alias:
-        raise MatchError(f"{path} has no alias")
-    expires = profile.get("expires_on")
+    validator = profile_validator()
     try:
-        expires_on = date.fromisoformat(expires)
-    except (TypeError, ValueError) as exc:
-        raise MatchError(f"{path} has invalid expires_on") from exc
-    if expires_on < datetime.now(timezone.utc).date():
-        raise MatchError(f"{path} expired on {expires}")
-    consent = profile.get("consent", {})
-    if consent.get("state") != "public_profile_approved":
-        raise MatchError(f"{path} lacks public-profile approval")
-    if not isinstance(profile.get("contact"), dict):
-        raise MatchError(f"{path} lacks a contact route")
+        validator.validate_profile(profile)
+    except validator.ValidationError as exc:
+        raise MatchError(f"{path} failed public-profile validation: {exc}") from exc
 
 
 def normalized_strings(values: object) -> set[str]:

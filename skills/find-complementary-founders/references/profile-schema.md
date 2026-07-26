@@ -1,5 +1,21 @@
 # Profile schema
 
+The generated public profile conforms to the canonical JSON Schema:
+
+```text
+https://raw.githubusercontent.com/merc1305/findMate/main/schemas/findmate-owner-profile-v1.schema.json
+```
+
+Validate it without network access:
+
+```bash
+python3 scripts/validate_profile.py owner-profile.public.json
+```
+
+JSON Schema covers the portable structure. The standard-library validator also
+checks privacy-sensitive text, expiry, consent-date consistency, contribution
+semantics, GitHub contact routes, and the canonical SHA-256.
+
 Create a private input shaped like:
 
 ```json

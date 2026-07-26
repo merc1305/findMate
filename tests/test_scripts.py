@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import importlib.util
+import hashlib
 import json
 import tempfile
 import unittest
@@ -13,6 +14,7 @@ SCRIPTS = ROOT / "skills" / "find-complementary-founders" / "scripts"
 GROWTH = ROOT / "growth"
 EXAMPLES = ROOT / "examples"
 RUSSIAN_ONBOARDING = ROOT / "docs" / "locales" / "ru" / "owner-onboarding.md"
+PROFILE_SCHEMA = ROOT / "schemas" / "findmate-owner-profile-v1.schema.json"
 
 
 def load_module(name: str, filename: str):
@@ -28,6 +30,7 @@ matcher = load_module("match_profiles", "match_profiles.py")
 publisher = load_module("moltbook_publish", "moltbook_publish.py")
 profile_card = load_module("profile_card", "profile_card.py")
 github_thread = load_module("github_thread", "github_thread.py")
+profile_validator = load_module("validate_profile", "validate_profile.py")
 
 
 def load_path_module(name: str, path: Path):
@@ -158,6 +161,15 @@ class MatchProfileTests(unittest.TestCase):
         self.assertGreater(result["score"], 70)
         self.assertIn("covers capability gap: go_to_market", result["reasons"])
 
+    def test_matcher_rejects_profile_that_fails_full_validator(self):
+        profile, _ = assess.build_profiles(owner_input())
+        profile["unexpected_field"] = "must not pass"
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "invalid.public.json"
+            path.write_text(json.dumps(profile), encoding="utf-8")
+            with self.assertRaises(matcher.MatchError):
+                matcher.load_profile(path)
+
 
 class PublisherTests(unittest.TestCase):
     def test_exact_hash_approval(self):
@@ -251,6 +263,53 @@ class ProfileCardTests(unittest.TestCase):
         profile["expires_on"] = "2000-01-01"
         with self.assertRaises(profile_card.CardError):
             profile_card.render_card(profile)
+
+
+class ProfileValidatorTests(unittest.TestCase):
+    def test_generated_profile_is_valid_and_hash_matches_publishers(self):
+        profile, _ = assess.build_profiles(owner_input())
+        result = profile_validator.validate_profile(profile)
+        expected = hashlib.sha256(
+            json.dumps(
+                profile,
+                sort_keys=True,
+                separators=(",", ":"),
+                ensure_ascii=False,
+            ).encode("utf-8")
+        ).hexdigest()
+        self.assertTrue(result["valid"])
+        self.assertEqual(result["canonical_sha256"], expected)
+        self.assertFalse(result["network_access"])
+
+    def test_unknown_fields_sensitive_text_and_consent_mismatch_are_rejected(self):
+        mutations = [
+            ("unknown root field", lambda value: value.update({"hidden": "value"})),
+            (
+                "sensitive public text",
+                lambda value: value.update({"summary": "Write owner@example.com"}),
+            ),
+            (
+                "consent expiry mismatch",
+                lambda value: value["consent"].update({"expires_on": "2099-01-01"}),
+            ),
+        ]
+        for label, mutate in mutations:
+            profile, _ = assess.build_profiles(owner_input())
+            mutate(profile)
+            with self.subTest(label=label), self.assertRaises(
+                profile_validator.ValidationError
+            ):
+                profile_validator.validate_profile(profile)
+
+    def test_json_schema_tracks_protocol_dimensions(self):
+        schema = json.loads(PROFILE_SCHEMA.read_text(encoding="utf-8"))
+        self.assertEqual(schema["$defs"]["stage"]["enum"], list(assess.STAGES))
+        self.assertEqual(schema["$defs"]["function"]["enum"], list(assess.FUNCTIONS))
+        self.assertFalse(schema["additionalProperties"])
+        self.assertEqual(
+            set(schema["required"]),
+            profile_validator.ROOT_KEYS,
+        )
 
 
 class GitHubThreadTests(unittest.TestCase):

@@ -22,6 +22,10 @@ jobs:
           python3 -m py_compile skills/find-complementary-founders/scripts/*.py
           python3 -m py_compile growth/measure.py
           python3 -m py_compile examples/run_synthetic_demo.py
+      - name: Validate the canonical public profile
+        run: |
+          python3 skills/find-complementary-founders/scripts/validate_profile.py \
+            profiles/findmate-owner.public.json
       - name: Validate skill metadata
         run: |
           python3 - <<'PY'
