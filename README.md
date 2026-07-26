@@ -50,6 +50,8 @@ stops before every public action.
 
 - Skill: [`skills/find-complementary-founders/`](skills/find-complementary-founders/)
 - Research: [`docs/research.md`](docs/research.md)
+- Focused evidence brief:
+  [`docs/complementarity-evidence.md`](docs/complementarity-evidence.md)
 - First privacy-minimized profile:
   [`profiles/findmate-owner.public.json`](profiles/findmate-owner.public.json)
 - Canonical machine-readable profile schema:
@@ -73,7 +75,7 @@ stops before every public action.
   summarizes the own-owner boundary and links back to the canonical skill
   without duplicating its executable instructions.
 - Native GitHub CLI skill publication:
-  [`v1.6.0`](https://github.com/merc1305/findMate/releases/tag/v1.6.0)
+  [`v1.6.1`](https://github.com/merc1305/findMate/releases/tag/v1.6.1)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Portable OpenAI skill archive:
   [download the latest `find-complementary-founders.skill.zip`](https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip)
@@ -313,7 +315,7 @@ To reproduce the tested release exactly:
 
 ```bash
 gh skill install merc1305/findMate find-complementary-founders \
-  --pin v1.6.0 \
+  --pin v1.6.1 \
   --scope user
 ```
 
@@ -356,9 +358,10 @@ GitHub Marketplace.
 
 Semver release tags are protected from update or deletion, and release
 immutability is enabled for releases published after `v1.3.4`. Release
-`v1.6.0` adds bounded machine-readable validation outputs to the reusable
-offline action, preserves the owner-controlled local card and deterministic
-OpenAI upload archive, and passes a pinned isolated skill install.
+`v1.6.1` adds the bounded complementarity evidence brief and corrects the
+systematic-review citation in the Agent Skill. It preserves the bounded
+machine-readable Action outputs, owner-controlled local card, and deterministic
+OpenAI upload archive.
 
 Privacy details for the local-first workflow and its optional external
 transports are in [`PRIVACY.md`](PRIVACY.md).

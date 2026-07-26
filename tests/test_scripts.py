@@ -46,6 +46,14 @@ CI_WORKFLOW = ROOT / ".github" / "workflows" / "ci.yml"
 ACTION_METADATA = ROOT / "action.yml"
 GITHUB_ACTION_DOCS = ROOT / "docs" / "github-action.md"
 ACTION_VALIDATOR = ROOT / "tools" / "action_validate.py"
+COMPLEMENTARITY_EVIDENCE = ROOT / "docs" / "complementarity-evidence.md"
+BUNDLED_EVIDENCE_MODEL = (
+    ROOT
+    / "skills"
+    / "find-complementary-founders"
+    / "references"
+    / "evidence-model.md"
+)
 
 
 def load_module(name: str, filename: str):
@@ -821,6 +829,27 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertGreaterEqual(len(observations), 2)
         self.assertEqual(observations[0]["metric"]["delta"], 1)
         self.assertIn("not_supported", observations[0])
+
+    def test_complementarity_evidence_is_cautious_and_citation_correct(self):
+        brief = COMPLEMENTARITY_EVIDENCE.read_text(encoding="utf-8")
+        research = (ROOT / "docs" / "research.md").read_text(encoding="utf-8")
+        bundled = BUNDLED_EVIDENCE_MODEL.read_text(encoding="utf-8")
+        combined = "\n".join((brief, research, bundled))
+        normalized_brief = " ".join(brief.split())
+
+        self.assertIn("10.1016/j.emj.2022.10.010", combined)
+        self.assertNotIn("10.1016/j.emj.2022.10.004", combined)
+        self.assertIn("Sundermeier and Mahlert", brief)
+        self.assertIn("U.S. Census working paper CES-20-45", brief)
+        self.assertIn("not as a compatibility diagnosis", normalized_brief)
+        self.assertIn(
+            "not a scientifically validated personality taxonomy",
+            normalized_brief,
+        )
+        self.assertIn("no independent owner-profile cohort", brief)
+        self.assertIn("publish null and negative results", brief)
+        self.assertIn("not a proven predictor", normalized_brief)
+        self.assertNotIn("guaranteed success", brief.casefold())
 
     def test_synthetic_demo_produces_reciprocal_match(self):
         result = demo.run_demo()

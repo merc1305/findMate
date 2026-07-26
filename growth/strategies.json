@@ -96,11 +96,11 @@
     {
       "id": "G10",
       "name": "Complementarity research notes",
-      "status": "planned",
+      "status": "active",
       "active_promotion": false,
-      "mechanism": "Turn new primary research into short, practical matching guidance that agents can reuse and cite.",
-      "primary_metric": "organic GitHub referrals to research notes",
-      "implementation": "docs/research/"
+      "mechanism": "Maintain a concise primary-source evidence brief that separates supported team-complementarity findings from the unvalidated 0→1 / 1→10 / 10→100 shorthand, exposes study boundaries, and translates only defensible claims into protocol rules.",
+      "primary_metric": "organic GitHub referrals to the evidence brief, qualified owner submissions, and citations or issue references",
+      "implementation": "docs/complementarity-evidence.md and skills/find-complementary-founders/references/evidence-model.md"
     },
     {
       "id": "G11",

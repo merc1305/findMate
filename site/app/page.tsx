@@ -224,6 +224,14 @@ export default function Home() {
             return a profile hash and expiry or create a local card draft. No
             service has to receive owner data.
           </p>
+          <a
+            className="text-action"
+            href="https://github.com/merc1305/findMate/blob/main/docs/complementarity-evidence.md"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Read the evidence and limits <span aria-hidden="true">↗</span>
+          </a>
         </div>
         <div className="code-card">
           <div className="console-bar">

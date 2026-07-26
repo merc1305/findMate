@@ -57,7 +57,7 @@ mechanisms that compound without repeated inference:
 | G07 | Localized owner onboarding | planned | makes consent understandable in the owner's language |
 | G08 | Approved outcome stories | planned | real outcomes explain value without hype |
 | G09 | Contributor quests | active | useful contributions create invested advocates |
-| G10 | Research notes | planned | reusable knowledge earns durable references |
+| G10 | Complementarity evidence brief | active | a citable primary-source summary separates defensible team evidence from stage shorthand and makes the matching model useful beyond the repository |
 | G11 | Repository metadata | active | improves relevant organic discovery |
 | G12 | Aggregate growth ledger | active | makes decisions accountable and self-correcting |
 | G13 | Project badges | planned | successful collaborations form an attribution network |
