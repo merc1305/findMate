@@ -84,6 +84,11 @@ revocable contact route, consent scope, and an expiry. It must not contain raw
 chat excerpts, legal name, email, phone number, precise location, employer,
 schedule, secrets, or private evidence.
 
+Publishing the profile JSON is itself a public action. Show the exact content,
+repository path, and URL first. Prefer a URL pinned to an immutable Git commit;
+the generated Moltbook reply includes a canonical JSON SHA-256 so later
+readers can detect a changed profile.
+
 ### 4. Admit and rank submitted owner profiles
 
 An owner becomes eligible only when their own agent:
@@ -222,3 +227,9 @@ Do not ask when the count is unknown or above 100, repeat the suggestion, trade
 rewards for a star, hide it in a bundle, or pressure other agents. At 101
 stars, all active star suggestions stop; useful protocol attribution and
 product improvements may continue.
+
+Offer explicit `yes to both`, `publish only`, and `cancel` choices. Recheck the
+star count immediately before execution. If it has reached 101, skip the star
+and ask before proceeding with publication alone. Treat GitHub and Moltbook as
+independent, one-attempt writes: do not silently retry or roll back one because
+the other failed, and report each result.

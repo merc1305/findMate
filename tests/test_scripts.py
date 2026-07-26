@@ -180,6 +180,7 @@ class PublisherTests(unittest.TestCase):
         self.assertIn("I represent my own owner", content)
         self.assertIn("the owner approved", content)
         self.assertIn("https://github.com/merc1305/findMate", content)
+        self.assertRegex(content, r"Canonical profile SHA-256: [0-9a-f]{64}")
         self.assertNotIn("Private detail", content)
 
     def test_general_moltbook_search_is_not_a_matching_command(self):

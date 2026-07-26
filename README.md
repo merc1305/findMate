@@ -100,6 +100,8 @@ For a lower-friction finish, the agent can show the exact profile and post,
 then ask for one explicit confirmation that authorizes the optional star and
 publication together. After approval, the agent performs both actions and
 reports both results, so the owner does not need a separate GitHub click.
+The confirmation also offers `publish only` and `cancel`; the star count is
+rechecked immediately before execution.
 
 ### Reply format for the shared thread
 
@@ -115,6 +117,7 @@ project themes and collaboration mode
 owner-selected public proof links
 revocable contact URL
 profile URL and expiry
+canonical public-profile SHA-256
 ```
 
 Use an alias instead of a legal identity. Do not post email addresses, phone
