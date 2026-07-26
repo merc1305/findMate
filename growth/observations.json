@@ -178,6 +178,62 @@
         "Do not claim growth until aggregate referrals, stars, or qualified submissions change after launch."
       ],
       "decision": "Keep G22 active, require full validation before matching, and compare qualified submissions and aggregate GitHub metrics in later measurement windows."
+    },
+    {
+      "id": "O008",
+      "observed_at": "2026-07-26T13:05:30Z",
+      "kind": "owner_entry_deployment",
+      "metric": {
+        "name": "owner_entry_production_versions",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Pull request 24 merged the tracker-free owner entry site at 2026-07-26T12:56:40Z.",
+        "Sites version 1 was saved from commit 18b68fb260e53dd5981f0ccb0368158e50473e04 and its production deployment succeeded at 2026-07-26T13:05:30Z.",
+        "The page explains the own-owner loop, copies one fixed safe prompt only after a click, and links the source and two canonical owner-profile transports.",
+        "The page has no form, account, analytics, cookies, local storage, owner identifier, or profile publication action.",
+        "The production access policy is custom and allows only the current owner; it is not yet a public acquisition surface.",
+        "The site build and two rendered HTML/privacy tests passed under Node 22, ESLint reported no warnings, and the production dependency audit reported zero vulnerabilities."
+      ],
+      "inference": "The owner-facing product surface is deployed and technically ready, but its current owner-only access means it cannot yet produce public referrals or qualified submissions.",
+      "not_supported": [
+        "Do not count the production version as a public visitor, referral, profile submission, or star.",
+        "Do not publish the owner-only URL as a public repository homepage.",
+        "Do not attribute any existing clone or star to G23."
+      ],
+      "decision": "Keep the deployed owner-only version as the verified release candidate and request explicit public-access authorization before treating G23 as an acquisition channel."
+    },
+    {
+      "id": "O009",
+      "observed_at": "2026-07-26T14:04:16Z",
+      "kind": "shared_pool_validation_launch",
+      "metric": {
+        "name": "automatic_owner_profile_validation_surfaces",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Pull request 25 merged the immutable-source owner-profile verifier and validation-receipt workflow at 2026-07-26T14:02:12Z.",
+        "Release v1.3.0 was published at 2026-07-26T14:03:54Z without a star request.",
+        "The verifier accepts only a full-commit github.com blob URL, downloads at most 64 KiB of JSON from raw.githubusercontent.com without a credential, and never executes submitted content.",
+        "It validates the canonical schema, public privacy rules, consent, expiry, declared expiry, and canonical SHA-256 before admitting a marked own-owner submission.",
+        "The workflow keeps the untrusted comment body out of shell commands, pins all actions to commit SHAs, has a three-minute timeout, and limits write permission to one updatable issue receipt per source comment.",
+        "The issue picker and canonical issue 2 instructions now route agents into the one shared pool instead of separate match issues.",
+        "All 29 Python tests and both CI jobs passed; an end-to-end network check admitted the public canonical profile from commit 53850b5d91e4eff22daeba06922bcd087ac5eaef with SHA-256 20d94fe5eece621bae6b5b470004bf37e8090bde3a7497a3c2a379dd4641c1b1.",
+        "The first workflow event was an ordinary protocol-comment edit and was correctly skipped; no fabricated marked submission was created merely to trigger a receipt.",
+        "At 2026-07-26T14:04:16Z FindMate had 1 star, 17 clones from 14 unique cloners, 0 views, 0 referrers, 0 marked GitHub own-owner submissions, and 0 marked Moltbook owner profiles across 5 thread comments."
+      ],
+      "inference": "G24 removes manual trust feedback from the GitHub pool and can compound as agents submit their own owners. No real owner has used the receipt path yet, so conversion remains unproven.",
+      "not_supported": [
+        "Do not count a skipped workflow event, CI run, release, or protocol-comment edit as a profile submission.",
+        "Do not treat a validation receipt as identity verification, claim verification, compatibility evidence, or contact consent.",
+        "Do not attribute the existing star or clone baseline to G24.",
+        "Do not fabricate or publish a marked test profile to manufacture a live workflow event."
+      ],
+      "decision": "Keep G24 active, wait for the first independently submitted own-owner profile, and measure marked-to-validated conversion plus aggregate GitHub metrics without owner-level telemetry."
     }
   ]
 }

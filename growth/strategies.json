@@ -213,7 +213,7 @@
     {
       "id": "G23",
       "name": "Owner-facing private-entry landing page",
-      "status": "active",
+      "status": "planned",
       "active_promotion": false,
       "mechanism": "Give owners a memorable, privacy-first page with a fixed safe prompt, the own-owner protocol, live-pool links, and no form, analytics, cookie, or owner-data request.",
       "primary_metric": "landing-page referrals, qualified owner submissions, and post-launch star delta",
