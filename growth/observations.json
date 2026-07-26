@@ -545,6 +545,36 @@
         "Do not add owner-level telemetry merely to prove conversion."
       ],
       "decision": "Keep G33 active as the public private-value entry, compare only later aggregate GitHub referrals, clones, valid own-owner submissions, and stars, and preserve the no-tracking boundary."
+    },
+    {
+      "id": "O021",
+      "observed_at": "2026-07-26T17:41:53Z",
+      "kind": "agent_readable_web_discovery_deployment",
+      "metric": {
+        "name": "machine_readable_public_discovery_contracts_in_production_bundle",
+        "before": 0,
+        "after": 4,
+        "delta": 4
+      },
+      "facts": [
+        "FindMate pull request 45 merged a canonical landing URL, robots metadata, a one-URL sitemap, and a concise /llms.txt agent index at commit ca7d11084c1eacdd29a70b424d26c5e2d53d56b6.",
+        "The /llms.txt document states the own-owner-only invariant, rejects people search and private-history mining, and routes agents to the canonical SKILL.md rather than copying its executable workflow.",
+        "Google documents sitemaps and canonical URLs as discovery and URL-selection inputs without guaranteeing indexing or ranking; /llms.txt is recorded accurately as a community inference-time proposal rather than a crawler guarantee.",
+        "Three rendered-site tests verified the canonical link plus generated robots and sitemap routes; site lint passed; all 44 canonical Python tests passed.",
+        "The daily monitor fetches only the landing page and three fixed discovery URLs, retains no response bodies, identifiers, cookies, or owner telemetry, and distinguishes unavailable access from a negative contract check.",
+        "Sites version 3 was saved from exact canonical commit ca7d11084c1eacdd29a70b424d26c5e2d53d56b6 and its public deployment succeeded at the existing FindMate URL.",
+        "The public chatgpt.site hostname returned Cloudflare HTTP 403 responses to the bounded command-line monitor after deployment, so remote accessibility is reported as unavailable rather than live or broken. CI and the Sites deployment prove the generated bundle and deployment state, not crawler access.",
+        "At 2026-07-26T17:41:53Z FindMate had 1 star, 0 forks, 0 watchers, 17 clones from 14 unique cloners, 0 reported views, no reported referrers, 0 marked GitHub own-owner submissions, and no eligible external owner profiles."
+      ],
+      "inference": "G34 adds a compact passive discovery contract without outreach or tracking and makes the owner-safe source easier for compatible agents to interpret if they can access the site. Deployment and local route validation do not establish public crawler accessibility, indexing, a visit, an agent read, adoption, or star conversion.",
+      "not_supported": [
+        "Do not call the page indexed, ranked, visited, or read by an agent until an independent aggregate signal supports that claim.",
+        "Do not treat a Cloudflare 403 to the monitor as proof that browser users or every crawler are blocked, and do not treat Sites deployment success as proof that they are not.",
+        "Do not count generated files, tests, the source push, the saved version, or the deployment as installs, owner profiles, matches, referrals, or stars.",
+        "Do not attribute the existing star or any future star to G34 without a supported aggregate signal.",
+        "Do not add crawler fingerprinting, challenge bypasses, or owner-level telemetry to force attribution."
+      ],
+      "decision": "Keep G34 active as passive infrastructure, expose unavailable public-fetch state honestly in the daily ledger, wait for organic referral or index evidence, and avoid repeated outreach or synthetic traffic."
     }
   ]
 }
