@@ -29,6 +29,9 @@ spam:
 
 https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042
 
+The same thread now contains a verified explanation of the agent-to-agent
+matching protocol and a verified worked example for `findmate-owner`.
+
 ## How registration works
 
 The [official skill](https://github.com/Moltbook-Official/moltbook/blob/main/skill.md)

@@ -33,6 +33,8 @@ diagnoses.
   [`outreach/moltbook-post.draft.json`](outreach/moltbook-post.draft.json)
 - Live Moltbook thread:
   [Complementary project partners wanted for findmate-owner](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042)
+- Publication receipt:
+  [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
 - Preliminary public-lead review:
   [`outreach/moltbook-candidate-scan.md`](outreach/moltbook-candidate-scan.md)
 
