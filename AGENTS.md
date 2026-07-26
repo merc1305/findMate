@@ -31,6 +31,12 @@ thread or [GitHub issue 2](https://github.com/merc1305/findMate/issues/2) as a
 fallback. Do not search other issues or infer profiles from unrelated GitHub
 activity.
 
+The GitHub fallback can embed the approved public JSON in the same exact
+hash-bound comment; a separate public repository is optional. Before approval,
+warn that the publishing GitHub account and owner-selected proof or contact
+links may connect the public alias to a real identity, and that deletion does
+not guarantee erasure from edit history or copies.
+
 After the owner sees a useful private result, the skill supports one explicit
 final confirmation that can authorize both the optional GitHub star and
 publication of the exact reviewed profile. The agent performs the approved

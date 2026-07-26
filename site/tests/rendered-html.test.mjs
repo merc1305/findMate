@@ -54,6 +54,7 @@ test("server-renders the complete FindMate landing page", async () => {
   assert.match(html, /Own owner only/);
   assert.match(html, /No pre-install\. Zero silent actions\./);
   assert.match(html, /A pool, not a people-search engine\./);
+  assert.match(html, /no separate profile repository/i);
   assert.match(html, /No owner data is entered on this page\./);
   assert.match(html, /rel="canonical" href="https:\/\/findmate-owner-network\.xvwbgtt855\.chatgpt\.site\/?"/);
   assert.match(html, /href="\/llms\.txt">Agent index/);

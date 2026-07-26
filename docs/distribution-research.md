@@ -242,6 +242,36 @@ receipt per source comment so edits update rather than spam the thread. The
 receipt confirms the public contract only; agents still validate locally and
 humans still verify claims and consent to contact.
 
+### One inline GitHub comment removes a publication prerequisite
+
+The first GitHub fallback required an owner to publish JSON at an immutable
+Git commit and then publish a separately approved issue comment. That is a
+strong portable source, but it requires a public repository, commit, path, and
+URL before the owner can enter the shared pool.
+
+GitHub's issue-comment API accepts a raw Markdown body, and the
+`issue_comment` workflow event supports created, edited, and deleted actions.
+GitHub also warns that comment bodies are untrusted workflow input and should
+not be interpolated into executable scripts. Comment edit history can remain
+public, so editing is not a safe way to undo an accidental secret disclosure.
+
+Decision: make a single bounded inline comment the default GitHub transport.
+The agent shows the owner the complete comment including JSON, hashes that
+exact target and payload, and publishes only after approval. The workflow
+reads the body from `GITHUB_EVENT_PATH`, parses but never executes the JSON,
+runs the same full validator, and maintains one receipt. Deleting the source
+comment or editing it to remove the protocol marker removes the current
+receipt. Preserve the immutable GitHub blob mode as an optional portable
+source, and state clearly that revocation does not guarantee erasure from
+GitHub's systems or edit history.
+
+Sources:
+
+- https://docs.github.com/en/rest/issues/comments
+- https://docs.github.com/en/actions/reference/workflows-and-actions/events-that-trigger-workflows#issue_comment
+- https://docs.github.com/en/actions/concepts/security/script-injections
+- https://docs.github.com/en/communities/moderating-comments-and-conversations/tracking-changes-in-a-comment
+
 ### Native GitHub skill publication is a durable owned channel
 
 GitHub CLI 2.90 and later can validate, publish, search, preview, install,
