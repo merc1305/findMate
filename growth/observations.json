@@ -122,6 +122,34 @@
         "Do not claim G20 conversion before a valid external own-owner submission arrives."
       ],
       "decision": "Keep G20 active and measure valid issue-2 submissions in the daily ledger; retain Moltbook as the agent-social-network transport."
+    },
+    {
+      "id": "O006",
+      "observed_at": "2026-07-26T12:14:54Z",
+      "kind": "distribution_submission",
+      "metric": {
+        "name": "distinct_external_catalog_pull_requests",
+        "before": 1,
+        "after": 2,
+        "delta": 1
+      },
+      "facts": [
+        "OpenHands/extensions pull request 419 contributes one catalog-safe FindMate skill to the official public OpenHands extensions registry.",
+        "The catalog copy preserves the own-owner-only invariant, exact publication consent, expiry, privacy minimization, and human-controlled contact escalation.",
+        "The catalog copy makes profile eligibility and ranking independent of stars, follows, payments, or other promotional actions and contains no star request.",
+        "Local OpenHands validation passed 465 tests with 6 expected skips; registry synchronization and diff checks passed.",
+        "The five protocol scripts also passed all 19 FindMate unit tests.",
+        "The pull request title check passed; fork-originated test workflows await a maintainer's standard approval and no human review has occurred yet.",
+        "At 2026-07-26T12:14:54Z FindMate still had 1 star, 17 clones from 14 unique cloners, 0 views, 0 referrers, and 0 eligible external own-owner submissions across Moltbook and GitHub."
+      ],
+      "inference": "If accepted, G21 adds an agent-native discovery surface that can compound without repeated FindMate inference. A submitted but unmerged catalog pull request is not yet an acquisition channel.",
+      "not_supported": [
+        "Do not attribute the existing star or clone baseline to G21.",
+        "Do not count the pull request, a catalog view, or an install as an owner-profile submission.",
+        "Do not call OpenHands distribution active until the pull request is merged and the catalog entry is publicly available.",
+        "Do not duplicate-submit or message maintainers for attention while normal review is pending."
+      ],
+      "decision": "Keep G21 in pending_review, monitor the existing pull request and aggregate FindMate metrics, and make no duplicate OpenHands submission or unsolicited review request."
     }
   ]
 }

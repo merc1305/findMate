@@ -105,6 +105,26 @@ Source:
 
 - https://github.com/VoltAgent/awesome-agent-skills
 
+### The official OpenHands registry is a second agent-native surface
+
+OpenHands maintains a public extensions registry for skills and plugins loaded
+by OpenHands applications and Software Agent SDK consumers. Its contributor
+contract requires a reusable `SKILL.md`, marketplace metadata, generated
+catalog artifacts, vendor manifests, and repository validation.
+
+Decision: submit one catalog-safe FindMate copy in pull request 419. Preserve
+the full own-owner assessment, exact-consent publication, and local-shortlist
+workflow, but omit FindMate's optional star suggestion from the catalog copy.
+The external contribution must earn discovery through utility and clear
+attribution; profile eligibility and ranking remain independent of promotion.
+Treat the submission as pending distribution until maintainers merge it.
+
+Sources:
+
+- https://github.com/OpenHands/extensions
+- https://docs.openhands.dev/overview/skills
+- https://github.com/OpenHands/extensions/pull/419
+
 ## Loop decisions
 
 Keep:
@@ -122,11 +142,12 @@ Test next:
 - localization of the proactive invitation;
 - a material first release;
 - a branded repository social preview;
-- catalog submissions after proof of adoption.
+- measurement of the two existing catalog submissions after maintainer review.
 
 Reject:
 
 - bulk catalog PRs;
+- duplicate submissions or unsolicited review requests while a catalog PR is pending;
 - repeated community posts with no new utility;
 - hidden install telemetry;
 - storing a broad owner token in Actions;
