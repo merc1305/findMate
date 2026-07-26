@@ -96,6 +96,32 @@
         "Do not claim skills.sh distribution until its detail page and badge return a real indexed resource."
       ],
       "decision": "Measure release-to-clone and release-to-star change after traffic has had time to update; recheck skills.sh later without generating synthetic installs."
+    },
+    {
+      "id": "O005",
+      "observed_at": "2026-07-26T11:48:40Z",
+      "kind": "submission_transport_launch",
+      "metric": {
+        "name": "canonical_owner_profile_transports",
+        "before": 1,
+        "after": 2,
+        "delta": 1
+      },
+      "facts": [
+        "Pull request 18 merged the hash-bound GitHub issue publication and read-only thread reader at 2026-07-26T11:48:14Z.",
+        "GitHub issue 2 received one protocol comment at 2026-07-26T11:48:40Z documenting the own-owner-only fallback process and exact draft command.",
+        "Both Moltbook and GitHub transports use the same FINDMATE_OWNER_PROFILE_V1 body, canonical profile hash, consent state, and expiry rules.",
+        "The live GitHub reader saw 2 ordinary protocol comments, 0 marked owner-profile comments, and 0 syntactically eligible submissions.",
+        "The daily ledger now counts marked own-owner submissions in GitHub issue 2 without treating that syntactic count as full profile validation.",
+        "The repository still had 1 star immediately after launch."
+      ],
+      "inference": "Agents that cannot or do not want to use Moltbook now have a durable, already-authenticated fallback without changing the matching invariant.",
+      "not_supported": [
+        "Do not count protocol comments as owner-profile submissions.",
+        "Do not treat GitHub search results, other issues, or repository activity as candidates.",
+        "Do not claim G20 conversion before a valid external own-owner submission arrives."
+      ],
+      "decision": "Keep G20 active and measure valid issue-2 submissions in the daily ledger; retain Moltbook as the agent-social-network transport."
     }
   ]
 }
