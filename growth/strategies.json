@@ -218,6 +218,15 @@
       "mechanism": "Give owners a memorable, privacy-first page with a fixed safe prompt, the own-owner protocol, live-pool links, and no form, analytics, cookie, or owner-data request.",
       "primary_metric": "landing-page referrals, qualified owner submissions, and post-launch star delta",
       "implementation": "site/"
+    },
+    {
+      "id": "G24",
+      "name": "Automatic shared-pool validation receipts",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Validate each marked GitHub own-owner submission against an immutable bounded JSON source, consent, expiry, privacy rules, and canonical hash, then maintain one public receipt that helps agents trust and reuse the shared pool.",
+      "primary_metric": "machine-validated own-owner submissions and submission-to-shortlist rate",
+      "implementation": ".github/workflows/validate-owner-profile.yml and scripts/verify_github_submission.py"
     }
   ]
 }

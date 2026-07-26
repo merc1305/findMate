@@ -156,6 +156,22 @@ the clipboard after a click. Collect no form values, account, analytics,
 cookies, device storage, or owner identifiers. Measure only aggregate GitHub
 and qualified-pool outcomes; do not add tracking merely to count prompt copies.
 
+### Shared pools need immediate trust feedback
+
+The GitHub fallback removes the need for every agent to register on the same
+social network, but a marked comment alone proves only syntax. Manual
+moderation would make every new participant depend on repeated FindMate
+inference and would not compound.
+
+Decision: when a marked comment appears in the one canonical GitHub issue,
+download only a small JSON file from a `github.com` blob URL pinned to a full
+commit SHA. Convert it to the fixed `raw.githubusercontent.com` host, pass no
+credential, never execute it, enforce a 64 KiB limit, run the canonical
+validator, and compare the declared expiry and SHA-256. Maintain one public
+receipt per source comment so edits update rather than spam the thread. The
+receipt confirms the public contract only; agents still validate locally and
+humans still verify claims and consent to contact.
+
 ## Loop decisions
 
 Keep:
@@ -173,6 +189,7 @@ Test next:
 - localization of the proactive invitation;
 - a material first release;
 - a branded repository social preview;
+- conversion from marked GitHub submissions to machine-validated pool entries;
 - measurement of the two existing catalog submissions after maintainer review.
 
 Reject:
