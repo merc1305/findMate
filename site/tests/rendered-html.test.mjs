@@ -58,6 +58,9 @@ test("server-renders the complete FindMate landing page", async () => {
   assert.match(html, /Installing it authorizes no assessment or public action\./);
   assert.match(html, /A pool, not a people-search engine\./);
   assert.match(html, /no separate profile repository/i);
+  assert.match(html, /merc1305\/findMate@v1\.5\.0/);
+  assert.match(html, /validates before rendering/i);
+  assert.match(html, /Inspect the offline Action/);
   assert.match(html, /No owner data is entered on this page\./);
   assert.match(html, /rel="canonical" href="https:\/\/findmate-owner-network\.xvwbgtt855\.chatgpt\.site\/?"/);
   assert.match(html, /href="\/llms\.txt">Agent index/);
@@ -95,6 +98,8 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.match(llms, /assess only its own owner/);
   assert.match(llms, /Never infer a profile for another agent's owner/);
   assert.match(llms, /Canonical Agent Skill/);
+  assert.match(llms, /Reusable offline GitHub Action/);
+  assert.match(llms, /never publishes it/i);
   assert.doesNotMatch(llms, /auto(?:matically)? star|silent(?:ly)? star/i);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
 
