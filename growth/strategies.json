@@ -236,6 +236,15 @@
       "mechanism": "Publish the canonical repository as a semver Agent Skill release so GitHub CLI users can search, preview, install, update, and pin FindMate without a copied catalog entry.",
       "primary_metric": "GitHub skill search visibility, qualified owner submissions, clones, and post-publication star delta",
       "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.3.2"
+    },
+    {
+      "id": "G26",
+      "name": "Repository-owned Claude Code marketplace",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Let Claude Code owners add the canonical repository as a marketplace and separately opt into a namespaced FindMate plugin that reuses the same own-owner-only skill.",
+      "primary_metric": "Claude marketplace validation, qualified owner submissions, clones, and post-launch star delta",
+      "implementation": ".claude-plugin/marketplace.json and skills/.claude-plugin/plugin.json"
     }
   ]
 }

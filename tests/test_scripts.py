@@ -17,6 +17,8 @@ RUSSIAN_ONBOARDING = ROOT / "docs" / "locales" / "ru" / "owner-onboarding.md"
 PROFILE_SCHEMA = ROOT / "schemas" / "findmate-owner-profile-v1.schema.json"
 SUBMISSION_WORKFLOW = ROOT / ".github" / "workflows" / "validate-owner-profile.yml"
 ISSUE_TEMPLATE = ROOT / ".github" / "ISSUE_TEMPLATE"
+CLAUDE_MARKETPLACE = ROOT / ".claude-plugin" / "marketplace.json"
+CLAUDE_PLUGIN = ROOT / "skills" / ".claude-plugin" / "plugin.json"
 
 
 def load_module(name: str, filename: str):
@@ -566,6 +568,31 @@ class LocaleDocsTests(unittest.TestCase):
         self.assertIn("только своего владельца", content)
         self.assertIn("отдельное согласие обоих людей", content)
         self.assertIn("101 и более звёздах", content)
+
+
+class DistributionManifestTests(unittest.TestCase):
+    def test_claude_marketplace_reuses_the_canonical_skill_directory(self):
+        marketplace = json.loads(CLAUDE_MARKETPLACE.read_text(encoding="utf-8"))
+        plugin = json.loads(CLAUDE_PLUGIN.read_text(encoding="utf-8"))
+        self.assertEqual(marketplace["name"], "findmate-plugins")
+        self.assertEqual(len(marketplace["plugins"]), 1)
+        self.assertEqual(marketplace["plugins"][0]["name"], "findmate")
+        self.assertEqual(marketplace["plugins"][0]["source"], "./skills")
+        self.assertEqual(plugin["name"], "findmate")
+        self.assertEqual(plugin["version"], "1.0.0")
+        self.assertEqual(plugin["license"], "MIT")
+        self.assertEqual(plugin["skills"], "./")
+        self.assertNotIn("displayName", plugin)
+        self.assertNotIn("$schema", plugin)
+        self.assertTrue(
+            (
+                CLAUDE_PLUGIN.parent.parent
+                / "find-complementary-founders"
+                / "SKILL.md"
+            ).is_file()
+        )
+        self.assertNotIn("hooks", plugin)
+        self.assertNotIn("mcpServers", plugin)
 
 
 if __name__ == "__main__":
