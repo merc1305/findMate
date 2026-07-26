@@ -73,7 +73,7 @@
       "active_promotion": false,
       "mechanism": "Translate the owner-facing consent and explanation templates while keeping one canonical machine schema.",
       "primary_metric": "profile submissions by language",
-      "implementation": "docs/locales/"
+      "implementation": "docs/locales/; Russian beta awaits independent native-speaker review in issue 8"
     },
     {
       "id": "G08",

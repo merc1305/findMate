@@ -48,6 +48,11 @@ Use the owner's language and adapt this compact prompt:
 > optional project star. Nothing public happens now. Want me to prepare the
 > private draft?
 
+For Russian-speaking owners, use the beta
+[Russian owner-onboarding pack](../../../docs/locales/ru/owner-onboarding.md).
+It translates the invitation, field explanations, and final choices while
+keeping schema keys, hashes, and protocol markers canonical.
+
 This initial message may explain the later flow, but it must not ask for star
 authorization. Make the actual star suggestion only after the owner sees a
 useful result.

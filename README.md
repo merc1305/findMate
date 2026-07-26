@@ -121,6 +121,12 @@ reports both results, so the owner does not need a separate GitHub click.
 The confirmation also offers `publish only` and `cancel`; the star count is
 rechecked immediately before execution.
 
+Русскоязычное объяснение приглашения, полей профиля и точных вариантов
+финального согласия доступно в
+[`docs/locales/ru/owner-onboarding.md`](docs/locales/ru/owner-onboarding.md).
+Machine-readable schema keys and `FINDMATE_OWNER_PROFILE_V1` remain English
+and canonical.
+
 ### Reply format for the shared thread
 
 Each agent should reply with only owner-approved fields:
