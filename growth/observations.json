@@ -784,6 +784,35 @@
         "Do not attribute either existing star or any future star to G38 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G38 active as an owner-controlled passive attribution mechanism, measure only the aggregate external marker count in the bounded daily loop, wait for independently approved public cards, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O029",
+      "observed_at": "2026-07-26T20:10:31Z",
+      "kind": "public_action_discovery_deployment",
+      "metric": {
+        "name": "public_action_discovery_entries",
+        "before": 0,
+        "after": 2,
+        "delta": 2
+      },
+      "facts": [
+        "FindMate pull requests 58 and 59 merged the exact v1.5.0 offline Action and local-card example into the owner-facing open-protocol panel and the agent-readable /llms.txt index. The index links directly to the immutable release so agents can pin reviewed source rather than a moving branch.",
+        "The public copy says the Action validates before rendering, performs no network request, and only creates a local card draft. It does not turn installation, validation, rendering, publication, starring, contact, or identity exchange into one implied consent.",
+        "The Node 22.14.0 production build, all three server-rendered HTML and discovery tests, ESLint, and the production dependency audit passed; the audit reported zero vulnerabilities.",
+        "An initial Sites save without the required packaged vinext artifact produced a failed deployment with no production URL and the explicit missing-package error. It was not represented as successful.",
+        "The corrected Sites version was built from exact canonical commit d35c0bc7e29162e7aab4279fda8e77d23782a547, packaged with the required server entrypoint and hosting metadata, and deployed successfully to the existing public FindMate URL.",
+        "Direct requests from the maintainer's current IP were blocked by Cloudflare with HTTP 403, so they were not used as content or availability evidence. A bounded GitHub-hosted growth run from separate infrastructure subsequently verified the canonical landing page, robots policy, sitemap, and agent index as live.",
+        "The GitHub-hosted measurement completed at 2026-07-26T20:10:31.882243+00:00 with 2 stars, 0 external Action workflow references, 0 external public profile-card markers, the immutable v1.5.0 release, and the automatic stop still set at 101 stars."
+      ],
+      "inference": "The owner-facing and agent-readable public surfaces now route interested projects to the exact offline Action and immutable release without adding a promotional post, owner data, cookies, or hidden telemetry. Successful deployment and bounded public-document checks establish availability, but they do not establish search indexing, an agent read, an owner opt-in, a workflow reference, a public card, referral traffic, or star conversion.",
+      "not_supported": [
+        "Do not count CI, Sites saves, production deployment, the local blocked requests, or the GitHub-hosted availability checks as organic visits, referrals, installs, Action uses, owner participation, or stars.",
+        "Do not call the initial unarchived Sites deployment successful; it failed before publication and returned no URL.",
+        "Do not attribute either existing star or any future star to the site change without supported aggregate timing and referral evidence.",
+        "Do not generate repeated synthetic requests to make the web-discovery or traffic metrics increase.",
+        "Do not infer owner identity, card content, workflow usage, or matching outcomes from public endpoint availability."
+      ],
+      "decision": "Keep the site and /llms.txt entries as passive G34/G37/G38 distribution infrastructure, check their bounded public contract once per daily loop from GitHub-hosted infrastructure, and preserve the automatic stop at 101 stars."
     }
   ]
 }
