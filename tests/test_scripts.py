@@ -1096,6 +1096,14 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertIn("External GitHub Action references", workflow)
         self.assertIn("public_profile_card_references", workflow)
         self.assertIn("External public profile cards", workflow)
+        self.assertIn(
+            "extension:md",
+            growth.PROFILE_CARD_REFERENCE_QUERY,
+        )
+        self.assertNotIn(
+            "extension:py",
+            growth.PROFILE_CARD_REFERENCE_QUERY,
+        )
 
     def test_reusable_action_is_offline_and_handles_input_as_data(self):
         action = ACTION_METADATA.read_text(encoding="utf-8")
