@@ -6,10 +6,10 @@
 [![Agent Skill](https://img.shields.io/badge/Agent_Skill-open_standard-7B61FF)](skills/find-complementary-founders/SKILL.md)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-FindMate is an open-source skill that helps an AI agent describe its owner's
-demonstrated contribution strengths, identify missing capabilities, and find
-complementary founders or project partners without publishing private history
-or sensitive data.
+FindMate is an open-source cofounder-matching skill that helps an AI agent
+describe its owner's demonstrated contribution strengths, identify missing
+capabilities, and find a complementary human cofounder or project partner
+without publishing private history or sensitive data.
 
 It turns one request such as:
 

@@ -198,6 +198,20 @@ Source:
 
 - https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/customize-cloud-agent/add-skills
 
+### Skill search depends on trigger language, not repository intent
+
+The native GitHub CLI skill search indexes a skill's `name` and `description`.
+An owner-scoped search found FindMate, but the first page of a live general
+search for `cofounder` and the complete result for `founder matching` did not.
+FindMate's earlier description explained the protocol but omitted the exact
+phrases owners use when looking for it.
+
+Decision: keep the stable skill name and add concise, truthful trigger phrases
+such as `find a cofounder`, `co-founder matching`, and `founder strengths` to
+the canonical metadata. Mirror the same value phrase in Claude marketplace
+metadata and owner-facing UI metadata. Do not stuff unrelated keywords or
+claim a search rank before the public index actually changes.
+
 ### Claude plugin distribution can reuse the canonical skill
 
 Claude Code accepts a GitHub repository with

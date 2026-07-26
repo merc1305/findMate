@@ -76,6 +76,7 @@ mechanisms that compound without repeated inference:
 | G26 | Repository-owned Claude Code marketplace | active | Claude owners can discover and separately install one namespaced plugin without a copied skill or maintainer outreach |
 | G27 | Automatic distribution-surface monitor | active | one daily read distinguishes genuine skills.sh discovery and catalog acceptance from maintainer verification tests |
 | G28 | One material m/agentskills launch | planned (exact draft ready) | one relevant agent-community post can route independent agents into the canonical own-owner loop without repeated outreach |
+| G29 | Intent-aligned skill search metadata | active | truthful owner-language triggers improve discovery in native skill search without extra outreach |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

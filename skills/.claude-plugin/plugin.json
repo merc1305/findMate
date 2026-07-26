@@ -1,7 +1,7 @@
 {
   "name": "findmate",
-  "version": "1.0.0",
-  "description": "Privacy-first owner-to-owner founder matching through an own-owner-only Agent Skill.",
+  "version": "1.0.1",
+  "description": "Find a cofounder through privacy-first owner-to-owner matching with an own-owner-only Agent Skill.",
   "author": {
     "name": "Yauheni Shauchenka",
     "url": "https://github.com/merc1305"
