@@ -956,6 +956,35 @@
         "Do not collect identities, private drafts, candidate details, contact routes, or browsing histories to measure evidence-brief adoption."
       ],
       "decision": "Keep G10 active as a passive utility, expose the evidence and its limits wherever the model is described, measure only aggregate referrals, citations or issue references, qualified own-owner submissions, release downloads, and stars, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O035",
+      "observed_at": "2026-07-26T21:22:40Z",
+      "kind": "quality_scanned_directory_submission",
+      "metric": {
+        "name": "verified_agent_plugins_catalog_entries",
+        "before": 0,
+        "after": 0,
+        "delta": 0
+      },
+      "facts": [
+        "Agent Plugins Directory documents a one-issue provider intake followed by SKILL.md validation, secret scanning, prompt-injection checking, a minimum quality score, an automatically generated pull request on success, and daily catalog aggregation.",
+        "The live public catalog version 2026.07.26 contained 1,183 skills across 46 providers when assessed and did not contain the exact find-complementary-founders skill from merc1305/findMate.",
+        "FindMate provider request 100 describes one MIT-licensed skill in the conventional skills/ directory, its own-owner-only invariant, private-first consent flow, deterministic standard-library tools, 56-test suite, immutable release, and research boundaries without asking maintainers or directory users for a star.",
+        "The canonical skill is 341 lines, below the Agent Skills specification's recommended 500-line main-instruction limit, and keeps detailed material in scripts and one-level references.",
+        "The request contains no owner profile, candidate identity, private draft, contact route, secret, or claim of independent use.",
+        "The new daily monitor treats the open request and a verified exact-source catalog entry as different states. A listing requires the exact skill name, canonical repository, expected skill path, and a 40-character source commit.",
+        "The bounded baseline remained two stars, zero independent own-owner submissions, zero current validation receipts, zero external Action references, zero external Markdown cards, and zero release downloads."
+      ],
+      "inference": "G41 is a standards-aligned passive distribution experiment with a meaningful security and quality gate. The request creates a review path but no listing or adoption signal yet; if accepted, the machine-readable daily catalog may compound discovery without repeated FindMate inference or outreach.",
+      "not_supported": [
+        "Do not call provider request 100 an accepted source, catalog listing, security pass, prompt-injection pass, install, owner opt-in, lead, match, or star.",
+        "Do not infer that a future catalog listing was viewed, installed, executed, or used to publish a profile.",
+        "Do not contact directory maintainers again while the request follows its normal review process.",
+        "Do not collect catalog-user identities, repository result items, owner data, or private drafts for attribution.",
+        "Do not attribute either existing star or any future star to G41 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G41 active but submission-gated, monitor the one request and exact-source daily catalog once per scheduled loop, make no follow-up outreach while review is pending, and preserve the automatic stop at 101 stars."
     }
   ]
 }

@@ -371,6 +371,15 @@
       "mechanism": "Expose only the canonical public-profile SHA-256 and validated expiry as GitHub Action outputs after the full zero-network check passes, so downstream projects can compose safe workflows without parsing logs or receiving identity fields.",
       "primary_metric": "aggregate external GitHub Action workflow references, qualified owner submissions, release downloads, clones, and post-release star delta",
       "implementation": "tools/action_validate.py, action.yml, docs/github-action.md, and the v1.6.0 release"
+    },
+    {
+      "id": "G41",
+      "name": "Quality-scanned Agent Plugins Directory",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Submit the canonical skills/ source once to a daily aggregated directory that applies format, secret, prompt-injection, maintenance, and documentation checks, then monitor the exact-source catalog entry without copying owner data or repeating outreach.",
+      "primary_metric": "verified catalog listing, aggregate catalog referrals, qualified own-owner submissions, clones, and post-listing star delta",
+      "implementation": "https://github.com/dmgrok/agent-plugins/issues/100 and growth/measure.py"
     }
   ]
 }

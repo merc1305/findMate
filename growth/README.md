@@ -88,6 +88,7 @@ mechanisms that compound without repeated inference:
 | G38 | Owner-controlled profile-card action | active | a validated public profile can produce one deterministic local card draft that downstream owners may separately approve and publish with protocol attribution |
 | G39 | Editor-native schema discovery | planned (compatibility gate) | a future specific filename and versioned migration could enable safe IDE validation; no SchemaStore PR or V1 `$schema` mutation before independent profile uptake |
 | G40 | Composable validated profile outputs | active | downstream workflows receive only the canonical public-profile hash and validated expiry after the complete offline check, without log parsing or identity-field outputs |
+| G41 | Quality-scanned Agent Plugins Directory | active (provider submission open) | one canonical-source request can enter a daily machine-readable catalog after format, secret, injection, maintenance, and documentation checks; the loop distinguishes the request from a verified listing |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner
