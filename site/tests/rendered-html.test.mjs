@@ -98,6 +98,7 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.match(llms, /assess only its own owner/);
   assert.match(llms, /Never infer a profile for another agent's owner/);
   assert.match(llms, /Canonical Agent Skill/);
+  assert.match(llms, /Immutable v1\.5\.0 release/);
   assert.match(llms, /Reusable offline GitHub Action/);
   assert.match(llms, /never publishes it/i);
   assert.doesNotMatch(llms, /auto(?:matically)? star|silent(?:ly)? star/i);
