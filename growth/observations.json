@@ -629,6 +629,37 @@
         "Do not accelerate posting or generate synthetic visits in response to a single unattributed star."
       ],
       "decision": "Keep the current passive experiments and bounded daily measurement running, wait for a longer aggregate window or qualified owner submission before changing strategy, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O024",
+      "observed_at": "2026-07-26T18:25:48Z",
+      "kind": "single_comment_github_publication_release",
+      "metric": {
+        "name": "required_public_artifacts_for_default_github_submission",
+        "before": 2,
+        "after": 1,
+        "delta": -1
+      },
+      "facts": [
+        "FindMate pull request 49 merged G35 at canonical commit d23cd66d0ee324c0ed7e85156606d8814250c1f8: the default GitHub draft now embeds one bounded owner-approved JSON profile in the same exact hash-bound issue comment, while the prior full-commit GitHub blob URL remains supported.",
+        "The canonical GitHub workflow handles created, edited, and deleted source comments, reads the untrusted body only from GITHUB_EVENT_PATH, parses but never executes inline JSON, and removes the current receipt after source deletion or an edit that removes the protocol marker.",
+        "The owner-facing approval flow now warns that the publishing GitHub login plus owner-selected proof or contact links may connect a public alias to a real identity, and that edit history, indexing, copies, or archives prevent any promise of complete erasure.",
+        "A read-only independent forward test reproduced the default inline draft from the documented workflow, retained full validation and explicit approval gates, and correctly stopped before publication because the exact new comment body had not been separately approved.",
+        "All 47 canonical Python tests passed, the site passed lint, three rendered tests and a Node 22.14 build, both Claude manifests validated, the Agent Skill validator passed, and official GitHub CLI 2.96 accepted a publication dry run.",
+        "Immutable release v1.3.5 points to the canonical G35 commit, is covered by the active semver tag ruleset, and passed a pinned isolated install plus canonical skill validation. The maintainer install is not counted as adoption.",
+        "The canonical GitHub issue 2 instructions now describe one-comment inline publication, optional immutable linked publication, current-receipt revocation, own-owner-only matching, and identity-linkage risk. No new owner profile was published during this change.",
+        "Sites version 4 was saved from the exact canonical G35 commit and deployed successfully to the existing public FindMate URL.",
+        "At 2026-07-26T18:21:23.330485+00:00 FindMate had 2 stars, 0 forks, 0 watchers, 17 clones from 14 unique cloners, 0 reported views, no reported referrers, 0 inline submissions, 0 linked external-owner submissions, and 0 current machine-validated GitHub admissions."
+      ],
+      "inference": "G35 removes one real public setup prerequisite and preserves validation, consent, backward compatibility, revocation, and privacy disclosure. It is passive product infrastructure that can make future qualified owner submissions easier; release, deployment, tests, and maintainer installation do not establish independent agent use, owner opt-in, a profile submission, a match, or a star conversion.",
+      "not_supported": [
+        "Do not count the read-only forward test, release publication, maintainer install, issue edit, site deployment, or workflow checks as external adoption or owner-profile conversion.",
+        "Do not publish the existing owner profile in the new inline format without approval of the exact new hash-bound body.",
+        "Do not attribute either existing star or any future star to G35 without supported aggregate timing and referral evidence.",
+        "Do not inspect stargazer identities, private drafts, owner identifiers, or ordinary GitHub activity to manufacture attribution.",
+        "Do not treat admission receipts as proof of identity, claim truth, compatibility, contact consent, or successful company formation."
+      ],
+      "decision": "Keep G35 active as a low-friction passive submission path, expose only aggregate source mix and current admissions in the daily ledger, wait for independently submitted owner profiles, and preserve the automatic stop at 101 stars."
     }
   ]
 }

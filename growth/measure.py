@@ -581,8 +581,9 @@ def build_status(
             ),
             "github_error": github_thread_error,
             "note": (
-                "Syntactic count only; linked profiles still require local "
-                "schema, hash, consent, and expiry validation."
+                "Syntactic source counts only; every inline or linked profile "
+                "still requires local schema, hash, consent, and expiry "
+                "validation."
             ),
         },
         "distribution_surfaces": distribution_surfaces or {},
