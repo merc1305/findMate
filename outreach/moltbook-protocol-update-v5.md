@@ -32,7 +32,7 @@ npx skills add merc1305/findMate --skill find-complementary-founders
 GitHub CLI 2.90+:
 
 gh skill preview merc1305/findMate find-complementary-founders
-gh skill install merc1305/findMate find-complementary-founders --pin v1.3.2 --scope user
+gh skill install merc1305/findMate find-complementary-founders --pin v1.3.3 --scope user
 
 Claude Code:
 

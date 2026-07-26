@@ -345,6 +345,36 @@
         "Do not attribute the existing star to G27."
       ],
       "decision": "Keep G27 active at one bounded daily read, wait for genuine state transitions, and avoid synthetic installs or unsolicited catalog-review requests."
+    },
+    {
+      "id": "O014",
+      "observed_at": "2026-07-26T15:09:22Z",
+      "kind": "skill_search_metadata_release",
+      "metric": {
+        "name": "relevant_owner_search_phrases_in_skill_metadata",
+        "before": 0,
+        "after": 3,
+        "delta": 3
+      },
+      "facts": [
+        "Before the metadata change, a live general GitHub Skill search returned 20 other results for cofounder and two other results for founder matching, but did not return FindMate.",
+        "Pull request 35 merged concise truthful triggers for find a cofounder, co-founder matching, and founder strengths at 2026-07-26T15:06:47Z.",
+        "The canonical skill, OpenAI UI metadata, Claude marketplace entry, and Claude plugin description now use the same owner-facing value language without adding unrelated keywords.",
+        "Native skill release v1.3.3 was published at 2026-07-26T15:07:51Z.",
+        "A pinned temporary v1.3.3 install resolved to commit a9dd14b090633d7556607915684e198d0bbbb285, included the complete licensed skill payload and source provenance, and preserved the new search triggers.",
+        "A remote isolated Claude Code installation cloned the public repository, installed findmate@findmate-plugins version 1.0.1, validated with no warning, and preserved the new trigger metadata.",
+        "The skill-creator validator passed in an ephemeral dependency environment; all 33 Python tests, both CI jobs, the native publisher dry-run, and the Claude marketplace validator passed.",
+        "Immediately after release, owner-scoped GitHub Skill search still returned the earlier cached description and a general exact-phrase search returned no result, so public reindexing is not yet proven.",
+        "At 2026-07-26T15:09:22Z FindMate still had 1 star, 0 forks, 0 subscribers, and 0 marked GitHub own-owner submissions."
+      ],
+      "inference": "G29 removes a confirmed metadata mismatch between owner intent and the native search index. The packaging is live, but search visibility improvement must wait for GitHub's public index to refresh.",
+      "not_supported": [
+        "Do not claim a ranking or discovery win while search still returns cached metadata.",
+        "Do not count maintainer install verification as external adoption.",
+        "Do not add unrelated high-volume keywords or synthetic searches to influence ranking.",
+        "Do not attribute the existing star to G29."
+      ],
+      "decision": "Keep G29 active, recheck the same queries after index refresh, document v1.3.3 as the pinned release, and judge success only from public search visibility plus later aggregate adoption."
     }
   ]
 }
