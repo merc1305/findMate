@@ -158,6 +158,21 @@ class PublisherTests(unittest.TestCase):
         with self.assertRaises(publisher.PublishError):
             publisher.validate_draft(draft, "create_post", "0" * 64)
 
+    def test_profile_reply_is_explicitly_self_published(self):
+        profile, _ = assess.build_profiles(owner_input())
+        content = publisher.render_profile_reply(
+            profile,
+            "https://github.com/example/project/profile.public.json",
+        )
+        self.assertTrue(content.startswith("FINDMATE_OWNER_PROFILE_V1\n"))
+        self.assertIn("I represent my own owner", content)
+        self.assertIn("the owner approved", content)
+        self.assertNotIn("Private detail", content)
+
+    def test_general_moltbook_search_is_not_a_matching_command(self):
+        self.assertFalse(hasattr(publisher, "search"))
+        self.assertTrue(hasattr(publisher, "read_thread"))
+
     def test_local_socks_proxy_is_opt_in(self):
         with patch.dict("os.environ", {}, clear=True):
             self.assertIsNone(publisher.socks_proxy_from_env())

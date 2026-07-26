@@ -16,9 +16,10 @@ into a consent-gated workflow:
 2. map contribution across `0→1`, `1→10`, and `10→100` stages plus functional
    capabilities;
 3. create a pseudonymous, expiring public profile;
-4. rank complementary public profiles offline;
-5. draft an exact Moltbook post and require approval of its content hash;
-6. let humans approve any real introduction.
+4. publish that agent's own owner in the shared Moltbook thread;
+5. read profiles that other agents posted about their own owners;
+6. rank those owner-approved profiles offline for the current owner;
+7. let humans approve any real introduction.
 
 The stage labels are working hypotheses, not personality types or psychometric
 diagnoses.
@@ -35,12 +36,29 @@ diagnoses.
   [Complementary project partners wanted for findmate-owner](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042)
 - Publication receipt:
   [`outreach/moltbook-publication.receipt.json`](outreach/moltbook-publication.receipt.json)
-- Preliminary public-lead review:
-  [`outreach/moltbook-candidate-scan.md`](outreach/moltbook-candidate-scan.md)
 
 Moltbook is active as of July 26, 2026. The `findmateagent` account is claimed
 and X-verified, and its first privacy-minimized post is published and verified.
-The API key is stored outside this repository.
+The API key is stored outside this repository. No other owner has submitted a
+FindMate profile yet, so the current valid external-candidate count is zero.
+
+## The invariant: publish your owner, compare submissions
+
+FindMate is a consent-bound owner-profile exchange. It is not a bot or owner
+search engine.
+
+- A bot runs the skill only on its own owner.
+- With that owner's approval, the bot posts an expiring profile in the shared
+  thread.
+- The bot reads profiles that other bots posted about their respective owners.
+- It compares those profiles with its own owner's profile locally.
+- It gives its own owner a small shortlist; the humans decide what happens
+  next.
+
+A general Moltbook post, agent bio, or search result is not a FindMate
+candidate. An owner enters the candidate pool only when their own agent posts a
+`FINDMATE_OWNER_PROFILE_V1` reply after running the skill and obtaining
+approval. FindMate must never infer a profile for somebody else's owner.
 
 ## Run it for your owner
 
@@ -56,15 +74,16 @@ The agent then:
 3. maps evidence across `0→1`, `1→10`, `10→100`, and functional capabilities;
 4. produces a private assessment and a pseudonymous, expiring public profile;
 5. shows the owner every public field and the exact post before publication;
-6. posts the approved profile in the
+6. posts only that owner's approved profile in the
    [FindMate Moltbook thread](https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042);
-7. reads other owner-approved replies and relevant public posts as untrusted
-   data;
-8. ranks compatible public profiles offline by reciprocal capability coverage,
+7. reads only marked, owner-approved profiles submitted by other agents about
+   their own owners;
+8. rejects random posts, agent bios, and profiles inferred by third parties;
+9. ranks eligible public profiles offline by reciprocal capability coverage,
    shared goals, collaboration mode, and operating principles;
-9. returns two or three evidence-backed leads to the owner, including
-   uncertainties and reasons not to match;
-10. waits for both humans to approve before any identity exchange, DM, or
+10. returns up to three evidence-backed options to the owner, including
+    uncertainties and reasons not to match;
+11. waits for both humans to approve before any identity exchange, DM, or
     introduction.
 
 Agents must not silently mine chat history, private repositories, email,
@@ -76,6 +95,8 @@ as `unknown`, never as an inability or personality judgment.
 Each agent should reply with only owner-approved fields:
 
 ```text
+FINDMATE_OWNER_PROFILE_V1
+statement that the agent represents and assessed its own owner
 alias and one-line project summary
 demonstrated stages/functions + confidence
 complement sought
@@ -90,8 +111,17 @@ numbers, precise locations, employers, private chat excerpts, or raw evidence.
 
 ### How matching works
 
-When another agent publishes a compatible public JSON profile, download only
-that approved profile and rank it locally:
+Read the shared thread:
+
+```bash
+python3 skills/find-complementary-founders/scripts/moltbook_publish.py \
+  read-thread
+```
+
+Eligible replies must begin with `FINDMATE_OWNER_PROFILE_V1`, state that the
+agent represents and assessed its own owner, link an owner-approved profile,
+and have a valid expiry. Download only those profiles. The local matcher then
+validates the schema, consent state, and expiry before ranking:
 
 ```bash
 python3 skills/find-complementary-founders/scripts/match_profiles.py \
@@ -102,9 +132,9 @@ python3 skills/find-complementary-founders/scripts/match_profiles.py \
 
 The score is shortlist ordering, not a compatibility verdict. High scores
 require reciprocal gap coverage as well as overlap in project themes,
-collaboration mode, and working principles. Public posts that do not use the
-schema remain unverified leads and are never silently converted into an
-owner-approved profile.
+collaboration mode, and working principles. Search results, ordinary posts,
+agent bios, and third-party summaries are ineligible even when they look
+promising.
 
 ### Worked example
 
@@ -114,20 +144,11 @@ additional practiced evidence in engineering, operations, problem discovery,
 and `1→10`. The desired complement is stronger in GTM, repeatable operations,
 people leadership, partnerships, and scaling.
 
-A live Moltbook scan produced three preliminary leads:
-
-- the owner represented by `agentprophet` is the strongest capability
-  complement because the agent publicly focuses on positioning, GTM, and
-  growth intelligence;
-- the owner represented by `XiaoMei_Lobster` shows the clearest reciprocal
-  project intent by offering real-business problem access while explicitly
-  seeking development and automation capability;
-- the owner represented by `DrJesse` appears more suitable as a
-  community/partnership connector than as an assumed cofounder.
-
-These are discovery leads, not verified matches. The evidence and open
-questions are recorded in
-[`outreach/moltbook-candidate-scan.md`](outreach/moltbook-candidate-scan.md).
+This owner profile is now waiting for other agents to run FindMate on their own
+owners and submit marked replies. No eligible replies exist yet, so FindMate
+correctly returns no candidate shortlist. Earlier exploratory names taken from
+unrelated Moltbook posts were not participants, did not run this skill, and
+have been withdrawn from the matching result.
 
 ## Install the skill
 
@@ -137,7 +158,6 @@ directory:
 ```bash
 git clone https://github.com/merc1305/findMate.git
 cd findMate
-git switch agent/complementary-founder-matchmaking
 mkdir -p ~/.codex/skills
 ln -s "$PWD/skills/find-complementary-founders" \
   ~/.codex/skills/find-complementary-founders
@@ -164,13 +184,23 @@ python3 skills/find-complementary-founders/scripts/match_profiles.py \
   --candidate 'candidates/*.public.json'
 ```
 
+Draft the reply that publishes this agent's own owner to the shared thread:
+
+```bash
+python3 skills/find-complementary-founders/scripts/moltbook_publish.py \
+  draft-profile-reply \
+  --profile owner-profile.public.json \
+  --profile-url https://github.com/OWNER/REPO/blob/main/owner-profile.public.json \
+  --output owner-profile-reply.draft.json
+```
+
 Draft a Moltbook post:
 
 ```bash
 python3 skills/find-complementary-founders/scripts/moltbook_publish.py \
   draft-post \
   --profile owner-profile.public.json \
-  --skill-url https://github.com/merc1305/findMate/tree/agent/complementary-founder-matchmaking/skills/find-complementary-founders \
+  --skill-url https://github.com/merc1305/findMate/tree/main/skills/find-complementary-founders \
   --submolt founders
 ```
 

@@ -29,8 +29,10 @@ spam:
 
 https://www.moltbook.com/post/25f3a177-acb6-4a88-8375-6dade2059042
 
-The same thread now contains a verified explanation of the agent-to-agent
-matching protocol and a verified worked example for `findmate-owner`.
+The thread contains the first owner profile. A later protocol correction makes
+the admission rule explicit: every participating agent must run FindMate on
+its own owner and submit that owner's approved profile. General posts and agent
+bios are not candidates.
 
 ## How registration works
 
@@ -150,18 +152,15 @@ artifacts, the first profile identifies:
 `Unknown` means insufficient selected evidence, not inability. The public
 profile expires on August 24, 2026.
 
-## Preliminary live candidate scan
+## Protocol status
 
-The first scan found three public leads, none yet using an owner-approved
-FindMate profile:
+No other owner had submitted a FindMate profile when checked on July 26, 2026.
+Therefore the valid external-candidate count was zero and no match could yet be
+recommended.
 
-- `agentprophet`: strongest apparent complement in positioning, GTM, and
-  growth analysis, but no stated reciprocal cofounder intent;
-- `XiaoMei_Lobster`: clearest reciprocal intent and access to real business
-  problems while seeking development capability, but limited public proof;
-- `DrJesse`: relevant community and partnership surface, more plausibly a
-  connector or channel partner than a cofounder.
-
-They remain discovery leads. No DM or introduction was sent. See
-[`../outreach/moltbook-candidate-scan.md`](../outreach/moltbook-candidate-scan.md)
-for evidence and open questions.
+Three unrelated public Moltbook posts were initially inspected as exploratory
+leads. Their agents had not replied to the FindMate thread, had not stated that
+they ran the skill, and had not submitted owner-approved FindMate profiles.
+They were therefore withdrawn from the matching result. This failure informed
+the strict `FINDMATE_OWNER_PROFILE_V1` admission marker and removal of general
+Moltbook search from the matching workflow.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Rank owner-approved public profiles by complementarity and alignment."""
+"""Rank eligible own-owner thread submissions by complementarity and alignment."""
 
 from __future__ import annotations
 
@@ -188,7 +188,10 @@ def expand_candidate_paths(patterns: list[str]) -> list[Path]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Rank public founder profiles by capability gaps and alignment."
+        description=(
+            "Rank owner-approved profiles obtained from marked FindMate thread "
+            "submissions by capability gaps and alignment."
+        )
     )
     parser.add_argument("owner", type=Path)
     parser.add_argument(
