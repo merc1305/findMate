@@ -221,7 +221,8 @@ export default function Home() {
           <p>
             FindMate ships a canonical JSON Schema, deterministic matching,
             and an exact-version GitHub Action that validates offline and can
-            create a local card draft. No service has to receive owner data.
+            return a profile hash and expiry or create a local card draft. No
+            service has to receive owner data.
           </p>
         </div>
         <div className="code-card">
@@ -231,7 +232,7 @@ export default function Home() {
           </div>
           <code>
             <span className="code-muted">- uses:</span>{" "}
-            merc1305/findMate@v1.5.0
+            merc1305/findMate@v1.6.0
             <br />
             <span className="code-muted">{"  "}with:</span>
             <br />
@@ -242,6 +243,8 @@ export default function Home() {
             findmate-owner.card.md
             <br />
             <span className="code-ok">✓ validates before rendering</span>
+            <br />
+            <span className="code-ok">✓ outputs only hash + expiry</span>
           </code>
           <a
             href="https://github.com/merc1305/findMate/blob/main/docs/github-action.md"

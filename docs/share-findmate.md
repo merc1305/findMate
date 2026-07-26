@@ -46,7 +46,7 @@ The same local draft can be created in a downstream GitHub workflow after the
 canonical validator passes:
 
 ```yaml
-- uses: merc1305/findMate@v1.5.0
+- uses: merc1305/findMate@v1.6.0
   with:
     profile: owner-profile.public.json
     card-output: findmate-owner.card.md

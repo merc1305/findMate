@@ -362,6 +362,15 @@
       "mechanism": "After independent profile uptake and a versioned compatibility plan exist, define a specific profile filename and evaluate SchemaStore or a self-describing profile without broad globs or breaking older strict validators.",
       "primary_metric": "independently published valid profiles, standardized filename adoption, editor validation success, and qualified submissions",
       "implementation": "docs/distribution-research.md; gated until at least one independent valid profile and a versioned migration exist"
+    },
+    {
+      "id": "G40",
+      "name": "Composable validated profile outputs",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Expose only the canonical public-profile SHA-256 and validated expiry as GitHub Action outputs after the full zero-network check passes, so downstream projects can compose safe workflows without parsing logs or receiving identity fields.",
+      "primary_metric": "aggregate external GitHub Action workflow references, qualified owner submissions, release downloads, clones, and post-release star delta",
+      "implementation": "tools/action_validate.py, action.yml, docs/github-action.md, and the v1.6.0 release"
     }
   ]
 }
