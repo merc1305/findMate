@@ -91,6 +91,7 @@ mechanisms that compound without repeated inference:
 | G41 | Quality-scanned Agent Plugins Directory | active (provider submission open) | one canonical-source request can enter a daily machine-readable catalog after format, secret, injection, maintenance, and documentation checks; the loop distinguishes the request from a verified listing |
 | G42 | Privacy-minimized canonical pool monitor | active | one bounded daily read distinguishes external own-owner submissions from protocol chatter, exposes an honestly empty pool, and alerts maintainers when a marked profile needs local validation without retaining owner-level content |
 | G43 | Curated Agent Skill Index | active (PR pending) | one minimal canonical-source entry in a maintained cross-runtime collaboration category can compound discovery; the loop distinguishes an open PR from the exact upstream listing |
+| G44 | Private Founder Complement Canvas | active | a deterministic mode-0600 Markdown result gives owners useful evidence, gaps, unknowns, and review steps before the pool, publication, or optional project-support decision |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

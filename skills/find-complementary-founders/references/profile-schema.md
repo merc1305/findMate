@@ -21,6 +21,20 @@ The output is marked `private_draft_only` and contains no public-profile
 preview. Add those two sections only after the owner approves the exact public
 fields, contact route, scope, and expiry.
 
+To give the owner a readable offline result without exposing raw private
+notes, render the generated private assessment:
+
+```bash
+python3 scripts/private_report.py owner-assessment.private.json \
+  --output founder-complement-canvas.private.md
+```
+
+The output must end in `.private.md`, is created with mode `0600`, and is
+ignored by the canonical repository. It contains demonstrated vectors,
+confidence, preferences, the complement sought, unknowns, and an evidence
+boundary. It contains no raw private note, proof URL, contact route, consent
+record, network request, or public action.
+
 Create a publication-ready private input shaped like:
 
 ```json

@@ -398,6 +398,15 @@
       "mechanism": "Submit one canonical skill link to the maintained Productivity and Collaboration category of the cross-runtime Agent Skill Index, then monitor both the review state and the exact upstream README entry without copied protocol files or repeat outreach.",
       "primary_metric": "verified upstream listing, aggregate referrals, qualified own-owner submissions, clones, and post-listing star delta",
       "implementation": "https://github.com/heilcheng/awesome-agent-skills/pull/377 and growth/measure.py"
+    },
+    {
+      "id": "G44",
+      "name": "Private Founder Complement Canvas",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Turn the offline private assessment into a human-readable mode-0600 Markdown canvas that omits raw notes, proof links, contact, and consent data while explaining demonstrated contribution, confidence, complement sought, unknowns, and owner review steps.",
+      "primary_metric": "private-canvas utility feedback, qualified public-profile conversion, owner submissions, release downloads, clones, and post-release star delta",
+      "implementation": "skills/find-complementary-founders/scripts/private_report.py"
     }
   ]
 }

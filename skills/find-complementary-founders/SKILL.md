@@ -79,6 +79,19 @@ That command writes no public profile and marks the result
 `private_draft_only`. Keep private inputs and assessments outside public
 repositories.
 
+Render a human-readable private result for the owner:
+
+```bash
+python3 scripts/private_report.py owner-assessment.private.json \
+  --output founder-complement-canvas.private.md
+```
+
+The canvas is written with mode `0600`, omits raw private notes, proof URLs,
+contact routes, and consent data, and makes unknown evidence explicit. It
+performs no network or public action. Show it only to the owner; generating it
+does not authorize publication, a repository star, contact, identity exchange,
+or an introduction.
+
 Only after the owner approves the exact public fields, contact route, scope,
 and expiry, add `public_contact` and `consent` to the input and run:
 

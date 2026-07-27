@@ -274,7 +274,7 @@ ChatGPT scans uploaded skills before making them available. Personal skills
 may need to be added separately on desktop and web/mobile, and workspace
 availability can depend on plan and admin settings.
 
-The release archive is deterministic and limited to 16 explicitly allowlisted
+The release archive is deterministic and limited to 17 explicitly allowlisted
 public files. It rejects symlinks, unlisted files (including profile/private
 JSON artifacts), path traversal, and generated caches. Rebuild or verify it
 locally:
@@ -450,9 +450,20 @@ python3 skills/find-complementary-founders/scripts/assess_profile.py \
 ```
 
 That private-only command does not require `public_contact` or `consent` and
-does not emit a public profile. After the owner reviews the result and approves
-the exact public fields, contact route, scope, and expiry, generate the public
-draft:
+does not emit a public profile. Turn the JSON into a readable private Founder
+Complement Canvas:
+
+```bash
+python3 skills/find-complementary-founders/scripts/private_report.py \
+  owner-assessment.private.json \
+  --output founder-complement-canvas.private.md
+```
+
+The canvas is mode `0600`, contains no raw private notes, proof URLs, contact
+route, or consent data, and makes unknowns explicit rather than labeling them
+as weaknesses. It performs no network or public action. After the owner reviews
+the result and approves the exact public fields, contact route, scope, and
+expiry, generate the public draft:
 
 ```bash
 python3 skills/find-complementary-founders/scripts/assess_profile.py \
