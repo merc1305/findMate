@@ -153,11 +153,21 @@ export default function Home() {
             <li>Confidence, missing evidence, and unknowns kept visible</li>
             <li>The complementary operator or builder worth looking for</li>
           </ul>
-          <p>
-            The optional v1.7.0 skill renders this Founder Complement Canvas
-            locally as a mode-0600 Markdown file. It omits raw notes, proof
-            links, contact, and consent data. Nothing is published.
-          </p>
+          <div className="private-result-copy">
+            <p>
+              The optional v1.7.1 skill renders this Founder Complement Canvas
+              locally as a mode-0600 Markdown file. It omits raw notes, proof
+              links, contact, and consent data. Nothing is published.
+            </p>
+            <a
+              className="text-action"
+              href="https://github.com/merc1305/findMate/blob/v1.7.1/skills/find-complementary-founders/references/example-founder-complement-canvas.md"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Preview synthetic result <span aria-hidden="true">↗</span>
+            </a>
+          </div>
         </div>
         <div className="install-card" id="install">
           <div>
