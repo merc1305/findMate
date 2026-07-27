@@ -1041,6 +1041,35 @@
         "Do not attribute either existing star to G42."
       ],
       "decision": "Keep G42 active as one bounded daily read, surface empty and validation-required states honestly, wait for independently submitted own-owner profiles, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O038",
+      "observed_at": "2026-07-27T08:25:24Z",
+      "kind": "curated_agent_skill_index_submission",
+      "metric": {
+        "name": "verified_agent_skill_index_entries",
+        "before": 0,
+        "after": 0,
+        "delta": 0
+      },
+      "facts": [
+        "The Agent Skill Index repository had 6,022 stars, 584 forks, an update on July 27, 2026, and an active review queue when assessed.",
+        "Its contribution guide accepts real SKILL.md projects through one relevant README entry, asks for clear instructions and examples, and recommends keeping SKILL.md below 500 lines. The canonical FindMate skill is 341 lines and was absent from the upstream index.",
+        "External pull request 377 adds one canonical FindMate skill link to Community Skills under Productivity and Collaboration. It copies no protocol code, profile, owner data, receipt, private draft, or star request.",
+        "The index website completed npm ci and a full Next.js production build locally after the one-line change. NPM separately reported six vulnerabilities in the index's existing dependency tree; the FindMate submission did not change dependencies.",
+        "The pull request is open and mergeable. Its Vercel status links to authorization for the upstream owner's preview deployment, so it is recorded as a review/deployment limitation rather than proof that the one-line source change failed.",
+        "The new monitor counts an entry only when the upstream main README contains the exact canonical FindMate skill link. An open, mergeable, or even merged pull request is tracked separately from a verified listing.",
+        "The FindMate repository remained at two stars and zero independently published owner profiles at submission time."
+      ],
+      "inference": "G43 is a targeted passive-discovery experiment in a maintained, cross-runtime index whose collaboration category matches FindMate's user intent. The one-line submission creates a review path but no listing or adoption signal yet.",
+      "not_supported": [
+        "Do not call pull request 377 a listing, install, agent read, owner opt-in, profile, lead, candidate, match, referral, or star.",
+        "Do not claim that repository stars or forks represent active directory users or likely FindMate adopters.",
+        "Do not attribute the Vercel authorization status to FindMate source quality or change upstream deployment permissions.",
+        "Do not ping, mention, or request review from the index maintainers while the pull request follows its normal process.",
+        "Do not attribute either existing FindMate star or any future star to G43 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G43 active and passive, monitor pull request 377 plus the exact upstream README once per scheduled loop, make no follow-up outreach, and preserve the automatic stop at 101 stars."
     }
   ]
 }
