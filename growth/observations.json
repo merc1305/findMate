@@ -1156,6 +1156,35 @@
         "Do not attribute either existing FindMate star or any future star to the Site without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep Site version 10 live as a passive private-first entry surface, monitor only aggregate repository, release, traffic, and qualified-pool signals, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O042",
+      "observed_at": "2026-07-27T09:20:12Z",
+      "kind": "zero_owner_data_canvas_preview_release",
+      "metric": {
+        "name": "immutable_releases_with_renderer_checked_synthetic_canvas",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Immutable latest release v1.7.1 points exactly to commit 58eb502cea5edf36f3c002e29568a13bd9e8b0a9 and is neither a draft nor a prerelease.",
+        "Its deterministic portable archive contains 18 explicitly allowlisted public files, is 171,976 bytes, and has SHA-256 06e445ceba097f43ac85a2c4cdde741d8ba74a1e23cd83775f03c6f7c729f686.",
+        "The new bundled Founder Complement Canvas is built only from the existing synthetic builder fixture. A test regenerates it through the current assessment and private-report code and requires byte-for-byte equality with the checked-in preview.",
+        "The preview contains no GitHub or contact URL, consent field, public proof, raw synthetic note, or real owner data. It repeats that unknown evidence is not weakness and that the file authorizes no installation, publication, star, contact, identity exchange, or introduction.",
+        "The canonical Agent Skill, repository README, and synthetic demo documentation link the preview as an inspection step before using owner evidence.",
+        "All 63 repository tests passed, the complete canonical skill validator passed, and the deterministic archive rebuilt and verified successfully.",
+        "Both v1.7.1 assets had zero downloads immediately after publication. The repository still had two stars and no independently published owner profiles, so the release is not treated as adoption or a growth result."
+      ],
+      "inference": "G45 reduces the trust and comprehension cost of the private-first workflow without needing a real owner's data or a network effect. A reproducible preview is durable product education, but its usefulness must still be established through independent use, aggregate downloads, or qualified submissions.",
+      "not_supported": [
+        "Do not count release publication, a bundled example, a test, an archive member, checksum verification, or a maintainer render as a preview view, agent read, owner use, download, install, opt-in, profile, lead, candidate, match, referral, endorsement, or star.",
+        "Do not present the fabricated builder as a real person, owner, participant, lead, candidate, or successful match.",
+        "Do not claim the preview predicts founder success, measures personality, validates compatibility, or demonstrates capabilities beyond its fabricated evidence.",
+        "Do not use the preview as consent to assess a real owner or to install, publish, star, contact, exchange identities, or introduce anyone.",
+        "Do not attribute either existing FindMate star or any future star to G45 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G45 active as a passive zero-data preview, link the exact v1.7.1 artifact from owned discovery surfaces, measure only aggregate release and qualified-pool changes, and preserve the automatic stop at 101 stars."
     }
   ]
 }
