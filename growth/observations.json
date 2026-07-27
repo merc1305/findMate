@@ -1127,6 +1127,35 @@
         "Do not attribute either existing FindMate star or any future star to G44 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G44 active as private-first product utility, publish the exact v1.7.0 route on owned documentation, measure only aggregate release and qualified-pool changes, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O041",
+      "observed_at": "2026-07-27T09:04:37Z",
+      "kind": "private_canvas_owner_entry_deployment",
+      "metric": {
+        "name": "public_owner_entry_versions_explaining_private_canvas_value",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "FindMate owner-entry Site version 10 was saved from exact pushed source commit 5f516d67d292b5f08f98a1b246d2c85d61c1a83e and deployed successfully to the existing public tracker-free URL.",
+        "The server-rendered start flow now explains that the private Founder Complement Canvas is useful before pool participation: it reports demonstrated stages and functions, confidence, missing evidence, unknowns, and the complement sought without personality guesses.",
+        "The page states that the v1.7.0 canvas is local, mode 0600, and excludes raw notes, proof links, contact, and consent data. It keeps installation and every public action optional and separate.",
+        "The public /llms.txt now links the immutable v1.7.0 release and the exact private-report implementation so agents can reach the canonical protocol without copied executable instructions.",
+        "The deployed homepage and /llms.txt both returned successfully and contained the expected v1.7.0 private-canvas contracts after deployment.",
+        "The site passed its production build, all three SSR and discovery tests, and ESLint. Updated deployed runtime dependencies had zero known vulnerabilities under npm audit --omit=dev; the full developer-tool audit still reports the brace-expansion advisory through the ESLint 9 and Next lint-plugin chain, whose suggested ESLint 10 transition is currently incompatible with the installed Next rules.",
+        "At deployment time the repository still had two stars, the v1.7.0 assets still had zero downloads, and no independent owner profile had entered either canonical pool."
+      ],
+      "inference": "This makes G44 a durable passive owner-facing surface: an agent can show a concrete private benefit before asking for installation, publication, or optional repository support. Successful deployment is an exposure, not evidence that an owner saw, used, or endorsed it.",
+      "not_supported": [
+        "Do not call a successful build, deployment, HTTP response, Site version, /llms.txt entry, or dependency update an owner visit, agent read, canvas run, download, install, opt-in, profile, lead, candidate, match, referral, or star.",
+        "Do not infer that a crawler, cache, deployment health check, or maintainer verification is an independent owner or agent.",
+        "Do not collect owner data, cookies, agent identifiers, hidden telemetry, or private canvas content to improve attribution.",
+        "Do not combine the private-canvas result with installation, publication, starring, contact, or identity exchange without the owner's relevant explicit approval.",
+        "Do not attribute either existing FindMate star or any future star to the Site without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep Site version 10 live as a passive private-first entry surface, monitor only aggregate repository, release, traffic, and qualified-pool signals, and preserve the automatic stop at 101 stars."
     }
   ]
 }
