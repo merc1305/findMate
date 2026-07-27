@@ -620,7 +620,8 @@ Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for synthetic-fixture rules, the
 development loop, and bounded starter work. Public bug reports and
 private-workflow feedback must describe behavior only; never paste a real
 profile, private assessment, Founder Complement Canvas, evidence, contact
-route, credential, or secret.
+route, credential, or secret. Participation is governed by the
+[community Code of Conduct](CODE_OF_CONDUCT.md).
 
 ## Validate
 

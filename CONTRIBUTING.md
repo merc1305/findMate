@@ -10,6 +10,9 @@ workflow safer, clearer, or easier to reuse. Useful starting points include:
 - evidence-model corrections backed by primary sources;
 - accessibility and developer-experience fixes.
 
+Participation is governed by the
+[FindMate Community Code of Conduct](CODE_OF_CONDUCT.md).
+
 Browse the
 [good first issues](https://github.com/merc1305/findMate/issues?q=is%3Aissue%20state%3Aopen%20label%3A%22good%20first%20issue%22)
 or open a public bug report when no existing issue fits.
