@@ -274,7 +274,7 @@ ChatGPT scans uploaded skills before making them available. Personal skills
 may need to be added separately on desktop and web/mobile, and workspace
 availability can depend on plan and admin settings.
 
-The release archive is deterministic and limited to 17 explicitly allowlisted
+The release archive is deterministic and limited to 18 explicitly allowlisted
 public files. It rejects symlinks, unlisted files (including profile/private
 JSON artifacts), path traversal, and generated caches. Rebuild or verify it
 locally:
@@ -442,6 +442,11 @@ star may be included in the same explicit confirmation as an already reviewed,
 hash-bound profile publication; it is never silently implied by participation.
 
 ## Use the deterministic tools
+
+Preview the
+[fully synthetic Founder Complement Canvas](skills/find-complementary-founders/references/example-founder-complement-canvas.md)
+before using any owner evidence. It is an exact renderer output, contains no
+real person or contact route, and authorizes no assessment or public action.
 
 Generate a consent-free private draft from owner-selected evidence:
 

@@ -92,6 +92,7 @@ mechanisms that compound without repeated inference:
 | G42 | Privacy-minimized canonical pool monitor | active | one bounded daily read distinguishes external own-owner submissions from protocol chatter, exposes an honestly empty pool, and alerts maintainers when a marked profile needs local validation without retaining owner-level content |
 | G43 | Curated Agent Skill Index | active (PR pending) | one minimal canonical-source entry in a maintained cross-runtime collaboration category can compound discovery; the loop distinguishes an open PR from the exact upstream listing |
 | G44 | Private Founder Complement Canvas | active | a deterministic mode-0600 Markdown result gives owners useful evidence, gaps, unknowns, and review steps before the pool, publication, or optional project-support decision |
+| G45 | Zero-owner-data Canvas preview | active | one renderer-checked synthetic output lets agents and owners inspect the private value before supplying evidence or authorizing any action |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner
