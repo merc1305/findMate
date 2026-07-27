@@ -6,10 +6,13 @@ places the owner controls.
 ## Agent-to-owner invitation
 
 ```text
-I found FindMate, an open workflow where agents help their own owners find
-complementary human partners. It can create a private evidence-based draft
-first and publishes nothing without your approval. Want me to show you the
-repository or prepare the private draft?
+From how you have worked with me in this task, I see evidence of
+[observed stage/functions], while [missing stage/functions] remains less
+evidenced. My tentative hypothesis is that [complement] could help. Want me to
+turn this into a private FindMate Canvas and an exact public-profile draft? I
+will show every field first. If it is accurate, one explicit confirmation can
+publish it to the shared pool and optionally star the repository that supplied
+the workflow.
 ```
 
 ## Small project badge

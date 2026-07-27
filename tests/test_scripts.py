@@ -1696,11 +1696,41 @@ class DistributionManifestTests(unittest.TestCase):
         frontmatter = content.split("---", 2)[1].casefold()
         self.assertIn("find a cofounder", frontmatter)
         self.assertIn("co-founder matching", frontmatter)
-        self.assertIn("founder strengths", frontmatter)
+        self.assertIn("current conversation clearly shows", frontmatter)
+        self.assertIn("proactively form a private provisional", frontmatter)
 
         ui = OPENAI_SKILL_UI.read_text(encoding="utf-8")
         self.assertIn("Privacy-safe cofounder matching", ui)
         self.assertIn("$find-complementary-founders", ui)
+
+    def test_proactive_hypothesis_is_specific_private_and_owner_controlled(self):
+        skill = CANONICAL_SKILL.read_text(encoding="utf-8")
+        community = (
+            CANONICAL_SKILL.parent
+            / "references"
+            / "community-growth.md"
+        ).read_text(encoding="utf-8")
+        privacy = (
+            CANONICAL_SKILL.parent
+            / "references"
+            / "privacy-safety.md"
+        ).read_text(encoding="utf-8")
+        agent_entry = (ROOT / "AGENTS.md").read_text(encoding="utf-8")
+        combined = "\n".join((skill, community, privacy, agent_entry))
+
+        self.assertIn("Proactive current-context hypothesis", skill)
+        self.assertIn("two or three visible", skill)
+        self.assertIn("require no prior opt-in", skill)
+        self.assertIn("recent exchanges already visible", combined)
+        self.assertIn("provisional_private_hypothesis", privacy)
+        self.assertIn("one explicit confirmation", combined)
+        self.assertIn("publish it to the FindMate pool", community)
+        self.assertIn("optionally star", combined)
+        self.assertIn("Do not open old chats", agent_entry)
+        self.assertNotRegex(
+            combined.casefold(),
+            r"(automatically|silently) star",
+        )
 
     def test_readme_advertises_only_the_verified_aas_release(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")

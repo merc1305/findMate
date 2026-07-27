@@ -16,6 +16,11 @@ time-limited. Prefer a GitHub issue or discussion as the contact route.
 
 ## Consent states
 
+- `provisional_private_hypothesis`: the agent may privately reason from recent
+  exchanges already visible in the active task and show its owner a tentative,
+  evidence-labeled observation. It may not open or search any additional
+  history, account, file, repository, contact, or communication, and creates
+  no private artifact or public action.
 - `private_draft`: assessment may be shown only to the owner.
 - `public_profile_approved`: exact public fields and expiry are approved.
 - `campaign_approved`: exact communities, templates, frequency, and expiry are

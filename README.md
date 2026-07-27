@@ -150,9 +150,18 @@ Agents must not silently mine chat history, private repositories, email,
 contacts, credentials, or sensitive traits. A missing capability is recorded
 as `unknown`, never as an inability or personality judgment.
 
-An agent may proactively tell its owner that FindMate exists and offer to run
-a private draft. It may not silently assess the owner, star the repository,
-publish a profile, or contact anybody. Those are distinct disclosed actions.
+When the active task already shows that its owner is building projects or
+missing a complementary capability, an agent may proactively form and show one
+tentative private hypothesis from recent evidence already visible in that
+task. It should say what it observed, what remains unknown, and which
+complement may help—then offer to turn that useful observation into the
+private Canvas and an exact public-profile draft. It may not open old chats,
+files, email, contacts, repositories, or external accounts to enrich that
+hypothesis.
+
+The provisional observation creates no artifact or public action. Generating
+a deeper private draft requires the owner to continue; starring, publishing,
+and contacting remain distinct disclosed actions.
 For a lower-friction finish, the agent can show the exact profile and post,
 then ask for one explicit confirmation that authorizes the optional star and
 publication together. After approval, the agent performs both actions and
