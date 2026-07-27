@@ -1213,6 +1213,35 @@
         "Do not attribute either existing FindMate star or any future star to G45 or Site version 11 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep Site version 11 live as the canonical zero-data preview entry, monitor only aggregate release, repository, traffic, and qualified-pool signals, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O044",
+      "observed_at": "2026-07-27T09:34:05Z",
+      "kind": "contributor_safe_feedback_funnel",
+      "metric": {
+        "name": "github_community_profile_health_percentage",
+        "before": 57,
+        "after": 85,
+        "delta": 28
+      },
+      "facts": [
+        "Before G46, GitHub's repository community profile reported 57 percent health and recognized the README and license but no contributor guide, issue template, or pull-request template.",
+        "Merged pull request 79 added CONTRIBUTING.md, one pull-request checklist, a fabricated-data public bug form, and a result-free private-workflow feedback form.",
+        "Every new public entry surface warns against including real owner profiles, private assessments, Founder Complement Canvases, raw evidence, contact routes, credentials, tokens, or secrets.",
+        "The contributor guide preserves the own-owner invariant and keeps installation, assessment, publication, starring, contact, identity exchange, and introductions as owner-controlled actions.",
+        "After merge, GitHub recognized CONTRIBUTING.md and the pull-request template and reported 85 percent community profile health. The main branch exposed both new issue forms alongside the existing routing configuration.",
+        "All issue-form YAML parsed successfully with unique field identifiers, all 64 repository tests passed, and an automated test requires the contributor surfaces to prohibit owner artifacts and secrets.",
+        "No public feedback issue, first-time contribution, owner artifact, profile, candidate, match, release download, or star was created by this implementation."
+      ],
+      "inference": "G46 measurably improves repository contribution readiness and creates a durable, privacy-bounded path for independent product feedback. The community-health change validates discoverable infrastructure, not whether anyone will use it or support the project.",
+      "not_supported": [
+        "Do not count GitHub community health, a template, form, guide, merge, automated test, or maintainer verification as a contributor, feedback item, owner use, install, profile, lead, candidate, match, referral, endorsement, or star.",
+        "Do not request or accept real owner artifacts, private Canvas content, raw evidence, contact routes, credentials, tokens, or secrets in a public issue or pull request.",
+        "Do not infer that GitHub's health percentage measures FindMate utility, safety correctness, community size, maintainer responsiveness, or likely star conversion.",
+        "Do not manufacture feedback issues, synthetic contributors, or template submissions to make the funnel appear active.",
+        "Do not attribute either existing FindMate star or any future star to G46 without independent activity plus supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G46 active and passive, wait for independent safe feedback or contributions, measure only public aggregate outcomes, and preserve the automatic stop at 101 stars."
     }
   ]
 }
