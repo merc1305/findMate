@@ -422,9 +422,9 @@
       "name": "Contributor-safe feedback funnel",
       "status": "active",
       "active_promotion": false,
-      "mechanism": "Provide one contributor guide, pull-request safety checklist, fabricated-data bug form, and result-free private-workflow feedback form so independent improvements and utility signals can compound without collecting owner artifacts or repeated outreach.",
+      "mechanism": "Provide one contributor guide, original community conduct policy, pull-request safety checklist, fabricated-data bug form, and result-free private-workflow feedback form so independent improvements and utility signals can compound without collecting owner artifacts or repeated outreach.",
       "primary_metric": "independent safe feedback issues, first-time contributors, merged utility improvements, clones, and post-contribution star delta",
-      "implementation": "CONTRIBUTING.md, .github/pull_request_template.md, and .github/ISSUE_TEMPLATE"
+      "implementation": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, .github/pull_request_template.md, and .github/ISSUE_TEMPLATE"
     }
   ]
 }
