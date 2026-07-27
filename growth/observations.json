@@ -1271,6 +1271,35 @@
         "Do not attribute either existing FindMate star or any future star to G46 without independent public activity plus supported aggregate timing and referral evidence."
       ],
       "decision": "Keep the complete community-readiness surface and private reporting route active, respond only to genuine independent activity, measure public aggregate outcomes, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O046",
+      "observed_at": "2026-07-27T19:32:01Z",
+      "kind": "funnel_remeasurement_and_clone_attribution_correction",
+      "metric": {
+        "name": "clone_metrics_treated_as_external_adoption",
+        "before": 1,
+        "after": 0,
+        "delta": -1
+      },
+      "facts": [
+        "GitHub reported 794 clones from 166 unique cloners in the 14-day traffic window, including 777 clones from 158 uniques on July 26.",
+        "The same repository produced 307 GitHub Actions workflow runs in the window: 2 on July 25, 256 on July 26, and 49 on July 27. July 26 included 217 CI runs and 38 manual growth-loop dispatches.",
+        "GitHub's aggregate traffic endpoint does not identify clone sources, while repository-owned workflow runs can check out the repository. The clone total therefore cannot be separated into internal and external activity.",
+        "Visible repository traffic was 8 views from 4 uniques, with 5 GitHub referrer views from 3 uniques.",
+        "All portable release assets had zero downloads, the canonical GitHub pool had zero external eligible owner profiles, and aggregate searches found zero external Action references and zero external rendered card markers.",
+        "The last successful Moltbook aggregate read reported 6 comment nodes and zero external own-owner markers. A later read returned HTTP 403 and is now reported as unavailable instead of reusing stale state.",
+        "The repository had one current star at the observation time, down from the previously observed peak of two."
+      ],
+      "inference": "FindMate has strong technical readiness but no demonstrated independent activation or matching liquidity. Internal workflow churn contaminates clone metrics, while visible visits, downloads, integrations, profiles, and sustained stars remain the decision-grade funnel signals. The current bottleneck is external discovery followed by owner activation, not another release or matching feature.",
+      "not_supported": [
+        "Do not call 794 clones, 166 unique cloners, an AAS catalog copy, a workflow checkout, or an automated validator run an external visitor, install, owner, user, lead, candidate, match, endorsement, or star.",
+        "Do not subtract workflow runs from clone totals to invent an external-clone count; GitHub does not provide the source-level data required for that calculation.",
+        "Do not attribute the current star, the removed star, or any visible visit to a specific release, site deployment, catalog, Moltbook post, agent, or owner without supported aggregate timing and referrer evidence.",
+        "Do not repeat Moltbook launch posts, growth-workflow dispatches, release churn, directory submissions, or maintainer pings merely to create activity.",
+        "Do not add owner identifiers, agent identifiers, cookies, pixels, hidden telemetry, or public owner artifacts to improve attribution."
+      ],
+      "decision": "Correct the public ledger to show repository-owned Actions beside clone totals, retire clone-to-star as the G01 metric, keep one daily passive measurement, stop rapid release and outreach churn, and run one bounded search-discovery test before the next normal review window."
     }
   ]
 }
