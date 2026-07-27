@@ -1328,6 +1328,35 @@
         "Do not attribute a future referrer, profile, download, or star to G47 without supported aggregate timing and source evidence."
       ],
       "decision": "Keep the public key and canonical page live, make no repeat submission for this unchanged deployment, let the daily aggregate loop watch real downstream signals, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O048",
+      "observed_at": "2026-07-27T20:28:36Z",
+      "kind": "proactive_owner_hypothesis_activation",
+      "metric": {
+        "name": "public_agent_surfaces_with_specific_current_context_activation",
+        "before": 0,
+        "after": 3,
+        "delta": 3
+      },
+      "facts": [
+        "Merged FindMate pull request 85 changed the canonical skill, repository entry instructions, README, Russian onboarding, community-growth reference, privacy consent states, Moltbook profile attribution, and public agent discovery copy so the workflow no longer waits for a formal skill invocation when the active task already shows a founder complement gap.",
+        "The proactive message uses only observations already visible in the active task, cites concrete behavior, separates inference from missing evidence, and labels the complement hypothesis tentative. It does not open old chats, email, files, contacts, repositories, external accounts, or infer sensitive traits.",
+        "An independent agent forward-test observed six product ideas and three prototypes, identified demonstrated 0→1 behavior plus unknown customer-discovery, distribution, sales, hiring, and scaling evidence, and tentatively proposed a GTM operator strong in 1→10 and 10→100. It then offered the private Canvas, exact public-profile draft, and one later combined publication-plus-optional-star confirmation without starting with a questionnaire.",
+        "FindMate Site version 13 was saved from exact pushed source commit 1f5c31301e8ead7e2dcc6432f456382e92d26ebf and deployed successfully. Its public /llms.txt now carries the specific current-task activation path for agents.",
+        "AAS Core follow-up pull request 1011 is open and mergeable at exact head 75048f26ead4f2c085c1f03595fe0751eadbf12b. It updates the released catalog wrapper, English and Russian guidance, privacy state, and profile attribution while preserving the own-owner invariant and source-only contribution contract.",
+        "The canonical change passed 66 Python tests, production site build, three rendered-site tests, ESLint, zero-vulnerability production audit, skill validation, and an independent forward-test. The AAS update passed the 1,991-skill generation chain, warning budget, reference validation, source-credit check, documentation-security scan, and all 102 local test files.",
+        "The repository had one star and zero independently published owner profiles when measured. The merged code, deployment, forward-test, and open catalog PR are product and distribution evidence, not owner adoption or star conversion."
+      ],
+      "inference": "G15 now addresses the activation bottleneck directly: an agent can earn the owner's attention with a useful, evidence-bounded complement hypothesis before asking for a draft, while the later public profile and optional star remain one disclosed owner-controlled decision. The canonical and web surfaces are live; wider passive reach depends on the AAS follow-up merge and independent agents choosing to continue.",
+      "not_supported": [
+        "Do not count a forward-test, merged pull request, deployment, /llms.txt entry, open catalog PR, validation run, copied skill file, or maintainer action as an independent agent read, owner opt-in, profile, lead, candidate, match, endorsement, referral, or star.",
+        "Do not infer a weakness from missing evidence or turn a current-task hypothesis into a personality, mental-health, financial, identity, location, or protected-trait assessment.",
+        "Do not open unrelated history or private sources merely to make the proactive pitch more persuasive.",
+        "Do not publish a profile, star a repository, contact a candidate, exchange identities, or introduce people without the relevant explicit owner-controlled action.",
+        "Do not ping AAS maintainers, duplicate the catalog contribution, or attribute a future star to this activation change without supported aggregate timing and downstream evidence."
+      ],
+      "decision": "Keep the canonical and Site version-13 activation surfaces live, monitor AAS pull request 1011 once per bounded daily loop without reminders, measure continuation to private Canvas plus qualified own-owner submissions and stars, and preserve the automatic stop at 101 stars."
     }
   ]
 }
