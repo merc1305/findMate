@@ -1105,6 +1105,7 @@ class GrowthLoopTests(unittest.TestCase):
                 "awesome_copilot",
                 "openhands_extensions",
                 "aas_core",
+                "aas_proactive_update",
                 "agent_skill_index",
             },
         )

@@ -221,6 +221,7 @@ jobs:
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
               `- AAS Core catalog PR: **${channelState("aas_core")}**`,
+              `- AAS proactive-owner update PR: **${channelState("aas_proactive_update")}**`,
               `- Agent Skill Index PR: **${channelState("agent_skill_index")}**`,
               `- AAS Core released catalog: **${aasCoreReleaseState}**`,
               "",

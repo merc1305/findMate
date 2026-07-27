@@ -122,6 +122,11 @@ DISTRIBUTION_PULL_REQUESTS = (
         "number": 992,
     },
     {
+        "channel": "aas_proactive_update",
+        "repository": "sickn33/agentic-awesome-skills",
+        "number": 1011,
+    },
+    {
         "channel": "agent_skill_index",
         "repository": "heilcheng/awesome-agent-skills",
         "number": 377,
