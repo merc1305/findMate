@@ -1185,6 +1185,34 @@
         "Do not attribute either existing FindMate star or any future star to G45 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G45 active as a passive zero-data preview, link the exact v1.7.1 artifact from owned discovery surfaces, measure only aggregate release and qualified-pool changes, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O043",
+      "observed_at": "2026-07-27T09:25:51Z",
+      "kind": "zero_data_canvas_preview_site_deployment",
+      "metric": {
+        "name": "public_owner_entry_versions_linking_exact_synthetic_canvas",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "FindMate owner-entry Site version 11 was saved from exact pushed source commit af17ecb43a4effdfb3e513c4c41cd60b6bbd3c92 and deployed successfully to the existing public tracker-free URL.",
+        "The server-rendered private-result section now links directly to the fully fabricated Canvas at immutable tag v1.7.1 and explains that the same release renders a local mode-0600 result without publishing anything.",
+        "The public /llms.txt now identifies immutable v1.7.1 and the zero-owner-data Canvas preview so agents can inspect the result shape before supplying owner evidence or authorizing assessment.",
+        "After deployment, the live homepage returned the v1.7.1 private-canvas copy, exact tagged preview link, and Preview synthetic result action. The live /llms.txt returned both the v1.7.1 release and zero-owner-data preview entries.",
+        "The source passed its production build, all three SSR and discovery tests, ESLint, 63 repository tests, and a production dependency audit with zero known vulnerabilities.",
+        "At deployment time the repository still had two stars, both v1.7.1 assets still had zero downloads, and neither canonical pool had an independently published owner profile."
+      ],
+      "inference": "Site version 11 turns G45 into a public, passive no-data demonstration path: an agent can show the exact private result before asking the owner for evidence or any authorization. The deployment is only availability; independent aggregate use is still required to establish value or growth.",
+      "not_supported": [
+        "Do not call a successful build, deployment, HTTP response, Site version, link, or /llms.txt entry a preview view, agent read, owner use, download, install, opt-in, profile, lead, candidate, match, referral, endorsement, or star.",
+        "Do not infer that a crawler, cache, deployment health check, or maintainer verification represents an independent owner or agent.",
+        "Do not collect owner data, cookies, agent identifiers, hidden telemetry, or private Canvas content to attribute preview use.",
+        "Do not use preview availability as consent to assess, install, publish, star, contact, exchange identities, or introduce anyone.",
+        "Do not attribute either existing FindMate star or any future star to G45 or Site version 11 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep Site version 11 live as the canonical zero-data preview entry, monitor only aggregate release, repository, traffic, and qualified-pool signals, and preserve the automatic stop at 101 stars."
     }
   ]
 }
