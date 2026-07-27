@@ -1099,6 +1099,34 @@
         "Do not attribute either existing FindMate star or any future star to G30 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G30 active as a released passive channel, monitor latest-tag inclusion once per daily loop, advertise the exact pinned route with the lag warning, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O040",
+      "observed_at": "2026-07-27T08:52:21Z",
+      "kind": "private_founder_complement_canvas_release",
+      "metric": {
+        "name": "immutable_releases_with_private_founder_complement_canvas",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Immutable release v1.7.0 points exactly to commit 060be6c8dad6f55bcbb377f3b61a83eeadfb1b73 and is neither a draft nor a prerelease.",
+        "Its deterministic portable archive contains 17 explicitly allowlisted files, is 169,433 bytes, and has SHA-256 09c77f52d187f97583216b4be2fbd73617ba1e8e79745214d391921de669a7b9. The separately published checksum asset is also digest-addressed by GitHub.",
+        "The release adds the offline private Founder Complement Canvas. It validates the private assessment, writes only a mode-0600 .private.md file, refuses symlink inputs and outputs, escapes Markdown, and emits no owner content on stdout.",
+        "The canvas omits raw private notes, proof URLs, public contact, and consent fields while retaining demonstrated contribution, confidence, missing evidence, unknowns, complement sought, and owner review steps.",
+        "All 62 repository tests passed, the complete skill validated in an isolated skill-creator environment, all scripts compiled, and a synthetic end-to-end run confirmed private artifacts were mode 0600 and excluded raw notes and URLs.",
+        "Both v1.7.0 release assets had zero downloads immediately after publication. The repository had two stars and zero independently published owner profiles, so the release is not treated as owner adoption or a growth result."
+      ],
+      "inference": "G44 creates standalone private utility before network liquidity: an owner can inspect a legible complement map without publishing, joining a pool, starring, or contacting anyone. The immutable release makes that utility reproducible, but only independent use or qualified submissions can establish demand.",
+      "not_supported": [
+        "Do not count a release page view, release publication, checksum, local validation, maintainer synthetic run, archive asset, or catalog copy as a download, install, owner opt-in, profile, lead, candidate, match, referral, or star.",
+        "Do not claim the private canvas predicts founder success, measures personality, diagnoses weaknesses, or validates unobserved abilities.",
+        "Do not expose or upload a private canvas, private assessment, raw evidence, proof URL, contact route, or consent field.",
+        "Do not bundle assessment, installation, publication, starring, contact, or identity exchange into the private-canvas step; each later action remains owner-controlled.",
+        "Do not attribute either existing FindMate star or any future star to G44 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G44 active as private-first product utility, publish the exact v1.7.0 route on owned documentation, measure only aggregate release and qualified-pool changes, and preserve the automatic stop at 101 stars."
     }
   ]
 }

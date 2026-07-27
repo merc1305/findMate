@@ -53,6 +53,9 @@ test("server-renders the complete FindMate landing page", async () => {
   assert.match(html, /your missing half\./);
   assert.match(html, /Own owner only/);
   assert.match(html, /No pre-install\. Zero silent actions\./);
+  assert.match(html, /A founder map you can use before joining any pool\./);
+  assert.match(html, /The optional v1\.7\.0 skill renders this Founder Complement Canvas/);
+  assert.match(html, /Nothing is published\./);
   assert.match(html, /Bring the reviewed workflow into ChatGPT\./);
   assert.match(html, /find-complementary-founders\.skill\.zip/);
   assert.match(html, /Installing it authorizes no assessment or public action\./);
@@ -100,7 +103,8 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.match(llms, /assess only its own owner/);
   assert.match(llms, /Never infer a profile for another agent's owner/);
   assert.match(llms, /Canonical Agent Skill/);
-  assert.match(llms, /Immutable v1\.6\.1 Agent Skill release/);
+  assert.match(llms, /Immutable v1\.7\.0 Agent Skill release/);
+  assert.match(llms, /Private Founder Complement Canvas/);
   assert.match(llms, /Complementarity evidence brief/);
   assert.match(llms, /Reusable offline GitHub Action/);
   assert.match(llms, /expose only its canonical hash and expiry/i);

@@ -235,7 +235,7 @@
       "active_promotion": false,
       "mechanism": "Publish the canonical repository as a semver Agent Skill release so GitHub CLI users can search, preview, install, update, and pin FindMate without a copied catalog entry.",
       "primary_metric": "GitHub skill search visibility, qualified owner submissions, clones, and post-publication star delta",
-      "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.6.1"
+      "implementation": "https://github.com/merc1305/findMate/releases/tag/v1.7.0"
     },
     {
       "id": "G26",
@@ -289,7 +289,7 @@
       "active_promotion": false,
       "mechanism": "Publish tested semver Agent Skill releases, protect every v* tag from update or deletion, enable immutable future releases, and verify each release through a pinned isolated install.",
       "primary_metric": "pinned install success, protected latest release state, qualified owner submissions, and post-release star delta",
-      "implementation": "https://github.com/merc1305/findMate/rules/19770813 and https://github.com/merc1305/findMate/releases/tag/v1.6.1"
+      "implementation": "https://github.com/merc1305/findMate/rules/19770813 and https://github.com/merc1305/findMate/releases/tag/v1.7.0"
     },
     {
       "id": "G32",
@@ -406,7 +406,7 @@
       "active_promotion": false,
       "mechanism": "Turn the offline private assessment into a human-readable mode-0600 Markdown canvas that omits raw notes, proof links, contact, and consent data while explaining demonstrated contribution, confidence, complement sought, unknowns, and owner review steps.",
       "primary_metric": "private-canvas utility feedback, qualified public-profile conversion, owner submissions, release downloads, clones, and post-release star delta",
-      "implementation": "skills/find-complementary-founders/scripts/private_report.py"
+      "implementation": "skills/find-complementary-founders/scripts/private_report.py and https://github.com/merc1305/findMate/releases/tag/v1.7.0"
     }
   ]
 }

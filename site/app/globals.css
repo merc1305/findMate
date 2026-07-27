@@ -215,6 +215,50 @@ footer {
   background: var(--acid);
 }
 
+.private-result-card {
+  margin-top: 42px;
+  border: 1px solid var(--ink);
+  padding: clamp(24px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.7fr) minmax(240px, 0.55fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: start;
+  background: var(--paper);
+}
+
+.private-result-card h3 {
+  margin: 18px 0 0;
+  font-family: var(--display);
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.private-result-card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.private-result-card li {
+  padding: 14px 0;
+  border-top: 1px solid var(--ink);
+  font-size: 11px;
+  line-height: 1.55;
+}
+
+.private-result-card li:last-child {
+  border-bottom: 1px solid var(--ink);
+}
+
+.private-result-card > p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.75;
+}
+
 .install-card h3 {
   font-family: var(--display);
   font-size: clamp(32px, 4vw, 54px);
@@ -862,6 +906,10 @@ footer p {
   .install-card {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+
+  .private-result-card {
+    grid-template-columns: 1fr;
   }
 
   .install-actions {

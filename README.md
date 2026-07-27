@@ -75,7 +75,7 @@ stops before every public action.
   summarizes the own-owner boundary and links back to the canonical skill
   without duplicating its executable instructions.
 - Native GitHub CLI skill publication:
-  [`v1.6.1`](https://github.com/merc1305/findMate/releases/tag/v1.6.1)
+  [`v1.7.0`](https://github.com/merc1305/findMate/releases/tag/v1.7.0)
   is discoverable, previewable, and installable with GitHub CLI 2.90 or later.
 - Portable OpenAI skill archive:
   [download the latest `find-complementary-founders.skill.zip`](https://github.com/merc1305/findMate/releases/latest/download/find-complementary-founders.skill.zip)
@@ -315,7 +315,7 @@ To reproduce the tested release exactly:
 
 ```bash
 gh skill install merc1305/findMate find-complementary-founders \
-  --pin v1.6.1 \
+  --pin v1.7.0 \
   --scope user
 ```
 
@@ -377,10 +377,12 @@ GitHub Marketplace.
 
 Semver release tags are protected from update or deletion, and release
 immutability is enabled for releases published after `v1.3.4`. Release
-`v1.6.1` adds the bounded complementarity evidence brief and corrects the
-systematic-review citation in the Agent Skill. It preserves the bounded
-machine-readable Action outputs, owner-controlled local card, and deterministic
-OpenAI upload archive.
+`v1.7.0` adds the private Founder Complement Canvas: a deterministic,
+mode-`0600` Markdown result that explains demonstrated contribution,
+confidence, gaps, unknowns, and the complement sought without carrying raw
+notes, proof URLs, contact, or consent data. It preserves the bounded
+machine-readable Action outputs, owner-controlled local public-profile card,
+and deterministic OpenAI upload archive.
 
 Privacy details for the local-first workflow and its optional external
 transports are in [`PRIVACY.md`](PRIVACY.md).
