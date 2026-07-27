@@ -1070,6 +1070,35 @@
         "Do not attribute either existing FindMate star or any future star to G43 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G43 active and passive, monitor pull request 377 plus the exact upstream README once per scheduled loop, make no follow-up outreach, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O039",
+      "observed_at": "2026-07-27T08:34:13Z",
+      "kind": "aas_released_catalog_inclusion",
+      "metric": {
+        "name": "verified_released_aas_catalog_entries",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "AAS Core release v15.5.1 was published on July 27, 2026 after the FindMate catalog pull request merged.",
+        "The exact release tag contains skills/find-complementary-founders/SKILL.md plus the skill license, agent metadata, six reference files, and seven scripts. Its metadata attributes source_repo to merc1305/findMate.",
+        "The AAS repository had 43,977 stars and 6,491 forks when measured, but those aggregate repository signals are not treated as FindMate users or likely adopters.",
+        "The released AAS README documents focused single-skill inspection and installation through GitHub CLI with an exact catalog path and release pin.",
+        "FindMate now documents the exact v15.5.1 catalog path as an alternative released install route and keeps the direct canonical FindMate release as the preferred newest source.",
+        "The AAS wrapper explicitly warns that its catalog copy can lag the canonical project. FindMate repeats that warning and requires comparing the current canonical protocol before any public action.",
+        "The daily monitor independently reported included_expected_source at v15.5.1 while FindMate remained at two stars, zero GitHub admissions, and zero eligible external Moltbook profiles."
+      ],
+      "inference": "G30 has completed its release-gated handoff: FindMate is now reproducibly inspectable and installable from a large external released catalog without further outreach. This is durable availability, not evidence that an agent or owner used it.",
+      "not_supported": [
+        "Do not count AAS repository stars, forks, catalog size, release publication, or the copied skill files as FindMate installs, agent reads, owner opt-ins, profiles, leads, candidates, matches, referrals, or stars.",
+        "Do not describe the AAS copy as always current or prefer it over the direct canonical release for public actions.",
+        "Do not infer that publishing an install command caused a download, installation, skill invocation, or profile publication.",
+        "Do not ping AAS maintainers or create another catalog submission; the released passive surface is already active.",
+        "Do not attribute either existing FindMate star or any future star to G30 without supported aggregate timing and referral evidence."
+      ],
+      "decision": "Keep G30 active as a released passive channel, monitor latest-tag inclusion once per daily loop, advertise the exact pinned route with the lag warning, and preserve the automatic stop at 101 stars."
     }
   ]
 }

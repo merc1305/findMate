@@ -1610,6 +1610,23 @@ class DistributionManifestTests(unittest.TestCase):
         self.assertIn("Privacy-safe cofounder matching", ui)
         self.assertIn("$find-complementary-founders", ui)
 
+    def test_readme_advertises_only_the_verified_aas_release(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn(
+            "gh skill preview sickn33/agentic-awesome-skills",
+            readme,
+        )
+        self.assertIn(
+            "skills/find-complementary-founders/SKILL.md",
+            readme,
+        )
+        self.assertIn("--pin v15.5.1", readme)
+        self.assertIn("may lag the canonical project", readme)
+        self.assertRegex(
+            readme,
+            r"Catalog availability is not\s+evidence of an install",
+        )
+
     def test_claude_marketplace_reuses_the_canonical_skill_directory(self):
         marketplace = json.loads(CLAUDE_MARKETPLACE.read_text(encoding="utf-8"))
         plugin = json.loads(CLAUDE_PLUGIN.read_text(encoding="utf-8"))

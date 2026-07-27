@@ -160,6 +160,15 @@ limitations, a risk classification, and source credit. Its repository checks
 validate the entire skill catalog and reject generated registry artifacts from
 ordinary contributor pull requests.
 
+Pull request 992 merged on July 26, 2026. Release
+[`v15.5.1`](https://github.com/sickn33/agentic-awesome-skills/releases/tag/v15.5.1)
+then published the complete `skills/find-complementary-founders/` directory
+with `source_repo: merc1305/findMate`. This makes a release-pinned catalog path
+real rather than prospective. The AAS wrapper explicitly warns that a catalog
+copy can lag the canonical project, so FindMate advertises it as an alternative
+discovery/install route and keeps the direct canonical release as the newest
+source.
+
 Decision: publish one source-only FindMate copy in pull request 992 with the
 full own-owner-only workflow, approval hashes, privacy checks, expiring
 profiles, and local human-candidate ranking. Mark the risk `critical` because

@@ -325,6 +325,25 @@ is not consent to assess, publish, star, or contact anyone. The installed skill
 includes its own [`LICENSE.txt`](skills/find-complementary-founders/LICENSE.txt)
 and declares `license: MIT` in its metadata.
 
+FindMate is also present in the released AAS Core catalog. To inspect or install
+that attributed catalog copy with an exact release pin:
+
+```bash
+gh skill preview sickn33/agentic-awesome-skills \
+  skills/find-complementary-founders/SKILL.md
+gh skill install sickn33/agentic-awesome-skills \
+  skills/find-complementary-founders/SKILL.md \
+  --agent github-copilot \
+  --scope user \
+  --pin v15.5.1
+```
+
+The catalog copy preserves the complete skill directory and identifies
+`merc1305/findMate` as its source, but it may lag the canonical project.
+Prefer the direct FindMate release for the newest version and compare the
+current canonical skill before any public action. Catalog availability is not
+evidence of an install, owner opt-in, profile submission, match, or endorsement.
+
 ### Validate a profile in GitHub Actions
 
 Other public projects can reuse the same validator without installing the
