@@ -1300,6 +1300,34 @@
         "Do not add owner identifiers, agent identifiers, cookies, pixels, hidden telemetry, or public owner artifacts to improve attribution."
       ],
       "decision": "Correct the public ledger to show repository-owned Actions beside clone totals, retire clone-to-star as the G01 metric, keep one daily passive measurement, stop rapid release and outreach churn, and run one bounded search-discovery test before the next normal review window."
+    },
+    {
+      "id": "O047",
+      "observed_at": "2026-07-27T19:39:42Z",
+      "kind": "one_shot_indexnow_discovery_submission",
+      "metric": {
+        "name": "canonical_urls_received_pending_key_validation",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Sites version 12 was built from exact pushed commit fa7b0da14d30fbb97f9a212593ffb7a7d2d92eca, saved with that source provenance, and deployed successfully to the existing public FindMate URL.",
+        "The version serves a UTF-8 root key file whose name and content use the same 32-character public IndexNow key. The production build and rendered discovery test verified the route before deployment.",
+        "One IndexNow POST named only the canonical tracker-free landing URL, host, public key, and public key location. It returned HTTP 202 with an empty response body.",
+        "The IndexNow protocol defines HTTP 202 as URL received with key validation pending. It does not mean the key was validated or the URL was crawled, indexed, ranked, visited, used, or starred.",
+        "The Sites control plane reported the version-12 production deployment succeeded and the site access mode remained public.",
+        "Independent live fetches from the current local VPN route returned HTTP 403 for the landing page and discovery files, so global crawler accessibility was not claimed from that route."
+      ],
+      "inference": "G47 creates one bounded passive discovery opportunity without owner telemetry or community posting, but currently establishes only an accepted notification awaiting key validation. Search visibility, aggregate referrers, qualified profiles, downloads, and stars remain the outcome signals.",
+      "not_supported": [
+        "Do not call HTTP 202 a successful ownership validation, crawl, index, ranking, impression, visit, agent read, install, owner opt-in, profile, lead, candidate, match, endorsement, or star.",
+        "Do not hide the HTTP 403 observed from the current VPN route or claim the same response applies to every region, crawler, or visitor.",
+        "Do not resubmit the unchanged URL merely to seek a different response code or manufacture activity.",
+        "Do not add cookies, pixels, owner identifiers, agent identifiers, private profile content, or hidden telemetry to attribute search discovery.",
+        "Do not attribute a future referrer, profile, download, or star to G47 without supported aggregate timing and source evidence."
+      ],
+      "decision": "Keep the public key and canonical page live, make no repeat submission for this unchanged deployment, let the daily aggregate loop watch real downstream signals, and preserve the automatic stop at 101 stars."
     }
   ]
 }

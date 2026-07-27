@@ -76,6 +76,25 @@ These are readiness outcomes, not acquisition or matching outcomes.
    own-owner submissions, release downloads, and star change. Do not add
    cookies, pixels, owner identifiers, or repeated resubmission.
 
+## G47 execution
+
+Sites version 12 was built from and saved against exact pushed commit
+`fa7b0da14d30fbb97f9a212593ffb7a7d2d92eca`, then deployed successfully to
+the existing public FindMate URL. The build serves the public IndexNow key
+from the root and passed the rendered discovery test.
+
+At `2026-07-27T19:39:42Z`, one POST containing only the canonical landing URL,
+public host, public key, and key location returned HTTP `202`. Under the
+IndexNow response contract, this means the URL was received and key validation
+is pending. It is not proof that the key was validated or the page was crawled,
+indexed, ranked, visited, used, or starred.
+
+The current local VPN route returned HTTP `403` when independently fetching
+the public Sites URL, while the Sites control plane reported the deployment
+succeeded and the access mode remained public. That network-path discrepancy
+is retained as an uncertainty. The submission will not be repeated merely to
+turn `202` into a more favorable-looking result.
+
 The active-promotion stop remains 101 stars. Optional starring stays a
 one-time, disclosed, owner-authorized action after private value; it never
 changes ranking, publication, support, or matching.
