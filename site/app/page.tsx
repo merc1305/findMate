@@ -143,6 +143,22 @@ export default function Home() {
           </p>
         </div>
         <CopyPrompt />
+        <div className="private-result-card">
+          <div>
+            <p className="board-label">PRIVATE RESULT / NO NETWORK</p>
+            <h3>A founder map you can use before joining any pool.</h3>
+          </div>
+          <ul>
+            <li>Demonstrated stages and functions—not personality guesses</li>
+            <li>Confidence, missing evidence, and unknowns kept visible</li>
+            <li>The complementary operator or builder worth looking for</li>
+          </ul>
+          <p>
+            The optional v1.7.0 skill renders this Founder Complement Canvas
+            locally as a mode-0600 Markdown file. It omits raw notes, proof
+            links, contact, and consent data. Nothing is published.
+          </p>
+        </div>
         <div className="install-card" id="install">
           <div>
             <p className="board-label">REUSABLE SKILL / OPTIONAL</p>
