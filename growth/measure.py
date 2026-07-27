@@ -34,6 +34,7 @@ WEB_DISCOVERY_URLS = {
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
 MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
 MAX_AGENT_PLUGINS_CATALOG_BYTES = 4 * 1024 * 1024
+MAX_AGENT_SKILL_INDEX_BYTES = 2 * 1024 * 1024
 MAX_AAS_SKILL_BYTES = 512 * 1024
 MAX_MOLTBOOK_THREAD_BYTES = 1_000_000
 MAX_MOLTBOOK_COMMENT_NODES = 1_000
@@ -80,6 +81,15 @@ AGENT_PLUGINS_CATALOG_URL = (
 )
 AGENT_PLUGINS_EXPECTED_SOURCE = "https://github.com/merc1305/findMate"
 AGENT_PLUGINS_EXPECTED_PATH = "skills/find-complementary-founders"
+AGENT_SKILL_INDEX_README_URL = (
+    "https://raw.githubusercontent.com/heilcheng/"
+    "awesome-agent-skills/main/README.md"
+)
+AGENT_SKILL_INDEX_EXPECTED_LINK = (
+    "[merc1305/findMate]"
+    "(https://github.com/merc1305/findMate/tree/main/"
+    "skills/find-complementary-founders)"
+)
 SKILL_SEARCH_INDEX_QUERY = (
     'repo:merc1305/findMate '
     'path:skills/find-complementary-founders/SKILL.md '
@@ -110,6 +120,11 @@ DISTRIBUTION_PULL_REQUESTS = (
         "channel": "aas_core",
         "repository": "sickn33/agentic-awesome-skills",
         "number": 992,
+    },
+    {
+        "channel": "agent_skill_index",
+        "repository": "heilcheng/awesome-agent-skills",
+        "number": 377,
     },
 )
 
@@ -244,7 +259,10 @@ def optional_profile_card_references(
         return None, str(exc)
 
 
-def external_text(url: str) -> str:
+def external_text(
+    url: str,
+    max_bytes: int = MAX_EXTERNAL_STATUS_BYTES,
+) -> str:
     request = Request(
         url,
         headers={
@@ -257,11 +275,13 @@ def external_text(url: str) -> str:
     )
     try:
         with urlopen(request, timeout=20) as response:
-            body = response.read(MAX_EXTERNAL_STATUS_BYTES + 1)
+            body = response.read(max_bytes + 1)
     except (HTTPError, URLError, TimeoutError) as exc:
         raise GrowthError(f"External status request failed: {exc}") from exc
-    if len(body) > MAX_EXTERNAL_STATUS_BYTES:
-        raise GrowthError("External status response exceeded 128 KiB")
+    if len(body) > max_bytes:
+        raise GrowthError(
+            f"External status response exceeded {max_bytes} bytes"
+        )
     return body.decode("utf-8", errors="replace")
 
 
@@ -711,6 +731,46 @@ def optional_agent_plugins_directory(
             None,
             str(exc),
         )
+
+
+def summarize_agent_skill_index(
+    readme: str | None,
+    error: str | None,
+) -> dict:
+    listed = (
+        AGENT_SKILL_INDEX_EXPECTED_LINK in readme
+        if isinstance(readme, str)
+        else None
+    )
+    return {
+        "repository": "heilcheng/awesome-agent-skills",
+        "readme_url": AGENT_SKILL_INDEX_README_URL,
+        "listed": listed,
+        "state": (
+            "listed_expected_source"
+            if listed is True
+            else "not_listed"
+            if listed is False
+            else "unavailable"
+        ),
+        "error": error,
+        "note": (
+            "Listed means the upstream main README contains the exact "
+            "canonical FindMate skill link. An open or mergeable pull request "
+            "is not a listing, install, owner opt-in, profile, match, or star."
+        ),
+    }
+
+
+def optional_agent_skill_index() -> dict:
+    try:
+        readme = external_text(
+            AGENT_SKILL_INDEX_README_URL,
+            MAX_AGENT_SKILL_INDEX_BYTES,
+        )
+        return summarize_agent_skill_index(readme, None)
+    except GrowthError as exc:
+        return summarize_agent_skill_index(None, str(exc))
 
 
 def summarize_aas_core_release(
@@ -1184,6 +1244,7 @@ def main() -> int:
             agent_plugins_pr,
             agent_plugins_pr_error,
         )
+        agent_skill_index = optional_agent_skill_index()
         aas_release, aas_release_error = optional_github_json(
             AAS_CORE_REPOSITORY,
             "/releases/latest",
@@ -1286,6 +1347,7 @@ def main() -> int:
                 ),
                 "claude_community": claude_community,
                 "agent_plugins_directory": agent_plugins_directory,
+                "agent_skill_index": agent_skill_index,
                 "aas_core_release": summarize_aas_core_release(
                     aas_release,
                     aas_release_error,

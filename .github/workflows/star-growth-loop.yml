@@ -59,6 +59,8 @@ jobs:
               distribution.claude_community || {};
             const agentPluginsDirectory =
               distribution.agent_plugins_directory || {};
+            const agentSkillIndex =
+              distribution.agent_skill_index || {};
             const aasCoreRelease =
               distribution.aas_core_release || {};
             const webDiscovery =
@@ -166,6 +168,12 @@ jobs:
                   : aasCoreRelease.state === "unexpected_source"
                     ? `unexpected source at ${aasCoreRelease.latest_tag}`
                     : "unavailable";
+            const agentSkillIndexState =
+              agentSkillIndex.state === "listed_expected_source"
+                ? "listed from the canonical skill source"
+                : agentSkillIndex.state === "not_listed"
+                  ? "not listed yet"
+                  : "unavailable";
             const moltbookPoolState =
               moltbookPool.available === true
                 ? `${moltbookPool.comment_nodes} comment node(s); ${moltbookPool.external_current_marked_own_owner_submissions} current external own-owner marker(s)`
@@ -204,10 +212,12 @@ jobs:
               `- Semver tag protection: **${semverTagState}**`,
               `- Anthropic Claude community marketplace: **${claudeCommunityState}**`,
               `- Agent Plugins Directory: **${agentPluginsDirectoryState}**`,
+              `- Agent Skill Index: **${agentSkillIndexState}**`,
               `- Public web discovery layer: **${webDiscoveryState}**`,
               `- Awesome Copilot catalog PR: **${channelState("awesome_copilot")}**`,
               `- OpenHands registry PR: **${channelState("openhands_extensions")}**`,
               `- AAS Core catalog PR: **${channelState("aas_core")}**`,
+              `- Agent Skill Index PR: **${channelState("agent_skill_index")}**`,
               `- AAS Core released catalog: **${aasCoreReleaseState}**`,
               "",
               "## Active experiments",

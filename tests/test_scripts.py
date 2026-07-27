@@ -1009,7 +1009,12 @@ class GrowthLoopTests(unittest.TestCase):
         }
         self.assertEqual(
             channels,
-            {"awesome_copilot", "openhands_extensions", "aas_core"},
+            {
+                "awesome_copilot",
+                "openhands_extensions",
+                "aas_core",
+                "agent_skill_index",
+            },
         )
 
         open_pr = growth.summarize_distribution_pull_request(
@@ -1280,6 +1285,29 @@ class GrowthLoopTests(unittest.TestCase):
         workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
         self.assertIn("agent_plugins_directory", workflow)
         self.assertIn("Agent Plugins Directory", workflow)
+
+    def test_agent_skill_index_requires_exact_canonical_link(self):
+        absent = growth.summarize_agent_skill_index(
+            "# Productivity and Collaboration\n",
+            None,
+        )
+        self.assertFalse(absent["listed"])
+        self.assertEqual(absent["state"], "not_listed")
+
+        present = growth.summarize_agent_skill_index(
+            "\n".join(
+                [
+                    "# Productivity and Collaboration",
+                    growth.AGENT_SKILL_INDEX_EXPECTED_LINK,
+                ]
+            ),
+            None,
+        )
+        self.assertTrue(present["listed"])
+        self.assertEqual(present["state"], "listed_expected_source")
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("Agent Skill Index PR", workflow)
+        self.assertIn("Agent Skill Index:", workflow)
 
     def test_claude_community_summary_requires_the_canonical_source(self):
         not_listed = growth.summarize_claude_community_catalog(
