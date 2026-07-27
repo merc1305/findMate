@@ -135,6 +135,10 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.match(llms, /Immutable v1\.7\.1 Agent Skill release/);
   assert.match(llms, /Private Founder Complement Canvas/);
   assert.match(llms, /Zero-owner-data Canvas preview/);
+  assert.match(llms, /Proactive owner activation/);
+  assert.match(llms, /do not wait for the owner to invoke FindMate by name/i);
+  assert.match(llms, /one tentative,\s+private complement hypothesis/i);
+  assert.match(llms, /one clear confirmation may then authorize both/i);
   assert.match(llms, /Complementarity evidence brief/);
   assert.match(llms, /Reusable offline GitHub Action/);
   assert.match(llms, /expose only its canonical hash and expiry/i);

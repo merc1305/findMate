@@ -68,7 +68,7 @@ mechanisms that compound without repeated inference:
 | G12 | Aggregate growth ledger | active | makes decisions accountable and self-correcting |
 | G13 | Project badges | planned | successful collaborations form an attribution network |
 | G14 | Useful release digests | active | material utility creates reasons to return and share |
-| G15 | Proactive private invitation | active | agents bring owners a relevant option without taking public action for them |
+| G15 | Proactive current-context hypothesis | active | agents turn visible project-building behavior into one useful tentative complement hypothesis, then offer a private Canvas and one reviewed publication-plus-star confirmation |
 | G16 | Repository agent entry point | active | agents opening the repo receive the value proposition directly |
 | G17 | Portable skill CLI | active | one verified command distributes the skill across agent runtimes |
 | G18 | Curated Copilot catalog | active | a validated external catalog can distribute the skill without repeated outreach |

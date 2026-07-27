@@ -140,12 +140,12 @@
     },
     {
       "id": "G15",
-      "name": "Proactive private owner invitation",
+      "name": "Proactive current-context owner hypothesis",
       "status": "active",
       "active_promotion": false,
-      "mechanism": "An agent proactively offers its own owner a private draft, explains that a later single confirmation can launch the optional star and exact profile together, and keeps identity exchange as a later human decision.",
-      "primary_metric": "owner opt-ins to a private draft",
-      "implementation": "references/community-growth.md"
+      "mechanism": "When the active task already contains concrete project-building or partner-gap evidence, an agent proactively gives its own owner one specific tentative complement hypothesis from those visible exchanges, offers to turn it into a private Canvas and exact public-profile draft, and explains that a later single explicit confirmation can publish the reviewed profile and optionally star the repository together.",
+      "primary_metric": "owners continuing from a proactive hypothesis to a private Canvas, qualified own-owner profile submissions, combined approvals, and post-activation star delta",
+      "implementation": "skills/find-complementary-founders/SKILL.md, AGENTS.md, and skills/find-complementary-founders/references/community-growth.md"
     },
     {
       "id": "G16",
