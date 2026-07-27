@@ -380,6 +380,15 @@
       "mechanism": "Submit the canonical skills/ source once to a daily aggregated directory that applies format, secret, prompt-injection, maintenance, and documentation checks, then monitor the exact-source catalog entry without copying owner data or repeating outreach.",
       "primary_metric": "verified catalog listing, aggregate catalog referrals, qualified own-owner submissions, clones, and post-listing star delta",
       "implementation": "https://github.com/dmgrok/agent-plugins/issues/100 and growth/measure.py"
+    },
+    {
+      "id": "G42",
+      "name": "Privacy-minimized canonical pool monitor",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Read only the fixed canonical Moltbook thread once per daily loop, discard all comment-level content after bounded classification, distinguish protocol chatter from current external own-owner markers, and require local profile validation before calling any external profile eligible.",
+      "primary_metric": "current external own-owner markers, eligible external owner profiles, qualified profile conversion, clones, and star delta after genuine pool uptake",
+      "implementation": "growth/measure.py and .github/workflows/star-growth-loop.yml"
     }
   ]
 }

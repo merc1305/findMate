@@ -44,6 +44,7 @@ jobs:
             const clones = status.traffic_14d.clones;
             const views = status.traffic_14d.views;
             const ownerPool = status.owner_profile_pool;
+            const moltbookPool = ownerPool.moltbook || {};
             const distribution = status.distribution_surfaces || {};
             const skillsSh = distribution.skills_sh || {};
             const githubSkillSearch =
@@ -165,6 +166,18 @@ jobs:
                   : aasCoreRelease.state === "unexpected_source"
                     ? `unexpected source at ${aasCoreRelease.latest_tag}`
                     : "unavailable";
+            const moltbookPoolState =
+              moltbookPool.available === true
+                ? `${moltbookPool.comment_nodes} comment node(s); ${moltbookPool.external_current_marked_own_owner_submissions} current external own-owner marker(s)`
+                : "unavailable";
+            const moltbookEligibilityState =
+              Number.isInteger(moltbookPool.eligible_external_profiles)
+                ? `${moltbookPool.eligible_external_profiles} eligible external profile(s)`
+                : moltbookPool.state === "external_markers_require_local_validation"
+                  ? "external marker(s) awaiting local profile validation"
+                  : moltbookPool.state === "truncated"
+                    ? "unavailable — bounded response was truncated"
+                    : "unavailable";
             const stopLine = promotion.stopped
               ? "STOPPED — the repository is above 100 stars. Active star requests must remain off."
               : `ACTIVE — ${promotion.stars_until_stop} star(s) remain before the stop state at 101.`;
@@ -180,6 +193,8 @@ jobs:
               `- GitHub marked own-owner submissions: **${ownerPool.github_marked_own_owner_submissions ?? "unavailable"}**`,
               `- GitHub submission sources: **${ownerPool.github_inline_sources ?? "unavailable"} inline / ${ownerPool.github_linked_sources ?? "unavailable"} linked**`,
               `- Machine-validated current GitHub admissions: **${ownerPool.github_machine_validated_current_receipts ?? "unavailable"}**`,
+              `- Moltbook current marked external own-owner submissions: **${moltbookPoolState}**`,
+              `- Moltbook eligibility status: **${moltbookEligibilityState}**`,
               `- skills.sh directory: **${skillsShState}**`,
               `- GitHub Skill search: **${githubSkillSearchState}**`,
               `- External GitHub Action references: **${githubActionReferenceState}**`,
@@ -209,7 +224,7 @@ jobs:
                 `  - Decision: ${item.decision}`
               ]),
               "",
-              "This workflow only reads aggregate GitHub metrics and updates this one issue. It never stars, messages, follows, or posts promotion. No owner-level telemetry is collected.",
+              "This workflow reads aggregate GitHub metrics plus one bounded canonical Moltbook thread and updates this one issue. It discards Moltbook comment text, authors, profile URLs, and hashes after classification; it never stars, messages, follows, or posts promotion. No owner-level telemetry is collected.",
               "",
               "Plan and guardrails: [growth/README.md](https://github.com/merc1305/findMate/blob/main/growth/README.md)"
             ].join("\n");

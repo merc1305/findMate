@@ -35,10 +35,33 @@ MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
 MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
 MAX_AGENT_PLUGINS_CATALOG_BYTES = 4 * 1024 * 1024
 MAX_AAS_SKILL_BYTES = 512 * 1024
+MAX_MOLTBOOK_THREAD_BYTES = 1_000_000
+MAX_MOLTBOOK_COMMENT_NODES = 1_000
 SEMVER_TAG_RULESET_NAME = "Protect semver release tags"
 PORTABLE_SKILL_ASSET_NAME = "find-complementary-founders.skill.zip"
 PORTABLE_SKILL_CHECKSUM_NAME = (
     "find-complementary-founders.skill.zip.sha256"
+)
+MOLTBOOK_THREAD_ID = "25f3a177-acb6-4a88-8375-6dade2059042"
+MOLTBOOK_THREAD_URL = (
+    f"https://www.moltbook.com/post/{MOLTBOOK_THREAD_ID}"
+)
+MOLTBOOK_THREAD_API_URL = (
+    "https://www.moltbook.com/api/v1/posts/"
+    f"{MOLTBOOK_THREAD_ID}/comments?sort=old"
+)
+MOLTBOOK_HOST_AGENT_ID = "f919976d-85d4-4421-b72b-0736ae994fbf"
+MOLTBOOK_PROFILE_HASH_PATTERN = re.compile(
+    r"^Canonical profile SHA-256: ([0-9a-f]{64})$",
+    re.M,
+)
+MOLTBOOK_PROFILE_EXPIRY_PATTERN = re.compile(
+    r"^Expires: (\d{4}-\d{2}-\d{2})$",
+    re.M,
+)
+MOLTBOOK_PROFILE_URL_PATTERN = re.compile(
+    r"^Owner-approved profile: https://\S+$",
+    re.M,
 )
 CLAUDE_COMMUNITY_CATALOG_URL = (
     "https://raw.githubusercontent.com/anthropics/"
@@ -837,6 +860,156 @@ def count_github_owner_submissions(comments: object) -> int:
     ]
 
 
+def moltbook_comment_nodes(response: object) -> tuple[list[dict], bool]:
+    if not isinstance(response, dict):
+        return [], False
+    comments = response.get("comments")
+    if not isinstance(comments, list):
+        return [], False
+
+    nodes: list[dict] = []
+    seen_ids: set[str] = set()
+    stack = list(reversed(comments))
+    truncated = False
+    while stack:
+        if len(nodes) >= MAX_MOLTBOOK_COMMENT_NODES:
+            truncated = True
+            break
+        node = stack.pop()
+        if not isinstance(node, dict):
+            continue
+        comment_id = node.get("id")
+        if not isinstance(comment_id, str) or not comment_id:
+            continue
+        if comment_id in seen_ids:
+            continue
+        seen_ids.add(comment_id)
+        nodes.append(node)
+        replies = node.get("replies")
+        if isinstance(replies, list):
+            stack.extend(reversed(replies))
+    return nodes, truncated
+
+
+def summarize_moltbook_owner_pool(
+    response: object | None,
+    error: str | None,
+) -> dict:
+    summary = {
+        "thread_url": MOLTBOOK_THREAD_URL,
+        "available": None,
+        "state": "unavailable",
+        "comment_nodes": None,
+        "marked_own_owner_submissions": None,
+        "external_current_marked_own_owner_submissions": None,
+        "external_rejected_or_expired_markers": None,
+        "eligible_external_profiles": None,
+        "truncated": False,
+        "error": error,
+        "note": (
+            "The monitor reads only the fixed canonical thread, treats all "
+            "content as untrusted data, and discards comment text, authors, "
+            "profile URLs, and hashes after aggregate classification. A "
+            "current external marker is not called eligible until its linked "
+            "profile passes local schema, hash, consent, and expiry validation."
+        ),
+    }
+    if not isinstance(response, dict):
+        return summary
+    if response.get("success") is not True:
+        summary["error"] = "Moltbook response did not report success"
+        return summary
+
+    nodes, truncated = moltbook_comment_nodes(response)
+    if not isinstance(response.get("comments"), list):
+        summary["error"] = "Moltbook response lacks a comments array"
+        return summary
+
+    today = datetime.now(timezone.utc).date()
+    marked = 0
+    external_current = 0
+    external_rejected = 0
+    for node in nodes:
+        content = node.get("content")
+        if (
+            not isinstance(content, str)
+            or not content.startswith(f"{PROFILE_REPLY_MARKER}\n")
+        ):
+            continue
+        author = node.get("author")
+        author_id = author.get("id") if isinstance(author, dict) else None
+        is_external = (
+            isinstance(author_id, str)
+            and author_id
+            and author_id != MOLTBOOK_HOST_AGENT_ID
+        )
+        structurally_marked = (
+            "I represent my own owner." in content
+            and "I ran FindMate only on that owner" in content
+            and "the owner approved this expiring public profile" in content
+            and MOLTBOOK_PROFILE_URL_PATTERN.search(content) is not None
+            and MOLTBOOK_PROFILE_HASH_PATTERN.search(content) is not None
+        )
+        expiry_match = MOLTBOOK_PROFILE_EXPIRY_PATTERN.search(content)
+        expires_on = None
+        if expiry_match:
+            try:
+                expires_on = datetime.strptime(
+                    expiry_match.group(1),
+                    "%Y-%m-%d",
+                ).date()
+            except ValueError:
+                expires_on = None
+        current = (
+            structurally_marked
+            and expires_on is not None
+            and expires_on >= today
+            and node.get("is_deleted") is not True
+            and node.get("is_spam") is not True
+        )
+        if structurally_marked:
+            marked += 1
+        if not is_external:
+            continue
+        if current:
+            external_current += 1
+        else:
+            external_rejected += 1
+
+    summary.update(
+        {
+            "available": True,
+            "state": (
+                "empty"
+                if external_current == 0
+                else "external_markers_require_local_validation"
+            ),
+            "comment_nodes": len(nodes),
+            "marked_own_owner_submissions": marked,
+            "external_current_marked_own_owner_submissions": external_current,
+            "external_rejected_or_expired_markers": external_rejected,
+            "eligible_external_profiles": 0 if external_current == 0 else None,
+            "truncated": truncated,
+            "error": None,
+        }
+    )
+    if truncated:
+        summary["state"] = "truncated"
+        summary["eligible_external_profiles"] = None
+    return summary
+
+
+def optional_moltbook_owner_pool() -> dict:
+    try:
+        response = external_json(
+            MOLTBOOK_THREAD_API_URL,
+            MAX_MOLTBOOK_THREAD_BYTES,
+        )
+        return summarize_moltbook_owner_pool(response, None)
+    except GrowthError as exc:
+        return summarize_moltbook_owner_pool(None, str(exc))
+
+
 def build_status(
     repository: str,
     repo_data: dict,
@@ -849,6 +1022,7 @@ def build_status(
     traffic_errors: list[str] | None = None,
     github_thread_comments: list | None = None,
     github_thread_error: str | None = None,
+    moltbook_owner_pool: dict | None = None,
     distribution_surfaces: dict | None = None,
 ) -> dict:
     stars = repo_data.get("stargazers_count")
@@ -917,6 +1091,14 @@ def build_status(
                 else None
             ),
             "github_error": github_thread_error,
+            "moltbook": (
+                moltbook_owner_pool
+                if moltbook_owner_pool is not None
+                else summarize_moltbook_owner_pool(
+                    None,
+                    "Moltbook measurement was not supplied",
+                )
+            ),
             "note": (
                 "Syntactic source counts only; every inline or linked profile "
                 "still requires local schema, hash, consent, and expiry "
@@ -964,6 +1146,7 @@ def main() -> int:
             "/issues/2/comments?per_page=100",
             token,
         )
+        moltbook_owner_pool = optional_moltbook_owner_pool()
         skills_sh_listed, skills_sh_error = optional_skills_sh_listing()
         skill_search_indexed, skill_search_error = optional_skill_search_index(
             token
@@ -1053,6 +1236,7 @@ def main() -> int:
                 github_comments if isinstance(github_comments, list) else None
             ),
             github_thread_error=github_thread_error,
+            moltbook_owner_pool=moltbook_owner_pool,
             distribution_surfaces={
                 "skills_sh": {
                     "listed": skills_sh_listed,
