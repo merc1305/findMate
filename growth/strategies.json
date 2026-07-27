@@ -416,6 +416,15 @@
       "mechanism": "Ship one exact, renderer-checked Founder Complement Canvas made only from fabricated evidence so agents and owners can inspect the private result before assessment, installation, publication, or any network effect.",
       "primary_metric": "synthetic-preview references, qualified private-canvas use, owner submissions, release downloads, clones, and post-release star delta",
       "implementation": "skills/find-complementary-founders/references/example-founder-complement-canvas.md and https://github.com/merc1305/findMate/releases/tag/v1.7.1"
+    },
+    {
+      "id": "G46",
+      "name": "Contributor-safe feedback funnel",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Provide one contributor guide, pull-request safety checklist, fabricated-data bug form, and result-free private-workflow feedback form so independent improvements and utility signals can compound without collecting owner artifacts or repeated outreach.",
+      "primary_metric": "independent safe feedback issues, first-time contributors, merged utility improvements, clones, and post-contribution star delta",
+      "implementation": "CONTRIBUTING.md, .github/pull_request_template.md, and .github/ISSUE_TEMPLATE"
     }
   ]
 }

@@ -614,6 +614,14 @@ See the [agent-native distribution research](docs/distribution-research.md),
 the root [agent entry point](AGENTS.md), and
 [owner-safe share snippets](docs/share-findmate.md).
 
+## Contribute without owner data
+
+Read [`CONTRIBUTING.md`](CONTRIBUTING.md) for synthetic-fixture rules, the
+development loop, and bounded starter work. Public bug reports and
+private-workflow feedback must describe behavior only; never paste a real
+profile, private assessment, Founder Complement Canvas, evidence, contact
+route, credential, or secret.
+
 ## Validate
 
 ```bash
