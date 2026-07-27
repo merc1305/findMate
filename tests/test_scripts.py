@@ -47,6 +47,15 @@ ACTION_METADATA = ROOT / "action.yml"
 GITHUB_ACTION_DOCS = ROOT / "docs" / "github-action.md"
 ACTION_VALIDATOR = ROOT / "tools" / "action_validate.py"
 COMPLEMENTARITY_EVIDENCE = ROOT / "docs" / "complementarity-evidence.md"
+CONTRIBUTING_GUIDE = ROOT / "CONTRIBUTING.md"
+PULL_REQUEST_TEMPLATE = ROOT / ".github" / "pull_request_template.md"
+PUBLIC_BUG_FORM = ROOT / ".github" / "ISSUE_TEMPLATE" / "bug-report.yml"
+PRIVATE_RESULT_FEEDBACK_FORM = (
+    ROOT
+    / ".github"
+    / "ISSUE_TEMPLATE"
+    / "private-result-feedback.yml"
+)
 BUNDLED_EVIDENCE_MODEL = (
     ROOT
     / "skills"
@@ -1676,6 +1685,27 @@ class DistributionManifestTests(unittest.TestCase):
             readme,
             r"Catalog availability is not\s+evidence of an install",
         )
+
+    def test_contributor_funnel_forbids_owner_artifacts(self):
+        contributing = CONTRIBUTING_GUIDE.read_text(encoding="utf-8")
+        pull_request = PULL_REQUEST_TEMPLATE.read_text(encoding="utf-8")
+        bug_form = PUBLIC_BUG_FORM.read_text(encoding="utf-8")
+        feedback_form = PRIVATE_RESULT_FEEDBACK_FORM.read_text(
+            encoding="utf-8"
+        )
+        combined = "\n".join(
+            [contributing, pull_request, bug_form, feedback_form]
+        )
+
+        self.assertIn("Never put owner data in a contribution", contributing)
+        self.assertIn("fabricated fixtures", contributing)
+        self.assertIn("own-owner invariant", pull_request)
+        self.assertIn("This issue is public", bug_form)
+        self.assertIn("This issue is public", feedback_form)
+        self.assertIn("Do not paste", bug_form)
+        self.assertIn("Do not paste", feedback_form)
+        self.assertIn("credential, token, or secret", combined)
+        self.assertNotIn("paste your canvas", combined.lower())
 
     def test_claude_marketplace_reuses_the_canonical_skill_directory(self):
         marketplace = json.loads(CLAUDE_MARKETPLACE.read_text(encoding="utf-8"))

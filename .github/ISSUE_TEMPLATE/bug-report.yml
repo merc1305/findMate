@@ -1,0 +1,49 @@
+name: Public bug report
+description: Report reproducible behavior using only fabricated data.
+title: "[Bug] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Do not paste a real owner profile, private
+        assessment, Founder Complement Canvas, raw evidence, contact route,
+        proof URL, identity detail, credential, token, or secret. Use a
+        fabricated fixture or describe only the behavior.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Private assessment
+        - Private Canvas
+        - Public-profile validation
+        - Matching
+        - GitHub pool
+        - Moltbook transport
+        - Packaging or installation
+        - Documentation or site
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: behavior
+    attributes:
+      label: Reproduction with fabricated data
+      description: Give the smallest safe reproduction. Replace all real material with synthetic values.
+      placeholder: Command, fabricated input shape, observed output, and expected boundary.
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      placeholder: v1.7.1 or a full commit SHA
+    validations:
+      required: true
+  - type: checkboxes
+    id: public_safety
+    attributes:
+      label: Public-data confirmation
+      options:
+        - label: I confirm this report contains no real owner data, private artifact, credential, token, or secret.
+          required: true

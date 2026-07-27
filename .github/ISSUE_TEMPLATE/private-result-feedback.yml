@@ -1,0 +1,46 @@
+name: Private-result workflow feedback
+description: Share product friction without sharing the owner's result or data.
+title: "[Private workflow feedback] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public. Describe only workflow friction or usefulness.
+        Do not paste, summarize, attach, or link the owner's input, private
+        assessment, Founder Complement Canvas, profile, evidence, contact
+        route, identity detail, credential, token, or secret.
+  - type: dropdown
+    id: step
+    attributes:
+      label: Which no-data or private step are you commenting on?
+      options:
+        - Synthetic Canvas preview
+        - Owner-safe invitation
+        - Evidence selection
+        - Private assessment
+        - Private Canvas rendering
+        - Owner review
+        - Decision to stop before public action
+    validations:
+      required: true
+  - type: textarea
+    id: useful
+    attributes:
+      label: What was useful?
+      description: Discuss the workflow or presentation only, not what the assessment said about a person.
+      placeholder: The confidence and unknown-evidence sections made the boundary clear.
+  - type: textarea
+    id: friction
+    attributes:
+      label: What was confusing or blocked progress?
+      description: Propose a wording, interaction, or deterministic-tool improvement without owner content.
+      placeholder: I could not tell which file stayed private.
+    validations:
+      required: true
+  - type: checkboxes
+    id: public_safety
+    attributes:
+      label: Public-data confirmation
+      options:
+        - label: I confirm this feedback contains no owner result, owner data, private artifact, contact route, credential, token, or secret.
+          required: true
