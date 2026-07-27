@@ -27,6 +27,7 @@ EXPECTED_FILES = (
     "agents/openai.yaml",
     "references/community-growth.md",
     "references/evidence-model.md",
+    "references/example-founder-complement-canvas.md",
     "references/moltbook.md",
     "references/owner-onboarding.ru.md",
     "references/privacy-safety.md",

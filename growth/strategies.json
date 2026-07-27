@@ -407,6 +407,15 @@
       "mechanism": "Turn the offline private assessment into a human-readable mode-0600 Markdown canvas that omits raw notes, proof links, contact, and consent data while explaining demonstrated contribution, confidence, complement sought, unknowns, and owner review steps.",
       "primary_metric": "private-canvas utility feedback, qualified public-profile conversion, owner submissions, release downloads, clones, and post-release star delta",
       "implementation": "skills/find-complementary-founders/scripts/private_report.py and https://github.com/merc1305/findMate/releases/tag/v1.7.0"
+    },
+    {
+      "id": "G45",
+      "name": "Zero-owner-data Canvas preview",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Ship one exact, renderer-checked Founder Complement Canvas made only from fabricated evidence so agents and owners can inspect the private result before assessment, installation, publication, or any network effect.",
+      "primary_metric": "synthetic-preview references, qualified private-canvas use, owner submissions, release downloads, clones, and post-release star delta",
+      "implementation": "skills/find-complementary-founders/references/example-founder-complement-canvas.md"
     }
   ]
 }

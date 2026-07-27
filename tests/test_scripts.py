@@ -54,6 +54,13 @@ BUNDLED_EVIDENCE_MODEL = (
     / "references"
     / "evidence-model.md"
 )
+SYNTHETIC_PRIVATE_CANVAS = (
+    ROOT
+    / "skills"
+    / "find-complementary-founders"
+    / "references"
+    / "example-founder-complement-canvas.md"
+)
 
 
 def load_module(name: str, filename: str):
@@ -216,6 +223,21 @@ class AssessProfileTests(unittest.TestCase):
                     Path(directory) / "unsafe.md",
                     report,
                 )
+
+    def test_bundled_private_canvas_is_exact_and_fully_synthetic(self):
+        value = demo.synthetic_input("builder")
+        value.pop("public_contact")
+        value.pop("consent")
+        assessment = assess.build_private_assessment(value)
+        assessment["generated_at"] = "2026-07-27T00:00:00+00:00"
+        expected = private_report.render_report(assessment)
+        bundled = SYNTHETIC_PRIVATE_CANVAS.read_text(encoding="utf-8")
+
+        self.assertEqual(bundled, expected)
+        self.assertIn("synthetic", bundled.lower())
+        self.assertNotIn("github.com", bundled)
+        self.assertNotIn("Synthetic demo: produced", bundled)
+        self.assertIn("authorizes no installation, publication", bundled)
 
     def test_future_public_consent_is_rejected(self):
         value = owner_input()
