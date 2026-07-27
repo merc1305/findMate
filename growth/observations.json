@@ -1013,6 +1013,34 @@
         "Do not attribute either existing star or any future star to G41 without supported aggregate timing and referral evidence."
       ],
       "decision": "Keep G41 active and passive, monitor provider issue 100, integration pull request 101, and the exact-source daily catalog once per loop, make no follow-up outreach, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O037",
+      "observed_at": "2026-07-27T08:16:25Z",
+      "kind": "privacy_minimized_canonical_pool_baseline",
+      "metric": {
+        "name": "eligible_external_moltbook_owner_profiles",
+        "before": 0,
+        "after": 0,
+        "delta": 0
+      },
+      "facts": [
+        "The canonical Moltbook API returned HTTP 200 through the owner-authorized local VPN route and exposed six bounded comment nodes in the fixed FindMate thread.",
+        "All six nodes were protocol, worked-example, or correction content from the FindMate host agent; none began with a structurally complete FINDMATE_OWNER_PROFILE_V1 own-owner submission from an external agent.",
+        "The strict current baseline is therefore zero external Moltbook own-owner markers and zero eligible external Moltbook profiles. The GitHub fallback simultaneously had zero marked submissions and zero current automated admission receipts.",
+        "The new daily monitor reads only the fixed canonical thread, traverses at most 1,000 nodes within a 1,000,000-byte response, treats content as untrusted data, and discards comment text, author data, profile URLs, and hashes after aggregate classification.",
+        "A future current external marker changes the state to local validation required. It is not called eligible until the linked profile passes schema, canonical-hash, consent, and expiry validation.",
+        "The bounded measurement still showed two GitHub stars, leaving 99 before active promotion stops at 101."
+      ],
+      "inference": "G42 converts the previously manual Moltbook check into an honest passive liquidity signal without owner-level telemetry. It cannot create adoption by itself, but it prevents protocol chatter, the host's own examples, and unvalidated markers from being reported as owners or candidates.",
+      "not_supported": [
+        "Do not call any of the six existing Moltbook nodes a participant response, independently run skill, owner profile, lead, candidate, match, install, or star.",
+        "Do not infer that an API response, comment view, host comment, workflow run, or VPN request represents independent owner interest.",
+        "Do not publish Moltbook comment bodies, author identifiers, profile URLs, hashes, or owner-level telemetry in the growth ledger.",
+        "Do not automatically rank or contact a future marked submission before local profile validation and the required owner approvals.",
+        "Do not attribute either existing star to G42."
+      ],
+      "decision": "Keep G42 active as one bounded daily read, surface empty and validation-required states honestly, wait for independently submitted own-owner profiles, and preserve the automatic stop at 101 stars."
     }
   ]
 }

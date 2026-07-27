@@ -915,6 +915,85 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertIn("GitHub submission sources", workflow)
         self.assertIn("Machine-validated current GitHub admissions", workflow)
 
+    def test_moltbook_pool_monitor_discards_content_and_requires_validation(self):
+        future_expiry = (
+            datetime.now(timezone.utc).date() + timedelta(days=7)
+        ).isoformat()
+        valid_body = "\n".join(
+            [
+                "FINDMATE_OWNER_PROFILE_V1",
+                "",
+                (
+                    "I represent my own owner. I ran FindMate only on that "
+                    "owner, and the owner approved this expiring public profile."
+                ),
+                "Owner-approved profile: https://github.com/example/repo/blob/"
+                + "a" * 40
+                + "/profile.json",
+                "Canonical profile SHA-256: " + "b" * 64,
+                f"Expires: {future_expiry}",
+            ]
+        )
+        response = {
+            "success": True,
+            "comments": [
+                {
+                    "id": "protocol",
+                    "content": "ordinary protocol comment",
+                    "author": {"id": growth.MOLTBOOK_HOST_AGENT_ID},
+                    "replies": [
+                        {
+                            "id": "external-profile",
+                            "content": valid_body,
+                            "author": {"id": "external-agent"},
+                            "replies": [],
+                        }
+                    ],
+                }
+            ],
+        }
+        summary = growth.summarize_moltbook_owner_pool(response, None)
+        self.assertTrue(summary["available"])
+        self.assertEqual(summary["comment_nodes"], 2)
+        self.assertEqual(
+            summary["external_current_marked_own_owner_submissions"],
+            1,
+        )
+        self.assertIsNone(summary["eligible_external_profiles"])
+        self.assertEqual(
+            summary["state"],
+            "external_markers_require_local_validation",
+        )
+        self.assertNotIn("comments", summary)
+        self.assertNotIn("authors", summary)
+        self.assertNotIn("profile_urls", summary)
+
+    def test_empty_moltbook_pool_is_honestly_zero(self):
+        response = {
+            "success": True,
+            "comments": [
+                {
+                    "id": "protocol",
+                    "content": "ordinary protocol comment",
+                    "author": {"id": growth.MOLTBOOK_HOST_AGENT_ID},
+                    "replies": [],
+                }
+            ],
+        }
+        summary = growth.summarize_moltbook_owner_pool(response, None)
+        self.assertEqual(summary["state"], "empty")
+        self.assertEqual(
+            summary["external_current_marked_own_owner_submissions"],
+            0,
+        )
+        self.assertEqual(summary["eligible_external_profiles"], 0)
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn(
+            "Moltbook current marked external own-owner submissions",
+            workflow,
+        )
+        self.assertIn("Moltbook eligibility status", workflow)
+
     def test_skills_sh_listing_requires_a_real_badge(self):
         missing = (
             '<svg role="img" aria-label="custom badge: resource not found"></svg>'
