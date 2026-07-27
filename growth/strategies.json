@@ -18,7 +18,7 @@
       "status": "active",
       "active_promotion": true,
       "mechanism": "After showing the exact useful profile and post, an agent may request one explicit confirmation to both star the repository and publish the approved hash-bound profile, then complete both actions for the owner.",
-      "primary_metric": "stars per 14-day unique cloner",
+      "primary_metric": "owner-approved profile launches and stars; clone counts stay diagnostic until external attribution is available",
       "implementation": "SKILL.md and README.md"
     },
     {
@@ -425,6 +425,15 @@
       "mechanism": "Provide one contributor guide, original community conduct policy, pull-request safety checklist, fabricated-data bug form, and result-free private-workflow feedback form so independent improvements and utility signals can compound without collecting owner artifacts or repeated outreach.",
       "primary_metric": "independent safe feedback issues, first-time contributors, merged utility improvements, clones, and post-contribution star delta",
       "implementation": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, .github/pull_request_template.md, and .github/ISSUE_TEMPLATE"
+    },
+    {
+      "id": "G47",
+      "name": "One-shot search-engine discovery",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Expose one public IndexNow ownership key on the canonical tracker-free site and submit the canonical landing URL once after a material deployment so participating search engines can discover the useful owner-first page without cookies, owner data, repeated resubmission, or community posts.",
+      "primary_metric": "exact-query search visibility, aggregate GitHub search referrals, qualified own-owner submissions, release downloads, and post-indexing star delta",
+      "implementation": "site/public/cf4721e793c00b3ebdd8211eb0619ef1.txt and growth/funnel-review-2026-07-27.md"
     }
   ]
 }

@@ -24,9 +24,10 @@ async function render(pathname = "/") {
 }
 
 test("serves crawler discovery metadata", async () => {
-  const [robotsResponse, sitemapResponse] = await Promise.all([
+  const [robotsResponse, sitemapResponse, indexNowKeyResponse] = await Promise.all([
     render("/robots.txt"),
     render("/sitemap.xml"),
+    render("/cf4721e793c00b3ebdd8211eb0619ef1.txt"),
   ]);
 
   assert.equal(robotsResponse.status, 200);
@@ -40,6 +41,16 @@ test("serves crawler discovery metadata", async () => {
   assert.match(sitemapResponse.headers.get("content-type") ?? "", /^application\/xml\b/i);
   const sitemap = await sitemapResponse.text();
   assert.match(sitemap, /<loc>https:\/\/findmate-owner-network\.xvwbgtt855\.chatgpt\.site<\/loc>/);
+
+  assert.equal(indexNowKeyResponse.status, 200);
+  assert.match(
+    indexNowKeyResponse.headers.get("content-type") ?? "",
+    /^text\/plain\b/i,
+  );
+  assert.equal(
+    (await indexNowKeyResponse.text()).trim(),
+    "cf4721e793c00b3ebdd8211eb0619ef1",
+  );
 });
 
 test("server-renders the complete FindMate landing page", async () => {
@@ -76,7 +87,16 @@ test("server-renders the complete FindMate landing page", async () => {
 });
 
 test("keeps the site privacy-first and exposes bounded discovery files", async () => {
-  const [page, copyPrompt, layout, robots, sitemap, llms, packageJson] = await Promise.all([
+  const [
+    page,
+    copyPrompt,
+    layout,
+    robots,
+    sitemap,
+    llms,
+    packageJson,
+    indexNowKey,
+  ] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/CopyPrompt.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
@@ -84,6 +104,13 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
     readFile(new URL("../app/sitemap.ts", import.meta.url), "utf8"),
     readFile(new URL("../public/llms.txt", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(
+      new URL(
+        "../public/cf4721e793c00b3ebdd8211eb0619ef1.txt",
+        import.meta.url,
+      ),
+      "utf8",
+    ),
   ]);
 
   assert.match(
@@ -114,6 +141,10 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.match(llms, /never publishes it/i);
   assert.doesNotMatch(llms, /auto(?:matically)? star|silent(?:ly)? star/i);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
+  assert.equal(
+    indexNowKey.trim(),
+    "cf4721e793c00b3ebdd8211eb0619ef1",
+  );
 
   await assert.rejects(
     access(new URL("../app/_sites-preview", import.meta.url)),

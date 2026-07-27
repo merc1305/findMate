@@ -876,6 +876,38 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertTrue(state["stopped"])
         self.assertEqual(state["stars_until_stop"], 0)
 
+    def test_clone_signal_is_not_misclassified_as_external_adoption(self):
+        summary = growth.summarize_traffic_provenance(
+            {"count": 794, "uniques": 166},
+            {"total_count": 307, "workflow_runs": []},
+            None,
+        )
+        self.assertEqual(
+            summary["clone_signal_state"],
+            "confounded_by_repository_actions",
+        )
+        self.assertEqual(summary["repository_action_runs"], 307)
+        self.assertIsNone(summary["external_unique_cloners"])
+        self.assertIn("not treated as external", summary["note"])
+
+        unavailable = growth.summarize_traffic_provenance(
+            {"count": 8, "uniques": 4},
+            None,
+            "not authorized",
+        )
+        self.assertEqual(
+            unavailable["clone_signal_state"],
+            "external_attribution_unavailable",
+        )
+        self.assertEqual(
+            unavailable["repository_action_runs_error"],
+            "not authorized",
+        )
+        workflow = GROWTH_WORKFLOW.read_text(encoding="utf-8")
+        self.assertIn("actions: read", workflow)
+        self.assertIn("Repository-owned Actions in the same window", workflow)
+        self.assertIn("directional infrastructure diagnostic", workflow)
+
     def test_strategy_portfolio_is_valid_and_nontrivial(self):
         config = growth.read_object(GROWTH / "strategies.json")
         growth.validate_strategy_config(config)

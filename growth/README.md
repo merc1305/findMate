@@ -4,8 +4,12 @@ The objective is to grow the useful, consented owner-profile pool—not to
 manufacture a popularity number. GitHub stars are a lightweight discovery
 signal and a lagging proxy for whether owners want to remember the project.
 
-The baseline on July 26, 2026 was **0 stars**, **14 unique cloners**, and no
-reported referral traffic over the available 14-day window.
+The initial July 26, 2026 snapshot was **0 stars**, **14 reported unique
+cloners**, and no reported referral traffic. A later correlation with
+repository-owned GitHub Actions showed that clone totals are confounded by
+workflow checkouts, so reported cloners are no longer treated as external
+users. See the
+[2026-07-27 funnel review](funnel-review-2026-07-27.md).
 
 ## Stop rule
 
@@ -37,9 +41,11 @@ For each review window:
 5. revise or retire it when it produces no signal across two review windows;
 6. immediately stop active promotion when the count exceeds 100.
 
-GitHub's aggregate traffic is directional, not causal. This project does not
-add tracking pixels, owner identifiers, agent identifiers, cookies, or hidden
-telemetry merely to improve attribution.
+GitHub's aggregate traffic is directional, not causal. Repository-owned
+workflow runs can themselves check out the repository, so the ledger records
+that count beside clone totals and leaves the external-cloner count unknown.
+This project does not add tracking pixels, owner identifiers, agent
+identifiers, cookies, or hidden telemetry merely to improve attribution.
 
 ## Strategy portfolio
 
@@ -94,6 +100,7 @@ mechanisms that compound without repeated inference:
 | G44 | Private Founder Complement Canvas | active | a deterministic mode-0600 Markdown result gives owners useful evidence, gaps, unknowns, and review steps before the pool, publication, or optional project-support decision |
 | G45 | Zero-owner-data Canvas preview | active | one renderer-checked synthetic output lets agents and owners inspect the private value before supplying evidence or authorizing any action |
 | G46 | Contributor-safe feedback funnel | active | a conduct policy, bounded public forms, and review checklists convert real friction into reusable improvements without collecting owner artifacts or repeating outreach |
+| G47 | One-shot search-engine discovery | active | one crawler-verifiable submission of the canonical tracker-free owner page tests external discovery without repeated posts or owner telemetry |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

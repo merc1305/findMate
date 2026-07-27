@@ -6,6 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  actions: read
   contents: read
   issues: write
 
@@ -43,6 +44,8 @@ jobs:
               value && Number.isInteger(value[key]) ? value[key] : "unavailable";
             const clones = status.traffic_14d.clones;
             const views = status.traffic_14d.views;
+            const trafficProvenance =
+              status.traffic_14d.provenance || {};
             const ownerPool = status.owner_profile_pool;
             const moltbookPool = ownerPool.moltbook || {};
             const distribution = status.distribution_surfaces || {};
@@ -196,7 +199,8 @@ jobs:
               "",
               `- Stars: **${status.stars}** (${status.star_delta_from_baseline >= 0 ? "+" : ""}${status.star_delta_from_baseline} from baseline)`,
               `- Promotion state: **${stopLine}**`,
-              `- 14-day clones: **${metric(clones, "count")}** total / **${metric(clones, "uniques")}** unique`,
+              `- 14-day clones: **${metric(clones, "count")}** total / **${metric(clones, "uniques")}** unique — directional infrastructure diagnostic, not external adoption`,
+              `- Repository-owned Actions in the same window: **${Number.isInteger(trafficProvenance.repository_action_runs) ? trafficProvenance.repository_action_runs : "unavailable"}**; clone attribution: **${trafficProvenance.clone_signal_state === "confounded_by_repository_actions" ? "confounded" : "unavailable"}**`,
               `- 14-day views: **${metric(views, "count")}** total / **${metric(views, "uniques")}** unique`,
               `- GitHub marked own-owner submissions: **${ownerPool.github_marked_own_owner_submissions ?? "unavailable"}**`,
               `- GitHub submission sources: **${ownerPool.github_inline_sources ?? "unavailable"} inline / ${ownerPool.github_linked_sources ?? "unavailable"} linked**`,

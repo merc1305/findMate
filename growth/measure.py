@@ -10,7 +10,7 @@ import json
 import os
 import re
 import sys
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote, urlencode
@@ -211,6 +211,46 @@ def optional_github_json(
         return github_json(repository, endpoint, token), None
     except GrowthError as exc:
         return None, str(exc)
+
+
+def summarize_traffic_provenance(
+    clones: dict | None,
+    repository_actions: object | None,
+    repository_actions_error: str | None,
+) -> dict:
+    """Explain why aggregate clone counts are not external-adoption counts."""
+    clone_count = clones.get("count") if isinstance(clones, dict) else None
+    action_run_count = (
+        repository_actions.get("total_count")
+        if isinstance(repository_actions, dict)
+        else None
+    )
+    if not isinstance(action_run_count, int) or action_run_count < 0:
+        action_run_count = None
+
+    confounded = (
+        isinstance(clone_count, int)
+        and clone_count > 0
+        and isinstance(action_run_count, int)
+        and action_run_count > 0
+    )
+    return {
+        "repository_action_runs": action_run_count,
+        "repository_action_runs_error": repository_actions_error,
+        "clone_signal_state": (
+            "confounded_by_repository_actions"
+            if confounded
+            else "external_attribution_unavailable"
+        ),
+        "external_unique_cloners": None,
+        "note": (
+            "GitHub's aggregate clone endpoint does not identify clone "
+            "sources. Repository-owned workflow runs can check out the "
+            "repository, so clone totals and uniques are not treated as "
+            "external visitors, installs, users, or adoption. They remain "
+            "directional infrastructure diagnostics only."
+        ),
+    }
 
 
 def code_search_total_count(value: object) -> int:
@@ -1080,6 +1120,8 @@ def build_status(
     clones: dict | None = None,
     referrers: list | None = None,
     traffic_errors: list[str] | None = None,
+    repository_actions: object | None = None,
+    repository_actions_error: str | None = None,
     github_thread_comments: list | None = None,
     github_thread_error: str | None = None,
     moltbook_owner_pool: dict | None = None,
@@ -1127,6 +1169,11 @@ def build_status(
             "clones": clones,
             "referrers": referrers,
             "errors": traffic_errors or [],
+            "provenance": summarize_traffic_provenance(
+                clones,
+                repository_actions,
+                repository_actions_error,
+            ),
         },
         "owner_profile_pool": {
             "github_issue_number": 2,
@@ -1201,6 +1248,17 @@ def main() -> int:
             traffic[name] = value
             if error:
                 errors.append(error)
+        actions_window_start = (
+            datetime.now(timezone.utc).date() - timedelta(days=13)
+        ).isoformat()
+        repository_actions, repository_actions_error = optional_github_json(
+            args.repository,
+            (
+                "/actions/runs?per_page=1&created="
+                f"{quote(f'>={actions_window_start}', safe='')}"
+            ),
+            token,
+        )
         github_comments, github_thread_error = optional_github_json(
             args.repository,
             "/issues/2/comments?per_page=100",
@@ -1293,6 +1351,8 @@ def main() -> int:
                 else None
             ),
             traffic_errors=errors,
+            repository_actions=repository_actions,
+            repository_actions_error=repository_actions_error,
             github_thread_comments=(
                 github_comments if isinstance(github_comments, list) else None
             ),

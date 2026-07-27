@@ -8,6 +8,11 @@ The page has no account system, analytics, cookies, persistence, profile form,
 or network request containing owner data. The copy button writes the fixed
 prompt to the visitor's clipboard only after a click.
 
+The root also serves one public
+[IndexNow ownership key](public/cf4721e793c00b3ebdd8211eb0619ef1.txt).
+It is a non-secret crawler-verification value. A canonical URL is submitted
+only after a material deployment, never on a timer or as repeated promotion.
+
 ## Prerequisites
 
 - Node.js `>=22.13.0`
