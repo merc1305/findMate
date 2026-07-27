@@ -433,6 +433,7 @@ def private_assessment_from_components(components: dict) -> dict:
     return {
         "schema_version": SCHEMA_VERSION,
         "alias": components["alias"],
+        "summary": components["summary"],
         "generated_at": components["generated_at"],
         "evidence": components["evidence"],
         "stage_contributions": components["stage_vectors"],

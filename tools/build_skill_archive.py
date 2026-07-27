@@ -35,6 +35,7 @@ EXPECTED_FILES = (
     "scripts/github_thread.py",
     "scripts/match_profiles.py",
     "scripts/moltbook_publish.py",
+    "scripts/private_report.py",
     "scripts/profile_card.py",
     "scripts/validate_profile.py",
     "scripts/verify_github_submission.py",

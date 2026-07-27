@@ -67,6 +67,7 @@ def load_module(name: str, filename: str):
 assess = load_module("assess_profile", "assess_profile.py")
 matcher = load_module("match_profiles", "match_profiles.py")
 publisher = load_module("moltbook_publish", "moltbook_publish.py")
+private_report = load_module("private_report", "private_report.py")
 profile_card = load_module("profile_card", "profile_card.py")
 github_thread = load_module("github_thread", "github_thread.py")
 profile_validator = load_module("validate_profile", "validate_profile.py")
@@ -188,6 +189,33 @@ class AssessProfileTests(unittest.TestCase):
         self.assertNotIn("public_profile_preview", private)
         with self.assertRaises(assess.ProfileError):
             assess.build_profiles(value)
+
+    def test_private_canvas_is_readable_minimized_and_mode_0600(self):
+        assessment = assess.build_private_assessment(owner_input())
+        report = private_report.render_report(assessment)
+        self.assertIn("FINDMATE_PRIVATE_COMPLEMENT_CANVAS_V1", report)
+        self.assertIn("Founder Complement Canvas", report)
+        self.assertIn("0→1", report)
+        self.assertIn("Unknowns are not weaknesses", report)
+        self.assertIn("Technical product builder", report)
+        self.assertNotIn("Private detail", report)
+        self.assertNotIn("github.com/example", report)
+        self.assertNotIn("Public profile and inbound replies", report)
+        self.assertIn("authorizes no installation, publication", report)
+
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "canvas.private.md"
+            private_report.write_private_report(output, report)
+            self.assertEqual(output.stat().st_mode & 0o777, 0o600)
+            self.assertEqual(output.read_text(encoding="utf-8"), report)
+            with self.assertRaisesRegex(
+                private_report.ReportError,
+                "must end in .private.md",
+            ):
+                private_report.write_private_report(
+                    Path(directory) / "unsafe.md",
+                    report,
+                )
 
     def test_future_public_consent_is_rejected(self):
         value = owner_input()
