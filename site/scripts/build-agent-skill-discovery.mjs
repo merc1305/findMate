@@ -123,7 +123,7 @@ async function main() {
         name: "find-complementary-founders",
         type: "archive",
         description: DESCRIPTION,
-        url: `/.well-known/agent-skills/${ARCHIVE_NAME}`,
+        url: ARCHIVE_NAME,
         digest: `sha256:${digest}`,
       },
     ],

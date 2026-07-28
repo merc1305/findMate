@@ -442,7 +442,7 @@
       "active_promotion": false,
       "mechanism": "Build one digest-bound Agent Skills discovery v0.2 archive from the exact 18-file public allowlist and expose it on the canonical owner-facing site so compatible agents can discover and install FindMate without a copied catalog, synthetic skills.sh installation, owner data, or repeated outreach.",
       "primary_metric": "live well-known discovery contract, aggregate site and repository referrals, qualified own-owner submissions, genuine skills.sh listing, and post-deployment star delta",
-      "implementation": "site/scripts/build-agent-skill-discovery.mjs, site/public/.well-known/agent-skills, and growth/measure.py"
+      "implementation": "site/scripts/build-agent-skill-discovery.mjs, .github/workflows/publish-agent-skills-pages.yml, and growth/measure.py"
     }
   ]
 }

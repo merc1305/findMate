@@ -31,7 +31,8 @@ WEB_DISCOVERY_URLS = {
     "sitemap": f"{FINDMATE_SITE_URL}/sitemap.xml",
     "llms": f"{FINDMATE_SITE_URL}/llms.txt",
     "agent_skills": (
-        f"{FINDMATE_SITE_URL}/.well-known/agent-skills/index.json"
+        "https://merc1305.github.io/findMate/"
+        ".well-known/agent-skills/index.json"
     ),
 }
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
@@ -416,11 +417,7 @@ def summarize_web_discovery(
             and isinstance(skill, dict)
             and skill.get("name") == "find-complementary-founders"
             and skill.get("type") == "archive"
-            and skill.get("url")
-            == (
-                "/.well-known/agent-skills/"
-                "find-complementary-founders.zip"
-            )
+            and skill.get("url") == "find-complementary-founders.zip"
             and isinstance(skill.get("digest"), str)
             and re.fullmatch(r"sha256:[0-9a-f]{64}", skill["digest"])
             is not None

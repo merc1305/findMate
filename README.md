@@ -308,13 +308,13 @@ npx skills add merc1305/findMate \
   --skill find-complementary-founders
 ```
 
-After the next public-site deployment, compatible clients can also discover
-the complete digest-bound archive through the decentralized Agent Skills
-well-known standard:
+Compatible clients can also discover the complete digest-bound archive through
+the decentralized Agent Skills well-known standard. GitHub Pages rebuilds this
+static endpoint from the canonical allowlist whenever the skill changes:
 
 ```bash
 npx skills add \
-  https://findmate-owner-network.xvwbgtt855.chatgpt.site \
+  https://merc1305.github.io/findMate \
   --skill find-complementary-founders
 ```
 

@@ -1,0 +1,57 @@
+name: Publish Agent Skills discovery
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/publish-agent-skills-pages.yml"
+      - "site/package-lock.json"
+      - "site/package.json"
+      - "site/scripts/build-agent-skill-discovery.mjs"
+      - "skills/find-complementary-founders/**"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: findmate-agent-skills-pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: "22.20.0"
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      - name: Install exact discovery dependencies
+        working-directory: site
+        run: npm ci
+      - name: Build the digest-bound discovery archive
+        working-directory: site
+        run: npm run prebuild
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload the bounded static endpoint
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: site/public
+          include-hidden-files: true
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy Agent Skills discovery
+        id: deployment
+        uses: actions/deploy-pages@v4

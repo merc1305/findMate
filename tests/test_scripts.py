@@ -1655,10 +1655,7 @@ class GrowthLoopTests(unittest.TestCase):
                         {
                             "name": "find-complementary-founders",
                             "type": "archive",
-                            "url": (
-                                "/.well-known/agent-skills/"
-                                "find-complementary-founders.zip"
-                            ),
+                            "url": "find-complementary-founders.zip",
                             "digest": f"sha256:{'a' * 64}",
                         }
                     ],

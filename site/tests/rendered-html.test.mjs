@@ -78,7 +78,7 @@ test("builds a digest-bound standard Agent Skills discovery endpoint", async () 
   assert.equal(skill.type, "archive");
   assert.equal(
     skill.url,
-    "/.well-known/agent-skills/find-complementary-founders.zip",
+    "find-complementary-founders.zip",
   );
   assert.equal(
     skill.digest,
