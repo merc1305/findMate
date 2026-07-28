@@ -40,3 +40,5 @@ next-env.d.ts
 /.wrangler/
 /outputs/
 /work/
+/public/.well-known/agent-skills/index.json
+/public/.well-known/agent-skills/find-complementary-founders.zip

@@ -1645,6 +1645,25 @@ class GrowthLoopTests(unittest.TestCase):
                 "https://github.com/merc1305/findMate/blob/main/skills/"
                 "find-complementary-founders/SKILL.md\n"
             ),
+            "agent_skills": json.dumps(
+                {
+                    "$schema": (
+                        "https://schemas.agentskills.io/discovery/"
+                        "0.2.0/schema.json"
+                    ),
+                    "skills": [
+                        {
+                            "name": "find-complementary-founders",
+                            "type": "archive",
+                            "url": (
+                                "/.well-known/agent-skills/"
+                                "find-complementary-founders.zip"
+                            ),
+                            "digest": f"sha256:{'a' * 64}",
+                        }
+                    ],
+                }
+            ),
         }
         live = growth.summarize_web_discovery(documents, {})
         self.assertTrue(live["live"])
@@ -1658,6 +1677,28 @@ class GrowthLoopTests(unittest.TestCase):
         self.assertFalse(missing["live"])
         self.assertFalse(
             missing["checks"]["llms_routes_to_canonical_skill"]
+        )
+
+        invalid_archive = growth.summarize_web_discovery(
+            {
+                **documents,
+                "agent_skills": json.dumps(
+                    {
+                        "$schema": (
+                            "https://schemas.agentskills.io/discovery/"
+                            "0.2.0/schema.json"
+                        ),
+                        "skills": [],
+                    }
+                ),
+            },
+            {},
+        )
+        self.assertFalse(invalid_archive["live"])
+        self.assertFalse(
+            invalid_archive["checks"][
+                "agent_skills_exposes_digest_bound_archive"
+            ]
         )
 
         unavailable = growth.summarize_web_discovery(

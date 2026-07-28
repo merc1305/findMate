@@ -13,6 +13,12 @@ The root also serves one public
 It is a non-secret crawler-verification value. A canonical URL is submitted
 only after a material deployment, never on a timer or as repeated promotion.
 
+Each build also emits the Agent Skills discovery standard at
+`/.well-known/agent-skills/index.json`. Its single v0.2 entry points to a
+digest-bound archive assembled from the same explicit 18-file public allowlist
+as the portable FindMate release. The archive is rooted at `SKILL.md` for
+standards-compatible clients and contains no owner profile or private state.
+
 ## Prerequisites
 
 - Node.js `>=22.13.0`

@@ -135,7 +135,7 @@ jobs:
                     : "unavailable";
             const webDiscoveryState =
               webDiscovery.live === true
-                ? "live canonical + robots + sitemap + agent index"
+                ? "live canonical + robots + sitemap + llms + digest-bound skill index"
                 : webDiscovery.live === false
                   ? "not fully live"
                   : "unavailable";

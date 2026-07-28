@@ -30,6 +30,9 @@ WEB_DISCOVERY_URLS = {
     "robots": f"{FINDMATE_SITE_URL}/robots.txt",
     "sitemap": f"{FINDMATE_SITE_URL}/sitemap.xml",
     "llms": f"{FINDMATE_SITE_URL}/llms.txt",
+    "agent_skills": (
+        f"{FINDMATE_SITE_URL}/.well-known/agent-skills/index.json"
+    ),
 }
 MAX_EXTERNAL_STATUS_BYTES = 128 * 1024
 MAX_CLAUDE_CATALOG_BYTES = 4 * 1024 * 1024
@@ -375,6 +378,16 @@ def summarize_web_discovery(
     robots = documents.get("robots", "")
     sitemap = documents.get("sitemap", "")
     llms = documents.get("llms", "")
+    try:
+        agent_skills = json.loads(documents.get("agent_skills", ""))
+    except json.JSONDecodeError:
+        agent_skills = {}
+    skills = (
+        agent_skills.get("skills", [])
+        if isinstance(agent_skills, dict)
+        else []
+    )
+    skill = skills[0] if len(skills) == 1 else {}
     checks = {
         "canonical_landing": (
             f'rel="canonical" href="{FINDMATE_SITE_URL}"' in landing
@@ -396,6 +409,22 @@ def summarize_web_discovery(
             )
             in llms
         ),
+        "agent_skills_exposes_digest_bound_archive": (
+            isinstance(agent_skills, dict)
+            and agent_skills.get("$schema")
+            == "https://schemas.agentskills.io/discovery/0.2.0/schema.json"
+            and isinstance(skill, dict)
+            and skill.get("name") == "find-complementary-founders"
+            and skill.get("type") == "archive"
+            and skill.get("url")
+            == (
+                "/.well-known/agent-skills/"
+                "find-complementary-founders.zip"
+            )
+            and isinstance(skill.get("digest"), str)
+            and re.fullmatch(r"sha256:[0-9a-f]{64}", skill["digest"])
+            is not None
+        ),
     }
     return {
         "site_url": FINDMATE_SITE_URL,
@@ -404,10 +433,10 @@ def summarize_web_discovery(
         "checks": checks,
         "errors": errors,
         "note": (
-            "Live means only that four bounded public documents expose the "
-            "expected canonical and own-owner discovery contract. It does "
-            "not prove indexing, a visit, an agent read, an install, a "
-            "profile submission, or a star."
+            "Live means only that five bounded public documents expose the "
+            "expected canonical, own-owner, and digest-bound Agent Skills "
+            "discovery contract. It does not prove indexing, a visit, an "
+            "agent read, an install, a profile submission, or a star."
         ),
     }
 

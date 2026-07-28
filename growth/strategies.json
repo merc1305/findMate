@@ -434,6 +434,15 @@
       "mechanism": "Expose one public IndexNow ownership key on the canonical tracker-free site and submit the canonical landing URL once after a material deployment so participating search engines can discover the useful owner-first page without cookies, owner data, repeated resubmission, or community posts.",
       "primary_metric": "exact-query search visibility, aggregate GitHub search referrals, qualified own-owner submissions, release downloads, and post-indexing star delta",
       "implementation": "site/public/cf4721e793c00b3ebdd8211eb0619ef1.txt and growth/funnel-review-2026-07-27.md"
+    },
+    {
+      "id": "G48",
+      "name": "Decentralized well-known Agent Skills distribution",
+      "status": "active",
+      "active_promotion": false,
+      "mechanism": "Build one digest-bound Agent Skills discovery v0.2 archive from the exact 18-file public allowlist and expose it on the canonical owner-facing site so compatible agents can discover and install FindMate without a copied catalog, synthetic skills.sh installation, owner data, or repeated outreach.",
+      "primary_metric": "live well-known discovery contract, aggregate site and repository referrals, qualified own-owner submissions, genuine skills.sh listing, and post-deployment star delta",
+      "implementation": "site/scripts/build-agent-skill-discovery.mjs, site/public/.well-known/agent-skills, and growth/measure.py"
     }
   ]
 }

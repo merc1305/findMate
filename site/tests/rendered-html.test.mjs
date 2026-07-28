@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
+import { unzipSync } from "fflate";
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -51,6 +53,53 @@ test("serves crawler discovery metadata", async () => {
     (await indexNowKeyResponse.text()).trim(),
     "cf4721e793c00b3ebdd8211eb0619ef1",
   );
+});
+
+test("builds a digest-bound standard Agent Skills discovery endpoint", async () => {
+  const discoveryRoot = new URL(
+    "../public/.well-known/agent-skills/",
+    import.meta.url,
+  );
+  const [indexBytes, archiveBytes] = await Promise.all([
+    readFile(new URL("index.json", discoveryRoot)),
+    readFile(
+      new URL("find-complementary-founders.zip", discoveryRoot),
+    ),
+  ]);
+  const index = JSON.parse(indexBytes.toString("utf8"));
+
+  assert.equal(
+    index.$schema,
+    "https://schemas.agentskills.io/discovery/0.2.0/schema.json",
+  );
+  assert.equal(index.skills.length, 1);
+  const [skill] = index.skills;
+  assert.equal(skill.name, "find-complementary-founders");
+  assert.equal(skill.type, "archive");
+  assert.equal(
+    skill.url,
+    "/.well-known/agent-skills/find-complementary-founders.zip",
+  );
+  assert.equal(
+    skill.digest,
+    `sha256:${createHash("sha256").update(archiveBytes).digest("hex")}`,
+  );
+
+  const archive = unzipSync(new Uint8Array(archiveBytes));
+  assert.equal(Object.keys(archive).length, 18);
+  assert.ok(archive["SKILL.md"]);
+  assert.ok(archive["LICENSE.txt"]);
+  assert.ok(archive["scripts/validate_profile.py"]);
+  assert.ok(archive["references/privacy-safety.md"]);
+  assert.ok(!Object.keys(archive).some((path) => path.includes("..")));
+  assert.ok(!Object.keys(archive).some((path) => path.startsWith("/")));
+
+  for (const [path, bytes] of Object.entries(archive)) {
+    const source = await readFile(
+      new URL(`../../skills/find-complementary-founders/${path}`, import.meta.url),
+    );
+    assert.deepEqual(Buffer.from(bytes), source);
+  }
 });
 
 test("server-renders the complete FindMate landing page", async () => {
@@ -132,6 +181,7 @@ test("keeps the site privacy-first and exposes bounded discovery files", async (
   assert.match(llms, /assess only its own owner/);
   assert.match(llms, /Never infer a profile for another agent's owner/);
   assert.match(llms, /Canonical Agent Skill/);
+  assert.match(llms, /\.well-known\/agent-skills\/index\.json/);
   assert.match(llms, /Immutable v1\.7\.1 Agent Skill release/);
   assert.match(llms, /Private Founder Complement Canvas/);
   assert.match(llms, /Zero-owner-data Canvas preview/);

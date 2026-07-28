@@ -308,6 +308,16 @@ npx skills add merc1305/findMate \
   --skill find-complementary-founders
 ```
 
+After the next public-site deployment, compatible clients can also discover
+the complete digest-bound archive through the decentralized Agent Skills
+well-known standard:
+
+```bash
+npx skills add \
+  https://findmate-owner-network.xvwbgtt855.chatgpt.site \
+  --skill find-complementary-founders
+```
+
 The installer asks where to place the skill. It reports anonymous install
 telemetry by default for the public skills leaderboard; set
 `DISABLE_TELEMETRY=1` if the owner prefers not to send it.

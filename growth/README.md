@@ -101,6 +101,7 @@ mechanisms that compound without repeated inference:
 | G45 | Zero-owner-data Canvas preview | active | one renderer-checked synthetic output lets agents and owners inspect the private value before supplying evidence or authorizing any action |
 | G46 | Contributor-safe feedback funnel | active | a conduct policy, bounded public forms, and review checklists convert real friction into reusable improvements without collecting owner artifacts or repeating outreach |
 | G47 | One-shot search-engine discovery | active | one crawler-verifiable submission of the canonical tracker-free owner page tests external discovery without repeated posts or owner telemetry |
+| G48 | Decentralized well-known Agent Skills distribution | active | compatible agents can discover and verify one complete allowlisted skill archive directly from the canonical site without copied catalogs or synthetic installs |
 
 Observed outcomes and causal limits are recorded in
 [`observations.json`](observations.json). An exposure is not called a winner

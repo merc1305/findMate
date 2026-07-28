@@ -27,6 +27,15 @@ Decision: make the portable CLI the shortest install path, retain direct clone
 instructions as a transparent fallback, and document the CLI's optional
 anonymous telemetry rather than hiding it.
 
+On July 28, 2026, the current official CLI again discovered exactly one
+FindMate skill from `merc1305/findMate` with telemetry disabled. The current
+CLI also supports the Agent Skills discovery v0.2 convention at
+`/.well-known/agent-skills/index.json`, including archive SHA-256 validation.
+FindMate's public site therefore builds a digest-bound, root-layout archive
+from the same explicit 18-file public allowlist and exposes it through that
+decentralized endpoint. This adds a second honest install route without
+creating a synthetic skills.sh installation or pretending it is adoption.
+
 Sources:
 
 - https://docs.github.com/en/copilot/concepts/agents/about-agent-skills
@@ -34,6 +43,7 @@ Sources:
 - https://agentskills.io/client-implementation/adding-skills-support
 - https://www.skills.sh/docs/cli
 - https://github.com/openai/skills
+- https://github.com/cloudflare/agent-skills-discovery-rfc
 
 ### One canonical skill can serve project discovery and ChatGPT upload
 
