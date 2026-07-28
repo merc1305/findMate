@@ -20,7 +20,9 @@ const OUTPUT_DIRECTORY = resolve(
   "public/.well-known/agent-skills",
 );
 const ARCHIVE_NAME = "find-complementary-founders.zip";
-const FIXED_MTIME = new Date("1980-01-01T00:00:00.000Z");
+// fflate serializes local calendar fields into the ZIP header. Constructing the
+// date in local time keeps those fields identical across runner time zones.
+const FIXED_MTIME = new Date(1980, 0, 1, 0, 0, 0);
 const DISCOVERY_SCHEMA =
   "https://schemas.agentskills.io/discovery/0.2.0/schema.json";
 const DESCRIPTION =
