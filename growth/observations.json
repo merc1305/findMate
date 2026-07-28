@@ -1357,6 +1357,64 @@
         "Do not ping AAS maintainers, duplicate the catalog contribution, or attribute a future star to this activation change without supported aggregate timing and downstream evidence."
       ],
       "decision": "Keep the canonical and Site version-13 activation surfaces live, monitor AAS pull request 1011 once per bounded daily loop without reminders, measure continuation to private Canvas plus qualified own-owner submissions and stars, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O049",
+      "observed_at": "2026-07-28T12:00:46Z",
+      "kind": "decentralized_well_known_skill_distribution",
+      "metric": {
+        "name": "live_digest_bound_agent_skill_endpoints",
+        "before": 0,
+        "after": 1,
+        "delta": 1
+      },
+      "facts": [
+        "Main commit edb2af6595fa953cf44d8c337d5adfcdf0560bbe defines an Agent Skills discovery v0.2 index and a ZIP archive built from exactly the canonical 18-file public allowlist. Unexpected files, symlinks, path escapes, and byte drift are rejected.",
+        "GitHub Pages is enabled in workflow mode with HTTPS. Successful run 30357003456 built and deployed the endpoint automatically from that exact main commit.",
+        "The live index at https://merc1305.github.io/findMate/.well-known/agent-skills/index.json returned HTTP 200 and named one archive with SHA-256 21cb8b213f8fd8efe6eff2b64f9471d6908e70a03ebab638c520fffde3a148a3.",
+        "The downloaded live archive, the index digest, and a separate local build had the same SHA-256. The timezone-independent ZIP timestamp fix makes the local and Linux CI bytes identical.",
+        "The official skills CLI, run against the live public Pages URL with telemetry disabled, discovered exactly one find-complementary-founders skill and all 18 allowlisted files.",
+        "The first deployment exposed a 404 because the standard Pages composite uploader excludes dot-prefixed paths. A live check caught it; the workflow now stages only the two generated discovery files and uploads an explicit Pages tar artifact that preserves .well-known.",
+        "At observation time the repository had one star, zero forks, and the skills.sh badge still reported resource not found. The compatibility check sent no install telemetry and is not counted as an independent installation."
+      ],
+      "inference": "G48 adds a durable decentralized install route that compounds whenever the canonical skill changes and removes dependence on a copied catalog or repeated maintainer inference. The live contract proves availability, integrity, and client compatibility, not discovery, independent use, pool liquidity, or star conversion.",
+      "not_supported": [
+        "Do not count the Pages deployment, workflow checkout, live fetch, maintainer CLI verification, archive download, or matching digest as an independent agent, owner, install, profile, lead, candidate, match, endorsement, referral, or star.",
+        "Do not treat the current 404-free endpoint as a skills.sh listing; that directory remains unlisted until a genuine telemetry-enabled user installation is observed by its own service.",
+        "Do not send synthetic install telemetry, create fake installations, or repeatedly download the archive to manufacture adoption.",
+        "Do not collect owner data, agent identifiers, cookies, pixels, private Canvas content, or hidden telemetry through the static endpoint.",
+        "Do not attribute the current star or any future star to G48 without independent downstream evidence and supported aggregate timing."
+      ],
+      "decision": "Keep G48 active, rebuild it automatically only when the canonical skill or distribution builder changes, let the daily bounded monitor check the live index, wait for genuine installs or qualified own-owner submissions, and preserve the automatic stop at 101 stars."
+    },
+    {
+      "id": "O050",
+      "observed_at": "2026-07-28T12:03:00Z",
+      "kind": "catalog_policy_feedback_and_intent_bound_revision",
+      "metric": {
+        "name": "aas_follow_up_required_checks_passing",
+        "before": 0,
+        "after": 17,
+        "delta": 17
+      },
+      "facts": [
+        "The AAS Core maintainer requested changes on pull request 1011 because its broad generic project-building trigger could inject a FindMate publication and optional-star pitch into unrelated work.",
+        "Follow-up commit f4cb5d09e55cd179d13eb6ec4242555e590c7a2a now requires explicit owner intent to find a cofounder, project partner, builder, operator, GTM complement, or scaling complement before the catalog wrapper forms a hypothesis.",
+        "The first catalog-wrapper message is neutral: it states the concrete complement gap and asks whether the owner wants a private matching workflow. It does not name FindMate, propose public-profile publication, or mention a star until the owner opts in.",
+        "The canonical FindMate repository keeps its broader current-task proactive hypothesis experiment. The stricter AAS wrapper is a catalog-specific distribution boundary rather than a rollback of the canonical product hypothesis.",
+        "All 102 local AAS test files passed in 356,611 milliseconds. The generation chain, warning budget, reference validation, documentation security, source-credit check, policy, evidence, source validation, artifact preview, CodeQL, dependency review, Socket, and Snyk checks also passed on the pushed head.",
+        "The pull request remains open, mergeable, and marked CHANGES_REQUESTED until the maintainer reviews the new head. No reminder, duplicate pull request, review resolution, or merge claim was sent.",
+        "At observation time FindMate still had one star and no independent GitHub own-owner profile submission. Green checks and a responsive revision are contribution quality, not catalog acceptance or adoption."
+      ],
+      "inference": "The failed broad trigger produced useful channel-specific evidence: established catalogs accept proactive complement reasoning only when the owner's partner-seeking intent is explicit and the first message is neutral. Adapting the wrapper keeps a high-value passive distribution opportunity alive without forcing every host catalog to adopt the canonical experiment's activation policy.",
+      "not_supported": [
+        "Do not count green checks, a mergeable state, a pushed revision, a maintainer notification, or an open pull request as a merge, release, install, agent read, owner opt-in, profile, lead, candidate, match, endorsement, referral, or star.",
+        "Do not ping the maintainer, resolve their review, request repeated reviews, or open a duplicate pull request merely to accelerate the decision.",
+        "Do not use the canonical broad current-task trigger inside the AAS copy unless that catalog explicitly accepts it.",
+        "Do not claim the neutral first message authorizes assessment, publication, starring, contact, identity exchange, or an introduction.",
+        "Do not attribute the current star or any future star to pull request 1011 without supported downstream catalog and aggregate timing evidence."
+      ],
+      "decision": "Leave the fully green intent-bound head available for maintainer re-review, make no reminder or duplicate submission, keep the canonical proactive experiment separate, monitor the PR once per bounded daily loop, and preserve the automatic stop at 101 stars."
     }
   ]
 }
