@@ -39,11 +39,25 @@ jobs:
         run: npm run prebuild
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
+      - name: Package the bounded static endpoint
+        shell: bash
+        run: |
+          mkdir -p "$RUNNER_TEMP/pages-root/.well-known/agent-skills"
+          cp site/public/.well-known/agent-skills/index.json \
+            "$RUNNER_TEMP/pages-root/.well-known/agent-skills/index.json"
+          cp site/public/.well-known/agent-skills/find-complementary-founders.zip \
+            "$RUNNER_TEMP/pages-root/.well-known/agent-skills/find-complementary-founders.zip"
+          tar \
+            --directory "$RUNNER_TEMP/pages-root" \
+            -cvf "$RUNNER_TEMP/artifact.tar" \
+            .
       - name: Upload the bounded static endpoint
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          path: site/public
-          include-hidden-files: true
+          name: github-pages
+          path: ${{ runner.temp }}/artifact.tar
+          retention-days: 1
+          if-no-files-found: error
 
   deploy:
     environment:
